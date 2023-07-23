@@ -1,1 +1,0 @@
-# openapi-chaos-typescript-client
