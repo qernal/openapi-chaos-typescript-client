@@ -1,6 +1,6 @@
 # .ProjectsApi
 
-All URIs are relative to *https://chaos.qernal.com*
+All URIs are relative to *https://chaos.qernal.com/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -29,7 +29,7 @@ const apiInstance = new .ProjectsApi(configuration);
 
 let body:.ProjectsApiDeleteProjectsProjectIdRequest = {
   // string | Project ID reference
-  projectId: "project_id_example",
+  projectId: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
 };
 
 apiInstance.deleteProjectsProjectId(body).then((data:any) => {
@@ -85,7 +85,7 @@ const apiInstance = new .ProjectsApi(configuration);
 
 let body:.ProjectsApiGetOrganisationsOrgIdProjectsRequest = {
   // string | Organisation ID reference
-  organisationId: "organisation_id_example",
+  organisationId: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
   // GetOrganisationsPageParameter | Query parameters for pagination (optional)
   page: {
     before: 20,
@@ -207,7 +207,7 @@ const apiInstance = new .ProjectsApi(configuration);
 
 let body:.ProjectsApiGetProjectsProjectIdRequest = {
   // string | Project ID reference
-  projectId: "project_id_example",
+  projectId: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
 };
 
 apiInstance.getProjectsProjectId(body).then((data:any) => {
@@ -323,7 +323,7 @@ const apiInstance = new .ProjectsApi(configuration);
 
 let body:.ProjectsApiPutProjectsProjectIdRequest = {
   // string | Project ID reference
-  projectId: "project_id_example",
+  projectId: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
   // ProjectBody | Create/Update any field (optional)
   projectBody: {
     orgId: "orgId_example",

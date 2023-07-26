@@ -50,6 +50,6 @@ export class ServerConfiguration<T extends { [key: string]: string }> implements
     }
 }
 
-export const server1 = new ServerConfiguration<{  }>("https://chaos.qernal.com", {  })
+export const server1 = new ServerConfiguration<{  }>("https://chaos.qernal.com/v1", {  })
 
 export const servers = [server1];

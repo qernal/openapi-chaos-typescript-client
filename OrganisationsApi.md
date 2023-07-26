@@ -1,6 +1,6 @@
 # .OrganisationsApi
 
-All URIs are relative to *https://chaos.qernal.com*
+All URIs are relative to *https://chaos.qernal.com/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -28,7 +28,7 @@ const apiInstance = new .OrganisationsApi(configuration);
 
 let body:.OrganisationsApiDeleteOrganisationsOrgIdRequest = {
   // string | Organisation ID reference
-  organisationId: "organisation_id_example",
+  organisationId: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
 };
 
 apiInstance.deleteOrganisationsOrgId(body).then((data:any) => {
@@ -143,7 +143,7 @@ const apiInstance = new .OrganisationsApi(configuration);
 
 let body:.OrganisationsApiGetOrganisationsOrgIdRequest = {
   // string | Organisation ID reference
-  organisationId: "organisation_id_example",
+  organisationId: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
 };
 
 apiInstance.getOrganisationsOrgId(body).then((data:any) => {
@@ -257,7 +257,7 @@ const apiInstance = new .OrganisationsApi(configuration);
 
 let body:.OrganisationsApiPutOrganisationsOrgIdRequest = {
   // string | Organisation ID reference
-  organisationId: "organisation_id_example",
+  organisationId: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
   // OrganisationBody | Create/Update any field (optional)
   organisationBody: {
     name: "name_example",
