@@ -26,7 +26,7 @@ export interface OrganisationsApiDeleteOrganisationsOrgIdRequest {
      * @type string
      * @memberof OrganisationsApideleteOrganisationsOrgId
      */
-    organisationId: string
+    organisation_id: string
 }
 
 export interface OrganisationsApiGetOrganisationsRequest {
@@ -44,7 +44,7 @@ export interface OrganisationsApiGetOrganisationsOrgIdRequest {
      * @type string
      * @memberof OrganisationsApigetOrganisationsOrgId
      */
-    organisationId: string
+    organisation_id: string
 }
 
 export interface OrganisationsApiPostOrganisationsRequest {
@@ -53,7 +53,7 @@ export interface OrganisationsApiPostOrganisationsRequest {
      * @type OrganisationBody
      * @memberof OrganisationsApipostOrganisations
      */
-    organisationBody?: OrganisationBody
+    OrganisationBody?: OrganisationBody
 }
 
 export interface OrganisationsApiPutOrganisationsOrgIdRequest {
@@ -62,13 +62,13 @@ export interface OrganisationsApiPutOrganisationsOrgIdRequest {
      * @type string
      * @memberof OrganisationsApiputOrganisationsOrgId
      */
-    organisationId: string
+    organisation_id: string
     /**
      * Create/Update any field
      * @type OrganisationBody
      * @memberof OrganisationsApiputOrganisationsOrgId
      */
-    organisationBody?: OrganisationBody
+    OrganisationBody?: OrganisationBody
 }
 
 export class ObjectOrganisationsApi {
@@ -84,7 +84,7 @@ export class ObjectOrganisationsApi {
      * @param param the request object
      */
     public deleteOrganisationsOrgId(param: OrganisationsApiDeleteOrganisationsOrgIdRequest, options?: Configuration): Promise<DeletedResponse> {
-        return this.api.deleteOrganisationsOrgId(param.organisationId,  options).toPromise();
+        return this.api.deleteOrganisationsOrgId(param.organisation_id,  options).toPromise();
     }
 
     /**
@@ -102,7 +102,7 @@ export class ObjectOrganisationsApi {
      * @param param the request object
      */
     public getOrganisationsOrgId(param: OrganisationsApiGetOrganisationsOrgIdRequest, options?: Configuration): Promise<OrganisationResponse> {
-        return this.api.getOrganisationsOrgId(param.organisationId,  options).toPromise();
+        return this.api.getOrganisationsOrgId(param.organisation_id,  options).toPromise();
     }
 
     /**
@@ -111,7 +111,7 @@ export class ObjectOrganisationsApi {
      * @param param the request object
      */
     public postOrganisations(param: OrganisationsApiPostOrganisationsRequest = {}, options?: Configuration): Promise<OrganisationResponse> {
-        return this.api.postOrganisations(param.organisationBody,  options).toPromise();
+        return this.api.postOrganisations(param.OrganisationBody,  options).toPromise();
     }
 
     /**
@@ -120,7 +120,7 @@ export class ObjectOrganisationsApi {
      * @param param the request object
      */
     public putOrganisationsOrgId(param: OrganisationsApiPutOrganisationsOrgIdRequest, options?: Configuration): Promise<OrganisationResponse> {
-        return this.api.putOrganisationsOrgId(param.organisationId, param.organisationBody,  options).toPromise();
+        return this.api.putOrganisationsOrgId(param.organisation_id, param.OrganisationBody,  options).toPromise();
     }
 
 }
@@ -134,7 +134,7 @@ export interface ProjectsApiDeleteProjectsProjectIdRequest {
      * @type string
      * @memberof ProjectsApideleteProjectsProjectId
      */
-    projectId: string
+    project_id: string
 }
 
 export interface ProjectsApiGetOrganisationsOrgIdProjectsRequest {
@@ -143,7 +143,7 @@ export interface ProjectsApiGetOrganisationsOrgIdProjectsRequest {
      * @type string
      * @memberof ProjectsApigetOrganisationsOrgIdProjects
      */
-    organisationId: string
+    organisation_id: string
     /**
      * Query parameters for pagination
      * @type GetOrganisationsPageParameter
@@ -167,7 +167,7 @@ export interface ProjectsApiGetProjectsProjectIdRequest {
      * @type string
      * @memberof ProjectsApigetProjectsProjectId
      */
-    projectId: string
+    project_id: string
 }
 
 export interface ProjectsApiPostProjectsRequest {
@@ -176,7 +176,7 @@ export interface ProjectsApiPostProjectsRequest {
      * @type ProjectBody
      * @memberof ProjectsApipostProjects
      */
-    projectBody?: ProjectBody
+    ProjectBody?: ProjectBody
 }
 
 export interface ProjectsApiPutProjectsProjectIdRequest {
@@ -185,13 +185,13 @@ export interface ProjectsApiPutProjectsProjectIdRequest {
      * @type string
      * @memberof ProjectsApiputProjectsProjectId
      */
-    projectId: string
+    project_id: string
     /**
      * Create/Update any field
      * @type ProjectBody
      * @memberof ProjectsApiputProjectsProjectId
      */
-    projectBody?: ProjectBody
+    ProjectBody?: ProjectBody
 }
 
 export class ObjectProjectsApi {
@@ -207,7 +207,7 @@ export class ObjectProjectsApi {
      * @param param the request object
      */
     public deleteProjectsProjectId(param: ProjectsApiDeleteProjectsProjectIdRequest, options?: Configuration): Promise<DeletedResponse> {
-        return this.api.deleteProjectsProjectId(param.projectId,  options).toPromise();
+        return this.api.deleteProjectsProjectId(param.project_id,  options).toPromise();
     }
 
     /**
@@ -216,7 +216,7 @@ export class ObjectProjectsApi {
      * @param param the request object
      */
     public getOrganisationsOrgIdProjects(param: ProjectsApiGetOrganisationsOrgIdProjectsRequest, options?: Configuration): Promise<ListProjectResponse> {
-        return this.api.getOrganisationsOrgIdProjects(param.organisationId, param.page,  options).toPromise();
+        return this.api.getOrganisationsOrgIdProjects(param.organisation_id, param.page,  options).toPromise();
     }
 
     /**
@@ -234,7 +234,7 @@ export class ObjectProjectsApi {
      * @param param the request object
      */
     public getProjectsProjectId(param: ProjectsApiGetProjectsProjectIdRequest, options?: Configuration): Promise<ProjectResponse> {
-        return this.api.getProjectsProjectId(param.projectId,  options).toPromise();
+        return this.api.getProjectsProjectId(param.project_id,  options).toPromise();
     }
 
     /**
@@ -243,7 +243,7 @@ export class ObjectProjectsApi {
      * @param param the request object
      */
     public postProjects(param: ProjectsApiPostProjectsRequest = {}, options?: Configuration): Promise<ProjectResponse> {
-        return this.api.postProjects(param.projectBody,  options).toPromise();
+        return this.api.postProjects(param.ProjectBody,  options).toPromise();
     }
 
     /**
@@ -252,7 +252,7 @@ export class ObjectProjectsApi {
      * @param param the request object
      */
     public putProjectsProjectId(param: ProjectsApiPutProjectsProjectIdRequest, options?: Configuration): Promise<ProjectResponse> {
-        return this.api.putProjectsProjectId(param.projectId, param.projectBody,  options).toPromise();
+        return this.api.putProjectsProjectId(param.project_id, param.ProjectBody,  options).toPromise();
     }
 
 }

@@ -37,10 +37,10 @@ export class ObservableOrganisationsApi {
     /**
      * Delete organisation, this will also delete all the resources within the organisation
      * Delete an organisation
-     * @param organisationId Organisation ID reference
+     * @param organisation_id Organisation ID reference
      */
-    public deleteOrganisationsOrgId(organisationId: string, _options?: Configuration): Observable<DeletedResponse> {
-        const requestContextPromise = this.requestFactory.deleteOrganisationsOrgId(organisationId, _options);
+    public deleteOrganisationsOrgId(organisation_id: string, _options?: Configuration): Observable<DeletedResponse> {
+        const requestContextPromise = this.requestFactory.deleteOrganisationsOrgId(organisation_id, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -85,10 +85,10 @@ export class ObservableOrganisationsApi {
     /**
      * Get a single organisation
      * Get an organisation
-     * @param organisationId Organisation ID reference
+     * @param organisation_id Organisation ID reference
      */
-    public getOrganisationsOrgId(organisationId: string, _options?: Configuration): Observable<OrganisationResponse> {
-        const requestContextPromise = this.requestFactory.getOrganisationsOrgId(organisationId, _options);
+    public getOrganisationsOrgId(organisation_id: string, _options?: Configuration): Observable<OrganisationResponse> {
+        const requestContextPromise = this.requestFactory.getOrganisationsOrgId(organisation_id, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -109,10 +109,10 @@ export class ObservableOrganisationsApi {
     /**
      * Create an organisation
      * Create organisations
-     * @param organisationBody Create/Update any field
+     * @param OrganisationBody Create/Update any field
      */
-    public postOrganisations(organisationBody?: OrganisationBody, _options?: Configuration): Observable<OrganisationResponse> {
-        const requestContextPromise = this.requestFactory.postOrganisations(organisationBody, _options);
+    public postOrganisations(OrganisationBody?: OrganisationBody, _options?: Configuration): Observable<OrganisationResponse> {
+        const requestContextPromise = this.requestFactory.postOrganisations(OrganisationBody, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -133,11 +133,11 @@ export class ObservableOrganisationsApi {
     /**
      * Update an organisation
      * Update an organisation
-     * @param organisationId Organisation ID reference
-     * @param organisationBody Create/Update any field
+     * @param organisation_id Organisation ID reference
+     * @param OrganisationBody Create/Update any field
      */
-    public putOrganisationsOrgId(organisationId: string, organisationBody?: OrganisationBody, _options?: Configuration): Observable<OrganisationResponse> {
-        const requestContextPromise = this.requestFactory.putOrganisationsOrgId(organisationId, organisationBody, _options);
+    public putOrganisationsOrgId(organisation_id: string, OrganisationBody?: OrganisationBody, _options?: Configuration): Observable<OrganisationResponse> {
+        const requestContextPromise = this.requestFactory.putOrganisationsOrgId(organisation_id, OrganisationBody, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -176,10 +176,10 @@ export class ObservableProjectsApi {
     /**
      * Delete project, this will also delete all the resources within the project
      * Delete project
-     * @param projectId Project ID reference
+     * @param project_id Project ID reference
      */
-    public deleteProjectsProjectId(projectId: string, _options?: Configuration): Observable<DeletedResponse> {
-        const requestContextPromise = this.requestFactory.deleteProjectsProjectId(projectId, _options);
+    public deleteProjectsProjectId(project_id: string, _options?: Configuration): Observable<DeletedResponse> {
+        const requestContextPromise = this.requestFactory.deleteProjectsProjectId(project_id, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -200,11 +200,11 @@ export class ObservableProjectsApi {
     /**
      * Get all the projects linked to a specific organisation
      * Get all projects within an organisation
-     * @param organisationId Organisation ID reference
+     * @param organisation_id Organisation ID reference
      * @param page Query parameters for pagination
      */
-    public getOrganisationsOrgIdProjects(organisationId: string, page?: GetOrganisationsPageParameter, _options?: Configuration): Observable<ListProjectResponse> {
-        const requestContextPromise = this.requestFactory.getOrganisationsOrgIdProjects(organisationId, page, _options);
+    public getOrganisationsOrgIdProjects(organisation_id: string, page?: GetOrganisationsPageParameter, _options?: Configuration): Observable<ListProjectResponse> {
+        const requestContextPromise = this.requestFactory.getOrganisationsOrgIdProjects(organisation_id, page, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -249,10 +249,10 @@ export class ObservableProjectsApi {
     /**
      * Get a specific project
      * Get project
-     * @param projectId Project ID reference
+     * @param project_id Project ID reference
      */
-    public getProjectsProjectId(projectId: string, _options?: Configuration): Observable<ProjectResponse> {
-        const requestContextPromise = this.requestFactory.getProjectsProjectId(projectId, _options);
+    public getProjectsProjectId(project_id: string, _options?: Configuration): Observable<ProjectResponse> {
+        const requestContextPromise = this.requestFactory.getProjectsProjectId(project_id, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -273,10 +273,10 @@ export class ObservableProjectsApi {
     /**
      * Create a new project
      * Create project
-     * @param projectBody Create/Update any field
+     * @param ProjectBody Create/Update any field
      */
-    public postProjects(projectBody?: ProjectBody, _options?: Configuration): Observable<ProjectResponse> {
-        const requestContextPromise = this.requestFactory.postProjects(projectBody, _options);
+    public postProjects(ProjectBody?: ProjectBody, _options?: Configuration): Observable<ProjectResponse> {
+        const requestContextPromise = this.requestFactory.postProjects(ProjectBody, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -297,11 +297,11 @@ export class ObservableProjectsApi {
     /**
      * Update project
      * Update project
-     * @param projectId Project ID reference
-     * @param projectBody Create/Update any field
+     * @param project_id Project ID reference
+     * @param ProjectBody Create/Update any field
      */
-    public putProjectsProjectId(projectId: string, projectBody?: ProjectBody, _options?: Configuration): Observable<ProjectResponse> {
-        const requestContextPromise = this.requestFactory.putProjectsProjectId(projectId, projectBody, _options);
+    public putProjectsProjectId(project_id: string, ProjectBody?: ProjectBody, _options?: Configuration): Observable<ProjectResponse> {
+        const requestContextPromise = this.requestFactory.putProjectsProjectId(project_id, ProjectBody, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);

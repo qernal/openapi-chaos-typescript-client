@@ -25,20 +25,20 @@ export class OrganisationsApiRequestFactory extends BaseAPIRequestFactory {
     /**
      * Delete organisation, this will also delete all the resources within the organisation
      * Delete an organisation
-     * @param organisationId Organisation ID reference
+     * @param organisation_id Organisation ID reference
      */
-    public async deleteOrganisationsOrgId(organisationId: string, _options?: Configuration): Promise<RequestContext> {
+    public async deleteOrganisationsOrgId(organisation_id: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
-        // verify required parameter 'organisationId' is not null or undefined
-        if (organisationId === null || organisationId === undefined) {
-            throw new RequiredError("OrganisationsApi", "deleteOrganisationsOrgId", "organisationId");
+        // verify required parameter 'organisation_id' is not null or undefined
+        if (organisation_id === null || organisation_id === undefined) {
+            throw new RequiredError("OrganisationsApi", "deleteOrganisationsOrgId", "organisation_id");
         }
 
 
         // Path Params
         const localVarPath = '/organisations/{organisation_id}'
-            .replace('{' + 'organisation_id' + '}', encodeURIComponent(String(organisationId)));
+            .replace('{' + 'organisation_id' + '}', encodeURIComponent(String(organisation_id)));
 
         // Make Request Context
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.DELETE);
@@ -100,20 +100,20 @@ export class OrganisationsApiRequestFactory extends BaseAPIRequestFactory {
     /**
      * Get a single organisation
      * Get an organisation
-     * @param organisationId Organisation ID reference
+     * @param organisation_id Organisation ID reference
      */
-    public async getOrganisationsOrgId(organisationId: string, _options?: Configuration): Promise<RequestContext> {
+    public async getOrganisationsOrgId(organisation_id: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
-        // verify required parameter 'organisationId' is not null or undefined
-        if (organisationId === null || organisationId === undefined) {
-            throw new RequiredError("OrganisationsApi", "getOrganisationsOrgId", "organisationId");
+        // verify required parameter 'organisation_id' is not null or undefined
+        if (organisation_id === null || organisation_id === undefined) {
+            throw new RequiredError("OrganisationsApi", "getOrganisationsOrgId", "organisation_id");
         }
 
 
         // Path Params
         const localVarPath = '/organisations/{organisation_id}'
-            .replace('{' + 'organisation_id' + '}', encodeURIComponent(String(organisationId)));
+            .replace('{' + 'organisation_id' + '}', encodeURIComponent(String(organisation_id)));
 
         // Make Request Context
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
@@ -138,9 +138,9 @@ export class OrganisationsApiRequestFactory extends BaseAPIRequestFactory {
     /**
      * Create an organisation
      * Create organisations
-     * @param organisationBody Create/Update any field
+     * @param OrganisationBody Create/Update any field
      */
-    public async postOrganisations(organisationBody?: OrganisationBody, _options?: Configuration): Promise<RequestContext> {
+    public async postOrganisations(OrganisationBody?: OrganisationBody, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
 
@@ -158,7 +158,7 @@ export class OrganisationsApiRequestFactory extends BaseAPIRequestFactory {
         ]);
         requestContext.setHeaderParam("Content-Type", contentType);
         const serializedBody = ObjectSerializer.stringify(
-            ObjectSerializer.serialize(organisationBody, "OrganisationBody", ""),
+            ObjectSerializer.serialize(OrganisationBody, "OrganisationBody", ""),
             contentType
         );
         requestContext.setBody(serializedBody);
@@ -181,22 +181,22 @@ export class OrganisationsApiRequestFactory extends BaseAPIRequestFactory {
     /**
      * Update an organisation
      * Update an organisation
-     * @param organisationId Organisation ID reference
-     * @param organisationBody Create/Update any field
+     * @param organisation_id Organisation ID reference
+     * @param OrganisationBody Create/Update any field
      */
-    public async putOrganisationsOrgId(organisationId: string, organisationBody?: OrganisationBody, _options?: Configuration): Promise<RequestContext> {
+    public async putOrganisationsOrgId(organisation_id: string, OrganisationBody?: OrganisationBody, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
-        // verify required parameter 'organisationId' is not null or undefined
-        if (organisationId === null || organisationId === undefined) {
-            throw new RequiredError("OrganisationsApi", "putOrganisationsOrgId", "organisationId");
+        // verify required parameter 'organisation_id' is not null or undefined
+        if (organisation_id === null || organisation_id === undefined) {
+            throw new RequiredError("OrganisationsApi", "putOrganisationsOrgId", "organisation_id");
         }
 
 
 
         // Path Params
         const localVarPath = '/organisations/{organisation_id}'
-            .replace('{' + 'organisation_id' + '}', encodeURIComponent(String(organisationId)));
+            .replace('{' + 'organisation_id' + '}', encodeURIComponent(String(organisation_id)));
 
         // Make Request Context
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.PUT);
@@ -209,7 +209,7 @@ export class OrganisationsApiRequestFactory extends BaseAPIRequestFactory {
         ]);
         requestContext.setHeaderParam("Content-Type", contentType);
         const serializedBody = ObjectSerializer.stringify(
-            ObjectSerializer.serialize(organisationBody, "OrganisationBody", ""),
+            ObjectSerializer.serialize(OrganisationBody, "OrganisationBody", ""),
             contentType
         );
         requestContext.setBody(serializedBody);

@@ -29,7 +29,7 @@ const apiInstance = new .ProjectsApi(configuration);
 
 let body:.ProjectsApiDeleteProjectsProjectIdRequest = {
   // string | Project ID reference
-  projectId: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
+  project_id: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
 };
 
 apiInstance.deleteProjectsProjectId(body).then((data:any) => {
@@ -42,7 +42,7 @@ apiInstance.deleteProjectsProjectId(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **projectId** | [**string**] | Project ID reference | defaults to undefined
+ **project_id** | [**string**] | Project ID reference | defaults to undefined
 
 
 ### Return type
@@ -85,7 +85,7 @@ const apiInstance = new .ProjectsApi(configuration);
 
 let body:.ProjectsApiGetOrganisationsOrgIdProjectsRequest = {
   // string | Organisation ID reference
-  organisationId: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
+  organisation_id: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
   // GetOrganisationsPageParameter | Query parameters for pagination (optional)
   page: {
     before: 20,
@@ -104,7 +104,7 @@ apiInstance.getOrganisationsOrgIdProjects(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organisationId** | [**string**] | Organisation ID reference | defaults to undefined
+ **organisation_id** | [**string**] | Organisation ID reference | defaults to undefined
  **page** | **GetOrganisationsPageParameter** | Query parameters for pagination | (optional) defaults to undefined
 
 
@@ -207,7 +207,7 @@ const apiInstance = new .ProjectsApi(configuration);
 
 let body:.ProjectsApiGetProjectsProjectIdRequest = {
   // string | Project ID reference
-  projectId: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
+  project_id: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
 };
 
 apiInstance.getProjectsProjectId(body).then((data:any) => {
@@ -220,7 +220,7 @@ apiInstance.getProjectsProjectId(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **projectId** | [**string**] | Project ID reference | defaults to undefined
+ **project_id** | [**string**] | Project ID reference | defaults to undefined
 
 
 ### Return type
@@ -263,7 +263,7 @@ const apiInstance = new .ProjectsApi(configuration);
 
 let body:.ProjectsApiPostProjectsRequest = {
   // ProjectBody | Create/Update any field (optional)
-  projectBody: {
+  ProjectBody: {
     orgId: "orgId_example",
     name: "name_example",
   },
@@ -279,7 +279,7 @@ apiInstance.postProjects(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **projectBody** | **ProjectBody**| Create/Update any field |
+ **ProjectBody** | **ProjectBody**| Create/Update any field |
 
 
 ### Return type
@@ -323,9 +323,9 @@ const apiInstance = new .ProjectsApi(configuration);
 
 let body:.ProjectsApiPutProjectsProjectIdRequest = {
   // string | Project ID reference
-  projectId: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
+  project_id: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
   // ProjectBody | Create/Update any field (optional)
-  projectBody: {
+  ProjectBody: {
     orgId: "orgId_example",
     name: "name_example",
   },
@@ -341,8 +341,8 @@ apiInstance.putProjectsProjectId(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **projectBody** | **ProjectBody**| Create/Update any field |
- **projectId** | [**string**] | Project ID reference | defaults to undefined
+ **ProjectBody** | **ProjectBody**| Create/Update any field |
+ **project_id** | [**string**] | Project ID reference | defaults to undefined
 
 
 ### Return type

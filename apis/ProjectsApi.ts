@@ -25,20 +25,20 @@ export class ProjectsApiRequestFactory extends BaseAPIRequestFactory {
     /**
      * Delete project, this will also delete all the resources within the project
      * Delete project
-     * @param projectId Project ID reference
+     * @param project_id Project ID reference
      */
-    public async deleteProjectsProjectId(projectId: string, _options?: Configuration): Promise<RequestContext> {
+    public async deleteProjectsProjectId(project_id: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
-        // verify required parameter 'projectId' is not null or undefined
-        if (projectId === null || projectId === undefined) {
-            throw new RequiredError("ProjectsApi", "deleteProjectsProjectId", "projectId");
+        // verify required parameter 'project_id' is not null or undefined
+        if (project_id === null || project_id === undefined) {
+            throw new RequiredError("ProjectsApi", "deleteProjectsProjectId", "project_id");
         }
 
 
         // Path Params
         const localVarPath = '/projects/{project_id}'
-            .replace('{' + 'project_id' + '}', encodeURIComponent(String(projectId)));
+            .replace('{' + 'project_id' + '}', encodeURIComponent(String(project_id)));
 
         // Make Request Context
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.DELETE);
@@ -63,22 +63,22 @@ export class ProjectsApiRequestFactory extends BaseAPIRequestFactory {
     /**
      * Get all the projects linked to a specific organisation
      * Get all projects within an organisation
-     * @param organisationId Organisation ID reference
+     * @param organisation_id Organisation ID reference
      * @param page Query parameters for pagination
      */
-    public async getOrganisationsOrgIdProjects(organisationId: string, page?: GetOrganisationsPageParameter, _options?: Configuration): Promise<RequestContext> {
+    public async getOrganisationsOrgIdProjects(organisation_id: string, page?: GetOrganisationsPageParameter, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
-        // verify required parameter 'organisationId' is not null or undefined
-        if (organisationId === null || organisationId === undefined) {
-            throw new RequiredError("ProjectsApi", "getOrganisationsOrgIdProjects", "organisationId");
+        // verify required parameter 'organisation_id' is not null or undefined
+        if (organisation_id === null || organisation_id === undefined) {
+            throw new RequiredError("ProjectsApi", "getOrganisationsOrgIdProjects", "organisation_id");
         }
 
 
 
         // Path Params
         const localVarPath = '/organisations/{organisation_id}/projects'
-            .replace('{' + 'organisation_id' + '}', encodeURIComponent(String(organisationId)));
+            .replace('{' + 'organisation_id' + '}', encodeURIComponent(String(organisation_id)));
 
         // Make Request Context
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
@@ -145,20 +145,20 @@ export class ProjectsApiRequestFactory extends BaseAPIRequestFactory {
     /**
      * Get a specific project
      * Get project
-     * @param projectId Project ID reference
+     * @param project_id Project ID reference
      */
-    public async getProjectsProjectId(projectId: string, _options?: Configuration): Promise<RequestContext> {
+    public async getProjectsProjectId(project_id: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
-        // verify required parameter 'projectId' is not null or undefined
-        if (projectId === null || projectId === undefined) {
-            throw new RequiredError("ProjectsApi", "getProjectsProjectId", "projectId");
+        // verify required parameter 'project_id' is not null or undefined
+        if (project_id === null || project_id === undefined) {
+            throw new RequiredError("ProjectsApi", "getProjectsProjectId", "project_id");
         }
 
 
         // Path Params
         const localVarPath = '/projects/{project_id}'
-            .replace('{' + 'project_id' + '}', encodeURIComponent(String(projectId)));
+            .replace('{' + 'project_id' + '}', encodeURIComponent(String(project_id)));
 
         // Make Request Context
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
@@ -183,9 +183,9 @@ export class ProjectsApiRequestFactory extends BaseAPIRequestFactory {
     /**
      * Create a new project
      * Create project
-     * @param projectBody Create/Update any field
+     * @param ProjectBody Create/Update any field
      */
-    public async postProjects(projectBody?: ProjectBody, _options?: Configuration): Promise<RequestContext> {
+    public async postProjects(ProjectBody?: ProjectBody, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
 
@@ -203,7 +203,7 @@ export class ProjectsApiRequestFactory extends BaseAPIRequestFactory {
         ]);
         requestContext.setHeaderParam("Content-Type", contentType);
         const serializedBody = ObjectSerializer.stringify(
-            ObjectSerializer.serialize(projectBody, "ProjectBody", ""),
+            ObjectSerializer.serialize(ProjectBody, "ProjectBody", ""),
             contentType
         );
         requestContext.setBody(serializedBody);
@@ -226,22 +226,22 @@ export class ProjectsApiRequestFactory extends BaseAPIRequestFactory {
     /**
      * Update project
      * Update project
-     * @param projectId Project ID reference
-     * @param projectBody Create/Update any field
+     * @param project_id Project ID reference
+     * @param ProjectBody Create/Update any field
      */
-    public async putProjectsProjectId(projectId: string, projectBody?: ProjectBody, _options?: Configuration): Promise<RequestContext> {
+    public async putProjectsProjectId(project_id: string, ProjectBody?: ProjectBody, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
-        // verify required parameter 'projectId' is not null or undefined
-        if (projectId === null || projectId === undefined) {
-            throw new RequiredError("ProjectsApi", "putProjectsProjectId", "projectId");
+        // verify required parameter 'project_id' is not null or undefined
+        if (project_id === null || project_id === undefined) {
+            throw new RequiredError("ProjectsApi", "putProjectsProjectId", "project_id");
         }
 
 
 
         // Path Params
         const localVarPath = '/projects/{project_id}'
-            .replace('{' + 'project_id' + '}', encodeURIComponent(String(projectId)));
+            .replace('{' + 'project_id' + '}', encodeURIComponent(String(project_id)));
 
         // Make Request Context
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.PUT);
@@ -254,7 +254,7 @@ export class ProjectsApiRequestFactory extends BaseAPIRequestFactory {
         ]);
         requestContext.setHeaderParam("Content-Type", contentType);
         const serializedBody = ObjectSerializer.stringify(
-            ObjectSerializer.serialize(projectBody, "ProjectBody", ""),
+            ObjectSerializer.serialize(ProjectBody, "ProjectBody", ""),
             contentType
         );
         requestContext.setBody(serializedBody);

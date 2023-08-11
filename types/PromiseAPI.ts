@@ -33,10 +33,10 @@ export class PromiseOrganisationsApi {
     /**
      * Delete organisation, this will also delete all the resources within the organisation
      * Delete an organisation
-     * @param organisationId Organisation ID reference
+     * @param organisation_id Organisation ID reference
      */
-    public deleteOrganisationsOrgId(organisationId: string, _options?: Configuration): Promise<DeletedResponse> {
-        const result = this.api.deleteOrganisationsOrgId(organisationId, _options);
+    public deleteOrganisationsOrgId(organisation_id: string, _options?: Configuration): Promise<DeletedResponse> {
+        const result = this.api.deleteOrganisationsOrgId(organisation_id, _options);
         return result.toPromise();
     }
 
@@ -53,31 +53,31 @@ export class PromiseOrganisationsApi {
     /**
      * Get a single organisation
      * Get an organisation
-     * @param organisationId Organisation ID reference
+     * @param organisation_id Organisation ID reference
      */
-    public getOrganisationsOrgId(organisationId: string, _options?: Configuration): Promise<OrganisationResponse> {
-        const result = this.api.getOrganisationsOrgId(organisationId, _options);
+    public getOrganisationsOrgId(organisation_id: string, _options?: Configuration): Promise<OrganisationResponse> {
+        const result = this.api.getOrganisationsOrgId(organisation_id, _options);
         return result.toPromise();
     }
 
     /**
      * Create an organisation
      * Create organisations
-     * @param organisationBody Create/Update any field
+     * @param OrganisationBody Create/Update any field
      */
-    public postOrganisations(organisationBody?: OrganisationBody, _options?: Configuration): Promise<OrganisationResponse> {
-        const result = this.api.postOrganisations(organisationBody, _options);
+    public postOrganisations(OrganisationBody?: OrganisationBody, _options?: Configuration): Promise<OrganisationResponse> {
+        const result = this.api.postOrganisations(OrganisationBody, _options);
         return result.toPromise();
     }
 
     /**
      * Update an organisation
      * Update an organisation
-     * @param organisationId Organisation ID reference
-     * @param organisationBody Create/Update any field
+     * @param organisation_id Organisation ID reference
+     * @param OrganisationBody Create/Update any field
      */
-    public putOrganisationsOrgId(organisationId: string, organisationBody?: OrganisationBody, _options?: Configuration): Promise<OrganisationResponse> {
-        const result = this.api.putOrganisationsOrgId(organisationId, organisationBody, _options);
+    public putOrganisationsOrgId(organisation_id: string, OrganisationBody?: OrganisationBody, _options?: Configuration): Promise<OrganisationResponse> {
+        const result = this.api.putOrganisationsOrgId(organisation_id, OrganisationBody, _options);
         return result.toPromise();
     }
 
@@ -103,21 +103,21 @@ export class PromiseProjectsApi {
     /**
      * Delete project, this will also delete all the resources within the project
      * Delete project
-     * @param projectId Project ID reference
+     * @param project_id Project ID reference
      */
-    public deleteProjectsProjectId(projectId: string, _options?: Configuration): Promise<DeletedResponse> {
-        const result = this.api.deleteProjectsProjectId(projectId, _options);
+    public deleteProjectsProjectId(project_id: string, _options?: Configuration): Promise<DeletedResponse> {
+        const result = this.api.deleteProjectsProjectId(project_id, _options);
         return result.toPromise();
     }
 
     /**
      * Get all the projects linked to a specific organisation
      * Get all projects within an organisation
-     * @param organisationId Organisation ID reference
+     * @param organisation_id Organisation ID reference
      * @param page Query parameters for pagination
      */
-    public getOrganisationsOrgIdProjects(organisationId: string, page?: GetOrganisationsPageParameter, _options?: Configuration): Promise<ListProjectResponse> {
-        const result = this.api.getOrganisationsOrgIdProjects(organisationId, page, _options);
+    public getOrganisationsOrgIdProjects(organisation_id: string, page?: GetOrganisationsPageParameter, _options?: Configuration): Promise<ListProjectResponse> {
+        const result = this.api.getOrganisationsOrgIdProjects(organisation_id, page, _options);
         return result.toPromise();
     }
 
@@ -134,31 +134,31 @@ export class PromiseProjectsApi {
     /**
      * Get a specific project
      * Get project
-     * @param projectId Project ID reference
+     * @param project_id Project ID reference
      */
-    public getProjectsProjectId(projectId: string, _options?: Configuration): Promise<ProjectResponse> {
-        const result = this.api.getProjectsProjectId(projectId, _options);
+    public getProjectsProjectId(project_id: string, _options?: Configuration): Promise<ProjectResponse> {
+        const result = this.api.getProjectsProjectId(project_id, _options);
         return result.toPromise();
     }
 
     /**
      * Create a new project
      * Create project
-     * @param projectBody Create/Update any field
+     * @param ProjectBody Create/Update any field
      */
-    public postProjects(projectBody?: ProjectBody, _options?: Configuration): Promise<ProjectResponse> {
-        const result = this.api.postProjects(projectBody, _options);
+    public postProjects(ProjectBody?: ProjectBody, _options?: Configuration): Promise<ProjectResponse> {
+        const result = this.api.postProjects(ProjectBody, _options);
         return result.toPromise();
     }
 
     /**
      * Update project
      * Update project
-     * @param projectId Project ID reference
-     * @param projectBody Create/Update any field
+     * @param project_id Project ID reference
+     * @param ProjectBody Create/Update any field
      */
-    public putProjectsProjectId(projectId: string, projectBody?: ProjectBody, _options?: Configuration): Promise<ProjectResponse> {
-        const result = this.api.putProjectsProjectId(projectId, projectBody, _options);
+    public putProjectsProjectId(project_id: string, ProjectBody?: ProjectBody, _options?: Configuration): Promise<ProjectResponse> {
+        const result = this.api.putProjectsProjectId(project_id, ProjectBody, _options);
         return result.toPromise();
     }
 

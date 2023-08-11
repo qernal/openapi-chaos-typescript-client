@@ -28,7 +28,7 @@ const apiInstance = new .OrganisationsApi(configuration);
 
 let body:.OrganisationsApiDeleteOrganisationsOrgIdRequest = {
   // string | Organisation ID reference
-  organisationId: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
+  organisation_id: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
 };
 
 apiInstance.deleteOrganisationsOrgId(body).then((data:any) => {
@@ -41,7 +41,7 @@ apiInstance.deleteOrganisationsOrgId(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organisationId** | [**string**] | Organisation ID reference | defaults to undefined
+ **organisation_id** | [**string**] | Organisation ID reference | defaults to undefined
 
 
 ### Return type
@@ -143,7 +143,7 @@ const apiInstance = new .OrganisationsApi(configuration);
 
 let body:.OrganisationsApiGetOrganisationsOrgIdRequest = {
   // string | Organisation ID reference
-  organisationId: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
+  organisation_id: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
 };
 
 apiInstance.getOrganisationsOrgId(body).then((data:any) => {
@@ -156,7 +156,7 @@ apiInstance.getOrganisationsOrgId(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organisationId** | [**string**] | Organisation ID reference | defaults to undefined
+ **organisation_id** | [**string**] | Organisation ID reference | defaults to undefined
 
 
 ### Return type
@@ -199,7 +199,7 @@ const apiInstance = new .OrganisationsApi(configuration);
 
 let body:.OrganisationsApiPostOrganisationsRequest = {
   // OrganisationBody | Create/Update any field (optional)
-  organisationBody: {
+  OrganisationBody: {
     name: "name_example",
   },
 };
@@ -214,7 +214,7 @@ apiInstance.postOrganisations(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organisationBody** | **OrganisationBody**| Create/Update any field |
+ **OrganisationBody** | **OrganisationBody**| Create/Update any field |
 
 
 ### Return type
@@ -257,9 +257,9 @@ const apiInstance = new .OrganisationsApi(configuration);
 
 let body:.OrganisationsApiPutOrganisationsOrgIdRequest = {
   // string | Organisation ID reference
-  organisationId: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
+  organisation_id: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
   // OrganisationBody | Create/Update any field (optional)
-  organisationBody: {
+  OrganisationBody: {
     name: "name_example",
   },
 };
@@ -274,8 +274,8 @@ apiInstance.putOrganisationsOrgId(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organisationBody** | **OrganisationBody**| Create/Update any field |
- **organisationId** | [**string**] | Organisation ID reference | defaults to undefined
+ **OrganisationBody** | **OrganisationBody**| Create/Update any field |
+ **organisation_id** | [**string**] | Organisation ID reference | defaults to undefined
 
 
 ### Return type
