@@ -23,7 +23,7 @@ export class OrganisationResponse {
     /**
     * User id
     */
-    'userId': string;
+    'user_id': string;
     /**
     * Organisation name
     */
@@ -39,7 +39,7 @@ export class OrganisationResponse {
             "format": ""
         },
         {
-            "name": "userId",
+            "name": "user_id",
             "baseName": "user_id",
             "type": "string",
             "format": ""

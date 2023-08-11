@@ -264,7 +264,7 @@ const apiInstance = new .ProjectsApi(configuration);
 let body:.ProjectsApiPostProjectsRequest = {
   // ProjectBody | Create/Update any field (optional)
   ProjectBody: {
-    orgId: "orgId_example",
+    org_id: "org_id_example",
     name: "name_example",
   },
 };
@@ -326,7 +326,7 @@ let body:.ProjectsApiPutProjectsProjectIdRequest = {
   project_id: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
   // ProjectBody | Create/Update any field (optional)
   ProjectBody: {
-    orgId: "orgId_example",
+    org_id: "org_id_example",
     name: "name_example",
   },
 };

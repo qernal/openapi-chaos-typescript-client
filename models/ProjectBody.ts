@@ -19,7 +19,7 @@ export class ProjectBody {
     /**
     * Organisation id
     */
-    'orgId': string;
+    'org_id': string;
     /**
     * Project name
     */
@@ -29,7 +29,7 @@ export class ProjectBody {
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "orgId",
+            "name": "org_id",
             "baseName": "org_id",
             "type": "string",
             "format": "uuid"

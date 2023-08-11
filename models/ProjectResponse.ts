@@ -23,7 +23,7 @@ export class ProjectResponse {
     /**
     * Organisation id
     */
-    'orgId': string;
+    'org_id': string;
     /**
     * Project name
     */
@@ -39,7 +39,7 @@ export class ProjectResponse {
             "format": "uuid"
         },
         {
-            "name": "orgId",
+            "name": "org_id",
             "baseName": "org_id",
             "type": "string",
             "format": "uuid"
