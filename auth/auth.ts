@@ -22,29 +22,50 @@ export interface TokenProvider {
 }
 
 /**
- * Applies http authentication to the request context.
+ * Applies apiKey authentication to the request context.
  */
-export class JWTAuthentication implements SecurityAuthentication {
+export class TokenAuthentication implements SecurityAuthentication {
     /**
-     * Configures the http authentication with the required details.
+     * Configures this api key authentication with the necessary properties
      *
-     * @param tokenProvider service that can provide the up-to-date token when needed
+     * @param apiKey: The api key to be used for every request
      */
-    public constructor(private tokenProvider: TokenProvider) {}
+    public constructor(private apiKey: string) {}
 
     public getName(): string {
-        return "JWT";
+        return "token";
     }
 
-    public async applySecurityAuthentication(context: RequestContext) {
-        context.setHeaderParam("Authorization", "Bearer " + await this.tokenProvider.getToken());
+    public applySecurityAuthentication(context: RequestContext) {
+        context.setHeaderParam("QERNAL-AUTH-TOKEN", this.apiKey);
+    }
+}
+
+/**
+ * Applies apiKey authentication to the request context.
+ */
+export class CookieAuthentication implements SecurityAuthentication {
+    /**
+     * Configures this api key authentication with the necessary properties
+     *
+     * @param apiKey: The api key to be used for every request
+     */
+    public constructor(private apiKey: string) {}
+
+    public getName(): string {
+        return "cookie";
+    }
+
+    public applySecurityAuthentication(context: RequestContext) {
+        context.addCookie("qernal_kratos_session", this.apiKey);
     }
 }
 
 
 export type AuthMethods = {
     "default"?: SecurityAuthentication,
-    "JWT"?: SecurityAuthentication
+    "token"?: SecurityAuthentication,
+    "cookie"?: SecurityAuthentication
 }
 
 export type ApiKeyConfiguration = string;
@@ -54,7 +75,8 @@ export type OAuth2Configuration = { accessToken: string };
 
 export type AuthMethodsConfiguration = {
     "default"?: SecurityAuthentication,
-    "JWT"?: HttpBearerConfiguration
+    "token"?: ApiKeyConfiguration,
+    "cookie"?: ApiKeyConfiguration
 }
 
 /**
@@ -69,9 +91,15 @@ export function configureAuthMethods(config: AuthMethodsConfiguration | undefine
     }
     authMethods["default"] = config["default"]
 
-    if (config["JWT"]) {
-        authMethods["JWT"] = new JWTAuthentication(
-            config["JWT"]["tokenProvider"]
+    if (config["token"]) {
+        authMethods["token"] = new TokenAuthentication(
+            config["token"]
+        );
+    }
+
+    if (config["cookie"]) {
+        authMethods["cookie"] = new CookieAuthentication(
+            config["cookie"]
         );
     }
 
