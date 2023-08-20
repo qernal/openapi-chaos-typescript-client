@@ -18,8 +18,8 @@ import { HttpFile } from '../http/http.ts';
 * List organisations schema
 */
 export class ListOrganisationResponse {
-    'meta'?: PaginationMeta;
-    'data'?: Array<OrganisationResponse>;
+    'meta': PaginationMeta;
+    'data': Array<OrganisationResponse>;
 
     static readonly discriminator: string | undefined = undefined;
 

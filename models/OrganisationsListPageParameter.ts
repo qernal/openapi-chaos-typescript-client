@@ -12,47 +12,44 @@
 
 import { HttpFile } from '../http/http.ts';
 
-/**
-* Organisation response
-*/
-export class OrganisationResponse {
+export class OrganisationsListPageParameter {
     /**
-    * Organisation id
+    * Offset
     */
-    'id': string;
+    'before'?: number;
     /**
-    * User id
+    * Offset
     */
-    'user_id': string;
+    'after'?: number;
     /**
-    * Organisation name
+    * Limit
     */
-    'name': string;
+    'size'?: number;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "id",
-            "baseName": "id",
-            "type": "string",
-            "format": "uuid"
+            "name": "before",
+            "baseName": "before",
+            "type": "number",
+            "format": ""
         },
         {
-            "name": "user_id",
-            "baseName": "user_id",
-            "type": "string",
-            "format": "uuid"
+            "name": "after",
+            "baseName": "after",
+            "type": "number",
+            "format": ""
         },
         {
-            "name": "name",
-            "baseName": "name",
-            "type": "string",
+            "name": "size",
+            "baseName": "size",
+            "type": "number",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return OrganisationResponse.attributeTypeMap;
+        return OrganisationsListPageParameter.attributeTypeMap;
     }
 
     public constructor() {

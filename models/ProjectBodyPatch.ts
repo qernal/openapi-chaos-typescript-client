@@ -12,44 +12,37 @@
 
 import { HttpFile } from '../http/http.ts';
 
-export class GetOrganisationsPageParameter {
+/**
+* Project patch fields
+*/
+export class ProjectBodyPatch {
     /**
-    * Offset
+    * Organisation id
     */
-    'before'?: number;
+    'org_id'?: string;
     /**
-    * Offset
+    * Project name
     */
-    'after'?: number;
-    /**
-    * Limit
-    */
-    'size'?: number;
+    'name'?: string;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "before",
-            "baseName": "before",
-            "type": "number",
-            "format": ""
+            "name": "org_id",
+            "baseName": "org_id",
+            "type": "string",
+            "format": "uuid"
         },
         {
-            "name": "after",
-            "baseName": "after",
-            "type": "number",
-            "format": ""
-        },
-        {
-            "name": "size",
-            "baseName": "size",
-            "type": "number",
+            "name": "name",
+            "baseName": "name",
+            "type": "string",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return GetOrganisationsPageParameter.attributeTypeMap;
+        return ProjectBodyPatch.attributeTypeMap;
     }
 
     public constructor() {

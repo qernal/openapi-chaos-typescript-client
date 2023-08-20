@@ -4,72 +4,16 @@ All URIs are relative to *https://chaos.qernal.com/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**deleteProjectsProjectId**](ProjectsApi.md#deleteProjectsProjectId) | **DELETE** /projects/{project_id} | Delete project
-[**getOrganisationsOrgIdProjects**](ProjectsApi.md#getOrganisationsOrgIdProjects) | **GET** /organisations/{organisation_id}/projects | Get all projects within an organisation
-[**getProjects**](ProjectsApi.md#getProjects) | **GET** /projects | List projects
-[**getProjectsProjectId**](ProjectsApi.md#getProjectsProjectId) | **GET** /projects/{project_id} | Get project
-[**postProjects**](ProjectsApi.md#postProjects) | **POST** /projects | Create project
-[**putProjectsProjectId**](ProjectsApi.md#putProjectsProjectId) | **PUT** /projects/{project_id} | Update project
+[**organisationsProjectsList**](ProjectsApi.md#organisationsProjectsList) | **GET** /organisations/{organisation_id}/projects | Get all projects within an organisation
+[**projectsCreate**](ProjectsApi.md#projectsCreate) | **POST** /projects | Create project
+[**projectsDelete**](ProjectsApi.md#projectsDelete) | **DELETE** /projects/{project_id} | Delete project
+[**projectsGet**](ProjectsApi.md#projectsGet) | **GET** /projects/{project_id} | Get project
+[**projectsList**](ProjectsApi.md#projectsList) | **GET** /projects | List projects
+[**projectsUpdate**](ProjectsApi.md#projectsUpdate) | **PUT** /projects/{project_id} | Update project
 
 
-# **deleteProjectsProjectId**
-> DeletedResponse deleteProjectsProjectId()
-
-Delete project, this will also delete all the resources within the project
-
-### Example
-
-
-```typescript
-import {  } from '';
-import * as fs from 'fs';
-
-const configuration = .createConfiguration();
-const apiInstance = new .ProjectsApi(configuration);
-
-let body:.ProjectsApiDeleteProjectsProjectIdRequest = {
-  // string | Project ID reference
-  project_id: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
-};
-
-apiInstance.deleteProjectsProjectId(body).then((data:any) => {
-  console.log('API called successfully. Returned data: ' + data);
-}).catch((error:any) => console.error(error));
-```
-
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **project_id** | [**string**] | Project ID reference | defaults to undefined
-
-
-### Return type
-
-**DeletedResponse**
-
-### Authorization
-
-[cookie](README.md#cookie), [token](README.md#token)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Resource deleted |  -  |
-**404** | Resource Not Found |  -  |
-**403** | Unauthorised |  -  |
-
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
-
-# **getOrganisationsOrgIdProjects**
-> ListProjectResponse getOrganisationsOrgIdProjects()
+# **organisationsProjectsList**
+> ListProjectResponse organisationsProjectsList()
 
 Get all the projects linked to a specific organisation
 
@@ -83,10 +27,10 @@ import * as fs from 'fs';
 const configuration = .createConfiguration();
 const apiInstance = new .ProjectsApi(configuration);
 
-let body:.ProjectsApiGetOrganisationsOrgIdProjectsRequest = {
+let body:.ProjectsApiOrganisationsProjectsListRequest = {
   // string | Organisation ID reference
   organisation_id: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
-  // GetOrganisationsPageParameter | Query parameters for pagination (optional)
+  // OrganisationsListPageParameter | Query parameters for pagination (optional)
   page: {
     before: 20,
     after: 20,
@@ -94,7 +38,7 @@ let body:.ProjectsApiGetOrganisationsOrgIdProjectsRequest = {
   },
 };
 
-apiInstance.getOrganisationsOrgIdProjects(body).then((data:any) => {
+apiInstance.organisationsProjectsList(body).then((data:any) => {
   console.log('API called successfully. Returned data: ' + data);
 }).catch((error:any) => console.error(error));
 ```
@@ -105,7 +49,7 @@ apiInstance.getOrganisationsOrgIdProjects(body).then((data:any) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **organisation_id** | [**string**] | Organisation ID reference | defaults to undefined
- **page** | **GetOrganisationsPageParameter** | Query parameters for pagination | (optional) defaults to undefined
+ **page** | **OrganisationsListPageParameter** | Query parameters for pagination | (optional) defaults to undefined
 
 
 ### Return type
@@ -131,123 +75,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
-# **getProjects**
-> ListProjectResponse getProjects()
-
-Get all projects for this user, paginated
-
-### Example
-
-
-```typescript
-import {  } from '';
-import * as fs from 'fs';
-
-const configuration = .createConfiguration();
-const apiInstance = new .ProjectsApi(configuration);
-
-let body:.ProjectsApiGetProjectsRequest = {
-  // GetOrganisationsPageParameter | Query parameters for pagination (optional)
-  page: {
-    before: 20,
-    after: 20,
-    size: 20,
-  },
-};
-
-apiInstance.getProjects(body).then((data:any) => {
-  console.log('API called successfully. Returned data: ' + data);
-}).catch((error:any) => console.error(error));
-```
-
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **page** | **GetOrganisationsPageParameter** | Query parameters for pagination | (optional) defaults to undefined
-
-
-### Return type
-
-**ListProjectResponse**
-
-### Authorization
-
-[cookie](README.md#cookie), [token](README.md#token)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | List projects |  -  |
-**403** | Unauthorised |  -  |
-
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
-
-# **getProjectsProjectId**
-> ProjectResponse getProjectsProjectId()
-
-Get a specific project
-
-### Example
-
-
-```typescript
-import {  } from '';
-import * as fs from 'fs';
-
-const configuration = .createConfiguration();
-const apiInstance = new .ProjectsApi(configuration);
-
-let body:.ProjectsApiGetProjectsProjectIdRequest = {
-  // string | Project ID reference
-  project_id: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
-};
-
-apiInstance.getProjectsProjectId(body).then((data:any) => {
-  console.log('API called successfully. Returned data: ' + data);
-}).catch((error:any) => console.error(error));
-```
-
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **project_id** | [**string**] | Project ID reference | defaults to undefined
-
-
-### Return type
-
-**ProjectResponse**
-
-### Authorization
-
-[cookie](README.md#cookie), [token](README.md#token)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Get project |  -  |
-**404** | Resource Not Found |  -  |
-**403** | Unauthorised |  -  |
-
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
-
-# **postProjects**
-> ProjectResponse postProjects()
+# **projectsCreate**
+> ProjectResponse projectsCreate()
 
 Create a new project
 
@@ -261,7 +90,7 @@ import * as fs from 'fs';
 const configuration = .createConfiguration();
 const apiInstance = new .ProjectsApi(configuration);
 
-let body:.ProjectsApiPostProjectsRequest = {
+let body:.ProjectsApiProjectsCreateRequest = {
   // ProjectBody | Create/Update any field (optional)
   ProjectBody: {
     org_id: "org_id_example",
@@ -269,7 +98,7 @@ let body:.ProjectsApiPostProjectsRequest = {
   },
 };
 
-apiInstance.postProjects(body).then((data:any) => {
+apiInstance.projectsCreate(body).then((data:any) => {
   console.log('API called successfully. Returned data: ' + data);
 }).catch((error:any) => console.error(error));
 ```
@@ -306,8 +135,179 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
-# **putProjectsProjectId**
-> ProjectResponse putProjectsProjectId()
+# **projectsDelete**
+> DeletedResponse projectsDelete()
+
+Delete project, this will also delete all the resources within the project
+
+### Example
+
+
+```typescript
+import {  } from '';
+import * as fs from 'fs';
+
+const configuration = .createConfiguration();
+const apiInstance = new .ProjectsApi(configuration);
+
+let body:.ProjectsApiProjectsDeleteRequest = {
+  // string | Project ID reference
+  project_id: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
+};
+
+apiInstance.projectsDelete(body).then((data:any) => {
+  console.log('API called successfully. Returned data: ' + data);
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | [**string**] | Project ID reference | defaults to undefined
+
+
+### Return type
+
+**DeletedResponse**
+
+### Authorization
+
+[cookie](README.md#cookie), [token](README.md#token)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Resource deleted |  -  |
+**404** | Resource Not Found |  -  |
+**403** | Unauthorised |  -  |
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **projectsGet**
+> ProjectResponse projectsGet()
+
+Get a specific project
+
+### Example
+
+
+```typescript
+import {  } from '';
+import * as fs from 'fs';
+
+const configuration = .createConfiguration();
+const apiInstance = new .ProjectsApi(configuration);
+
+let body:.ProjectsApiProjectsGetRequest = {
+  // string | Project ID reference
+  project_id: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
+};
+
+apiInstance.projectsGet(body).then((data:any) => {
+  console.log('API called successfully. Returned data: ' + data);
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | [**string**] | Project ID reference | defaults to undefined
+
+
+### Return type
+
+**ProjectResponse**
+
+### Authorization
+
+[cookie](README.md#cookie), [token](README.md#token)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Get project |  -  |
+**404** | Resource Not Found |  -  |
+**403** | Unauthorised |  -  |
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **projectsList**
+> ListProjectResponse projectsList()
+
+Get all projects for this user, paginated
+
+### Example
+
+
+```typescript
+import {  } from '';
+import * as fs from 'fs';
+
+const configuration = .createConfiguration();
+const apiInstance = new .ProjectsApi(configuration);
+
+let body:.ProjectsApiProjectsListRequest = {
+  // OrganisationsListPageParameter | Query parameters for pagination (optional)
+  page: {
+    before: 20,
+    after: 20,
+    size: 20,
+  },
+};
+
+apiInstance.projectsList(body).then((data:any) => {
+  console.log('API called successfully. Returned data: ' + data);
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **page** | **OrganisationsListPageParameter** | Query parameters for pagination | (optional) defaults to undefined
+
+
+### Return type
+
+**ListProjectResponse**
+
+### Authorization
+
+[cookie](README.md#cookie), [token](README.md#token)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | List projects |  -  |
+**403** | Unauthorised |  -  |
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **projectsUpdate**
+> ProjectResponse projectsUpdate()
 
 Update project
 
@@ -321,17 +321,17 @@ import * as fs from 'fs';
 const configuration = .createConfiguration();
 const apiInstance = new .ProjectsApi(configuration);
 
-let body:.ProjectsApiPutProjectsProjectIdRequest = {
+let body:.ProjectsApiProjectsUpdateRequest = {
   // string | Project ID reference
   project_id: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
-  // ProjectBody | Create/Update any field (optional)
-  ProjectBody: {
+  // ProjectBodyPatch | Update any field (optional)
+  ProjectBodyPatch: {
     org_id: "org_id_example",
     name: "name_example",
   },
 };
 
-apiInstance.putProjectsProjectId(body).then((data:any) => {
+apiInstance.projectsUpdate(body).then((data:any) => {
   console.log('API called successfully. Returned data: ' + data);
 }).catch((error:any) => console.error(error));
 ```
@@ -341,7 +341,7 @@ apiInstance.putProjectsProjectId(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ProjectBody** | **ProjectBody**| Create/Update any field |
+ **ProjectBodyPatch** | **ProjectBodyPatch**| Update any field |
  **project_id** | [**string**] | Project ID reference | defaults to undefined
 
 

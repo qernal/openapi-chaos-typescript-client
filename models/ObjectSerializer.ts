@@ -2,15 +2,16 @@ export * from '../models/BadRequestResponse.ts';
 export * from '../models/BadRequestResponseFields.ts';
 export * from '../models/ConflictResponse.ts';
 export * from '../models/DeletedResponse.ts';
-export * from '../models/GetOrganisationsPageParameter.ts';
 export * from '../models/ListOrganisationResponse.ts';
 export * from '../models/ListProjectResponse.ts';
 export * from '../models/NotFoundResponse.ts';
 export * from '../models/OrganisationBody.ts';
 export * from '../models/OrganisationResponse.ts';
+export * from '../models/OrganisationsListPageParameter.ts';
 export * from '../models/PaginationLinks.ts';
 export * from '../models/PaginationMeta.ts';
 export * from '../models/ProjectBody.ts';
+export * from '../models/ProjectBodyPatch.ts';
 export * from '../models/ProjectResponse.ts';
 export * from '../models/UnauthorisedResponse.ts';
 
@@ -18,15 +19,16 @@ import { BadRequestResponse } from '../models/BadRequestResponse.ts';
 import { BadRequestResponseFields } from '../models/BadRequestResponseFields.ts';
 import { ConflictResponse } from '../models/ConflictResponse.ts';
 import { DeletedResponse } from '../models/DeletedResponse.ts';
-import { GetOrganisationsPageParameter } from '../models/GetOrganisationsPageParameter.ts';
 import { ListOrganisationResponse } from '../models/ListOrganisationResponse.ts';
 import { ListProjectResponse } from '../models/ListProjectResponse.ts';
 import { NotFoundResponse } from '../models/NotFoundResponse.ts';
 import { OrganisationBody } from '../models/OrganisationBody.ts';
 import { OrganisationResponse } from '../models/OrganisationResponse.ts';
+import { OrganisationsListPageParameter } from '../models/OrganisationsListPageParameter.ts';
 import { PaginationLinks } from '../models/PaginationLinks.ts';
 import { PaginationMeta } from '../models/PaginationMeta.ts';
 import { ProjectBody } from '../models/ProjectBody.ts';
+import { ProjectBodyPatch } from '../models/ProjectBodyPatch.ts';
 import { ProjectResponse } from '../models/ProjectResponse.ts';
 import { UnauthorisedResponse } from '../models/UnauthorisedResponse.ts';
 
@@ -57,15 +59,16 @@ let typeMap: {[index: string]: any} = {
     "BadRequestResponseFields": BadRequestResponseFields,
     "ConflictResponse": ConflictResponse,
     "DeletedResponse": DeletedResponse,
-    "GetOrganisationsPageParameter": GetOrganisationsPageParameter,
     "ListOrganisationResponse": ListOrganisationResponse,
     "ListProjectResponse": ListProjectResponse,
     "NotFoundResponse": NotFoundResponse,
     "OrganisationBody": OrganisationBody,
     "OrganisationResponse": OrganisationResponse,
+    "OrganisationsListPageParameter": OrganisationsListPageParameter,
     "PaginationLinks": PaginationLinks,
     "PaginationMeta": PaginationMeta,
     "ProjectBody": ProjectBody,
+    "ProjectBodyPatch": ProjectBodyPatch,
     "ProjectResponse": ProjectResponse,
     "UnauthorisedResponse": UnauthorisedResponse,
 }
