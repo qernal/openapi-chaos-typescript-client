@@ -267,7 +267,7 @@ export class OrganisationsApiResponseProcessor {
      */
      public async organisationsCreate(response: ResponseContext): Promise<OrganisationResponse > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
-        if (isCodeInRange("200", response.httpStatusCode)) {
+        if (isCodeInRange("201", response.httpStatusCode)) {
             const body: OrganisationResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "OrganisationResponse", ""

@@ -63,7 +63,7 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Get organisation |  -  |
+**201** | Get organisation |  -  |
 **400** | Resource Bad Request |  -  |
 **403** | Unauthorised |  -  |
 
