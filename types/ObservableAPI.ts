@@ -8,6 +8,7 @@ import { ConflictResponse } from '../models/ConflictResponse.ts';
 import { DeletedResponse } from '../models/DeletedResponse.ts';
 import { ListOrganisationResponse } from '../models/ListOrganisationResponse.ts';
 import { ListProjectResponse } from '../models/ListProjectResponse.ts';
+import { ListSecretResponse } from '../models/ListSecretResponse.ts';
 import { NotFoundResponse } from '../models/NotFoundResponse.ts';
 import { OrganisationBody } from '../models/OrganisationBody.ts';
 import { OrganisationResponse } from '../models/OrganisationResponse.ts';
@@ -17,6 +18,22 @@ import { PaginationMeta } from '../models/PaginationMeta.ts';
 import { ProjectBody } from '../models/ProjectBody.ts';
 import { ProjectBodyPatch } from '../models/ProjectBodyPatch.ts';
 import { ProjectResponse } from '../models/ProjectResponse.ts';
+import { SecretBody } from '../models/SecretBody.ts';
+import { SecretBodyPatch } from '../models/SecretBodyPatch.ts';
+import { SecretCertificate } from '../models/SecretCertificate.ts';
+import { SecretCreatePayload } from '../models/SecretCreatePayload.ts';
+import { SecretCreateType } from '../models/SecretCreateType.ts';
+import { SecretEnvironment } from '../models/SecretEnvironment.ts';
+import { SecretMetaResponse } from '../models/SecretMetaResponse.ts';
+import { SecretMetaResponseCertificatePayload } from '../models/SecretMetaResponseCertificatePayload.ts';
+import { SecretMetaResponseDek } from '../models/SecretMetaResponseDek.ts';
+import { SecretMetaResponsePayload } from '../models/SecretMetaResponsePayload.ts';
+import { SecretMetaResponseRegistryPayload } from '../models/SecretMetaResponseRegistryPayload.ts';
+import { SecretMetaType } from '../models/SecretMetaType.ts';
+import { SecretRegistry } from '../models/SecretRegistry.ts';
+import { SecretResponse } from '../models/SecretResponse.ts';
+import { SecretResponseDate } from '../models/SecretResponseDate.ts';
+import { SecretResponsePayload } from '../models/SecretResponsePayload.ts';
 import { UnauthorisedResponse } from '../models/UnauthorisedResponse.ts';
 
 import { OrganisationsApiRequestFactory, OrganisationsApiResponseProcessor} from "../apis/OrganisationsApi.ts";
@@ -317,6 +334,151 @@ export class ObservableProjectsApi {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
                 return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.projectsUpdate(rsp)));
+            }));
+    }
+
+}
+
+import { SecretsApiRequestFactory, SecretsApiResponseProcessor} from "../apis/SecretsApi.ts";
+export class ObservableSecretsApi {
+    private requestFactory: SecretsApiRequestFactory;
+    private responseProcessor: SecretsApiResponseProcessor;
+    private configuration: Configuration;
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: SecretsApiRequestFactory,
+        responseProcessor?: SecretsApiResponseProcessor
+    ) {
+        this.configuration = configuration;
+        this.requestFactory = requestFactory || new SecretsApiRequestFactory(configuration);
+        this.responseProcessor = responseProcessor || new SecretsApiResponseProcessor();
+    }
+
+    /**
+     * Create a new project secret
+     * Create project secret
+     * @param project_id Project ID reference
+     * @param SecretBody Create/Update any field
+     */
+    public projectsSecretsCreate(project_id: string, SecretBody: SecretBody, _options?: Configuration): Observable<SecretResponse> {
+        const requestContextPromise = this.requestFactory.projectsSecretsCreate(project_id, SecretBody, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.projectsSecretsCreate(rsp)));
+            }));
+    }
+
+    /**
+     * Delete project secret, if the secret is still linked to an active/deployed function - it cannot be removed
+     * Delete project secret
+     * @param project_id Project ID reference
+     * @param secret_name Unique secret name
+     */
+    public projectsSecretsDelete(project_id: string, secret_name: string, _options?: Configuration): Observable<DeletedResponse> {
+        const requestContextPromise = this.requestFactory.projectsSecretsDelete(project_id, secret_name, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.projectsSecretsDelete(rsp)));
+            }));
+    }
+
+    /**
+     * Get a specific project
+     * Get project secret
+     * @param project_id Project ID reference
+     * @param secret_name Unique secret name
+     */
+    public projectsSecretsGet(project_id: string, secret_name: string, _options?: Configuration): Observable<SecretMetaResponse> {
+        const requestContextPromise = this.requestFactory.projectsSecretsGet(project_id, secret_name, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.projectsSecretsGet(rsp)));
+            }));
+    }
+
+    /**
+     * List project secrets of a specific type
+     * List project secrets of a specific type
+     * @param project_id Project ID reference
+     * @param page Query parameters for pagination
+     * @param secret_type Type of secret to filter on
+     */
+    public projectsSecretsList(project_id: string, page?: OrganisationsListPageParameter, secret_type?: SecretMetaType, _options?: Configuration): Observable<ListSecretResponse> {
+        const requestContextPromise = this.requestFactory.projectsSecretsList(project_id, page, secret_type, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.projectsSecretsList(rsp)));
+            }));
+    }
+
+    /**
+     * Update project
+     * Update project secret
+     * @param project_id Project ID reference
+     * @param secret_name Unique secret name
+     * @param SecretBodyPatch Update any field
+     */
+    public projectsSecretsUpdate(project_id: string, secret_name: string, SecretBodyPatch: SecretBodyPatch, _options?: Configuration): Observable<SecretResponse> {
+        const requestContextPromise = this.requestFactory.projectsSecretsUpdate(project_id, secret_name, SecretBodyPatch, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.projectsSecretsUpdate(rsp)));
             }));
     }
 

@@ -4,6 +4,7 @@ export * from '../models/ConflictResponse.ts';
 export * from '../models/DeletedResponse.ts';
 export * from '../models/ListOrganisationResponse.ts';
 export * from '../models/ListProjectResponse.ts';
+export * from '../models/ListSecretResponse.ts';
 export * from '../models/NotFoundResponse.ts';
 export * from '../models/OrganisationBody.ts';
 export * from '../models/OrganisationResponse.ts';
@@ -13,6 +14,22 @@ export * from '../models/PaginationMeta.ts';
 export * from '../models/ProjectBody.ts';
 export * from '../models/ProjectBodyPatch.ts';
 export * from '../models/ProjectResponse.ts';
+export * from '../models/SecretBody.ts';
+export * from '../models/SecretBodyPatch.ts';
+export * from '../models/SecretCertificate.ts';
+export * from '../models/SecretCreatePayload.ts';
+export * from '../models/SecretCreateType.ts';
+export * from '../models/SecretEnvironment.ts';
+export * from '../models/SecretMetaResponse.ts';
+export * from '../models/SecretMetaResponseCertificatePayload.ts';
+export * from '../models/SecretMetaResponseDek.ts';
+export * from '../models/SecretMetaResponsePayload.ts';
+export * from '../models/SecretMetaResponseRegistryPayload.ts';
+export * from '../models/SecretMetaType.ts';
+export * from '../models/SecretRegistry.ts';
+export * from '../models/SecretResponse.ts';
+export * from '../models/SecretResponseDate.ts';
+export * from '../models/SecretResponsePayload.ts';
 export * from '../models/UnauthorisedResponse.ts';
 
 import { BadRequestResponse } from '../models/BadRequestResponse.ts';
@@ -21,6 +38,7 @@ import { ConflictResponse } from '../models/ConflictResponse.ts';
 import { DeletedResponse } from '../models/DeletedResponse.ts';
 import { ListOrganisationResponse } from '../models/ListOrganisationResponse.ts';
 import { ListProjectResponse } from '../models/ListProjectResponse.ts';
+import { ListSecretResponse } from '../models/ListSecretResponse.ts';
 import { NotFoundResponse } from '../models/NotFoundResponse.ts';
 import { OrganisationBody } from '../models/OrganisationBody.ts';
 import { OrganisationResponse } from '../models/OrganisationResponse.ts';
@@ -30,6 +48,22 @@ import { PaginationMeta } from '../models/PaginationMeta.ts';
 import { ProjectBody } from '../models/ProjectBody.ts';
 import { ProjectBodyPatch } from '../models/ProjectBodyPatch.ts';
 import { ProjectResponse } from '../models/ProjectResponse.ts';
+import { SecretBody     } from '../models/SecretBody.ts';
+import { SecretBodyPatch    } from '../models/SecretBodyPatch.ts';
+import { SecretCertificate } from '../models/SecretCertificate.ts';
+import { SecretCreatePayload } from '../models/SecretCreatePayload.ts';
+import { SecretCreateType } from '../models/SecretCreateType.ts';
+import { SecretEnvironment } from '../models/SecretEnvironment.ts';
+import { SecretMetaResponse      } from '../models/SecretMetaResponse.ts';
+import { SecretMetaResponseCertificatePayload } from '../models/SecretMetaResponseCertificatePayload.ts';
+import { SecretMetaResponseDek } from '../models/SecretMetaResponseDek.ts';
+import { SecretMetaResponsePayload } from '../models/SecretMetaResponsePayload.ts';
+import { SecretMetaResponseRegistryPayload } from '../models/SecretMetaResponseRegistryPayload.ts';
+import { SecretMetaType } from '../models/SecretMetaType.ts';
+import { SecretRegistry } from '../models/SecretRegistry.ts';
+import { SecretResponse      } from '../models/SecretResponse.ts';
+import { SecretResponseDate } from '../models/SecretResponseDate.ts';
+import { SecretResponsePayload } from '../models/SecretResponsePayload.ts';
 import { UnauthorisedResponse } from '../models/UnauthorisedResponse.ts';
 
 /* tslint:disable:no-unused-variable */
@@ -52,6 +86,8 @@ const supportedMediaTypes: { [mediaType: string]: number } = {
 
 
 let enumsMap: Set<string> = new Set<string>([
+    "SecretCreateType",
+    "SecretMetaType",
 ]);
 
 let typeMap: {[index: string]: any} = {
@@ -61,6 +97,7 @@ let typeMap: {[index: string]: any} = {
     "DeletedResponse": DeletedResponse,
     "ListOrganisationResponse": ListOrganisationResponse,
     "ListProjectResponse": ListProjectResponse,
+    "ListSecretResponse": ListSecretResponse,
     "NotFoundResponse": NotFoundResponse,
     "OrganisationBody": OrganisationBody,
     "OrganisationResponse": OrganisationResponse,
@@ -70,6 +107,20 @@ let typeMap: {[index: string]: any} = {
     "ProjectBody": ProjectBody,
     "ProjectBodyPatch": ProjectBodyPatch,
     "ProjectResponse": ProjectResponse,
+    "SecretBody": SecretBody,
+    "SecretBodyPatch": SecretBodyPatch,
+    "SecretCertificate": SecretCertificate,
+    "SecretCreatePayload": SecretCreatePayload,
+    "SecretEnvironment": SecretEnvironment,
+    "SecretMetaResponse": SecretMetaResponse,
+    "SecretMetaResponseCertificatePayload": SecretMetaResponseCertificatePayload,
+    "SecretMetaResponseDek": SecretMetaResponseDek,
+    "SecretMetaResponsePayload": SecretMetaResponsePayload,
+    "SecretMetaResponseRegistryPayload": SecretMetaResponseRegistryPayload,
+    "SecretRegistry": SecretRegistry,
+    "SecretResponse": SecretResponse,
+    "SecretResponseDate": SecretResponseDate,
+    "SecretResponsePayload": SecretResponsePayload,
     "UnauthorisedResponse": UnauthorisedResponse,
 }
 

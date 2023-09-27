@@ -7,6 +7,7 @@ import { ConflictResponse } from '../models/ConflictResponse.ts';
 import { DeletedResponse } from '../models/DeletedResponse.ts';
 import { ListOrganisationResponse } from '../models/ListOrganisationResponse.ts';
 import { ListProjectResponse } from '../models/ListProjectResponse.ts';
+import { ListSecretResponse } from '../models/ListSecretResponse.ts';
 import { NotFoundResponse } from '../models/NotFoundResponse.ts';
 import { OrganisationBody } from '../models/OrganisationBody.ts';
 import { OrganisationResponse } from '../models/OrganisationResponse.ts';
@@ -16,6 +17,22 @@ import { PaginationMeta } from '../models/PaginationMeta.ts';
 import { ProjectBody } from '../models/ProjectBody.ts';
 import { ProjectBodyPatch } from '../models/ProjectBodyPatch.ts';
 import { ProjectResponse } from '../models/ProjectResponse.ts';
+import { SecretBody } from '../models/SecretBody.ts';
+import { SecretBodyPatch } from '../models/SecretBodyPatch.ts';
+import { SecretCertificate } from '../models/SecretCertificate.ts';
+import { SecretCreatePayload } from '../models/SecretCreatePayload.ts';
+import { SecretCreateType } from '../models/SecretCreateType.ts';
+import { SecretEnvironment } from '../models/SecretEnvironment.ts';
+import { SecretMetaResponse } from '../models/SecretMetaResponse.ts';
+import { SecretMetaResponseCertificatePayload } from '../models/SecretMetaResponseCertificatePayload.ts';
+import { SecretMetaResponseDek } from '../models/SecretMetaResponseDek.ts';
+import { SecretMetaResponsePayload } from '../models/SecretMetaResponsePayload.ts';
+import { SecretMetaResponseRegistryPayload } from '../models/SecretMetaResponseRegistryPayload.ts';
+import { SecretMetaType } from '../models/SecretMetaType.ts';
+import { SecretRegistry } from '../models/SecretRegistry.ts';
+import { SecretResponse } from '../models/SecretResponse.ts';
+import { SecretResponseDate } from '../models/SecretResponseDate.ts';
+import { SecretResponsePayload } from '../models/SecretResponsePayload.ts';
 import { UnauthorisedResponse } from '../models/UnauthorisedResponse.ts';
 
 import { ObservableOrganisationsApi } from "./ObservableAPI.ts";
@@ -254,6 +271,150 @@ export class ObjectProjectsApi {
      */
     public projectsUpdate(param: ProjectsApiProjectsUpdateRequest, options?: Configuration): Promise<ProjectResponse> {
         return this.api.projectsUpdate(param.project_id, param.ProjectBodyPatch,  options).toPromise();
+    }
+
+}
+
+import { ObservableSecretsApi } from "./ObservableAPI.ts";
+import { SecretsApiRequestFactory, SecretsApiResponseProcessor} from "../apis/SecretsApi.ts";
+
+export interface SecretsApiProjectsSecretsCreateRequest {
+    /**
+     * Project ID reference
+     * @type string
+     * @memberof SecretsApiprojectsSecretsCreate
+     */
+    project_id: string
+    /**
+     * Create/Update any field
+     * @type SecretBody
+     * @memberof SecretsApiprojectsSecretsCreate
+     */
+    SecretBody: SecretBody
+}
+
+export interface SecretsApiProjectsSecretsDeleteRequest {
+    /**
+     * Project ID reference
+     * @type string
+     * @memberof SecretsApiprojectsSecretsDelete
+     */
+    project_id: string
+    /**
+     * Unique secret name
+     * @type string
+     * @memberof SecretsApiprojectsSecretsDelete
+     */
+    secret_name: string
+}
+
+export interface SecretsApiProjectsSecretsGetRequest {
+    /**
+     * Project ID reference
+     * @type string
+     * @memberof SecretsApiprojectsSecretsGet
+     */
+    project_id: string
+    /**
+     * Unique secret name
+     * @type string
+     * @memberof SecretsApiprojectsSecretsGet
+     */
+    secret_name: string
+}
+
+export interface SecretsApiProjectsSecretsListRequest {
+    /**
+     * Project ID reference
+     * @type string
+     * @memberof SecretsApiprojectsSecretsList
+     */
+    project_id: string
+    /**
+     * Query parameters for pagination
+     * @type OrganisationsListPageParameter
+     * @memberof SecretsApiprojectsSecretsList
+     */
+    page?: OrganisationsListPageParameter
+    /**
+     * Type of secret to filter on
+     * @type SecretMetaType
+     * @memberof SecretsApiprojectsSecretsList
+     */
+    secret_type?: SecretMetaType
+}
+
+export interface SecretsApiProjectsSecretsUpdateRequest {
+    /**
+     * Project ID reference
+     * @type string
+     * @memberof SecretsApiprojectsSecretsUpdate
+     */
+    project_id: string
+    /**
+     * Unique secret name
+     * @type string
+     * @memberof SecretsApiprojectsSecretsUpdate
+     */
+    secret_name: string
+    /**
+     * Update any field
+     * @type SecretBodyPatch
+     * @memberof SecretsApiprojectsSecretsUpdate
+     */
+    SecretBodyPatch: SecretBodyPatch
+}
+
+export class ObjectSecretsApi {
+    private api: ObservableSecretsApi
+
+    public constructor(configuration: Configuration, requestFactory?: SecretsApiRequestFactory, responseProcessor?: SecretsApiResponseProcessor) {
+        this.api = new ObservableSecretsApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * Create a new project secret
+     * Create project secret
+     * @param param the request object
+     */
+    public projectsSecretsCreate(param: SecretsApiProjectsSecretsCreateRequest, options?: Configuration): Promise<SecretResponse> {
+        return this.api.projectsSecretsCreate(param.project_id, param.SecretBody,  options).toPromise();
+    }
+
+    /**
+     * Delete project secret, if the secret is still linked to an active/deployed function - it cannot be removed
+     * Delete project secret
+     * @param param the request object
+     */
+    public projectsSecretsDelete(param: SecretsApiProjectsSecretsDeleteRequest, options?: Configuration): Promise<DeletedResponse> {
+        return this.api.projectsSecretsDelete(param.project_id, param.secret_name,  options).toPromise();
+    }
+
+    /**
+     * Get a specific project
+     * Get project secret
+     * @param param the request object
+     */
+    public projectsSecretsGet(param: SecretsApiProjectsSecretsGetRequest, options?: Configuration): Promise<SecretMetaResponse> {
+        return this.api.projectsSecretsGet(param.project_id, param.secret_name,  options).toPromise();
+    }
+
+    /**
+     * List project secrets of a specific type
+     * List project secrets of a specific type
+     * @param param the request object
+     */
+    public projectsSecretsList(param: SecretsApiProjectsSecretsListRequest, options?: Configuration): Promise<ListSecretResponse> {
+        return this.api.projectsSecretsList(param.project_id, param.page, param.secret_type,  options).toPromise();
+    }
+
+    /**
+     * Update project
+     * Update project secret
+     * @param param the request object
+     */
+    public projectsSecretsUpdate(param: SecretsApiProjectsSecretsUpdateRequest, options?: Configuration): Promise<SecretResponse> {
+        return this.api.projectsSecretsUpdate(param.project_id, param.secret_name, param.SecretBodyPatch,  options).toPromise();
     }
 
 }

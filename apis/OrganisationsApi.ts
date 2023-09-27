@@ -9,6 +9,7 @@ import {SecurityAuthentication} from '../auth/auth.ts';
 
 
 import { BadRequestResponse } from '../models/BadRequestResponse.ts';
+import { ConflictResponse } from '../models/ConflictResponse.ts';
 import { DeletedResponse } from '../models/DeletedResponse.ts';
 import { ListOrganisationResponse } from '../models/ListOrganisationResponse.ts';
 import { NotFoundResponse } from '../models/NotFoundResponse.ts';
@@ -287,6 +288,13 @@ export class OrganisationsApiResponseProcessor {
                 "UnauthorisedResponse", ""
             ) as UnauthorisedResponse;
             throw new ApiException<UnauthorisedResponse>(response.httpStatusCode, "Unauthorised", body, response.headers);
+        }
+        if (isCodeInRange("409", response.httpStatusCode)) {
+            const body: ConflictResponse = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "ConflictResponse", ""
+            ) as ConflictResponse;
+            throw new ApiException<ConflictResponse>(response.httpStatusCode, "Resource Conflict", body, response.headers);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml

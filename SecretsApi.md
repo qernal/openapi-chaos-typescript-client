@@ -1,84 +1,20 @@
-# .ProjectsApi
+# .SecretsApi
 
 All URIs are relative to *https://chaos.qernal.com/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**organisationsProjectsList**](ProjectsApi.md#organisationsProjectsList) | **GET** /organisations/{organisation_id}/projects | Get all projects within an organisation
-[**projectsCreate**](ProjectsApi.md#projectsCreate) | **POST** /projects | Create project
-[**projectsDelete**](ProjectsApi.md#projectsDelete) | **DELETE** /projects/{project_id} | Delete project
-[**projectsGet**](ProjectsApi.md#projectsGet) | **GET** /projects/{project_id} | Get project
-[**projectsList**](ProjectsApi.md#projectsList) | **GET** /projects | List projects
-[**projectsUpdate**](ProjectsApi.md#projectsUpdate) | **PUT** /projects/{project_id} | Update project
+[**projectsSecretsCreate**](SecretsApi.md#projectsSecretsCreate) | **POST** /projects/{project_id}/secrets | Create project secret
+[**projectsSecretsDelete**](SecretsApi.md#projectsSecretsDelete) | **DELETE** /projects/{project_id}/secrets/{secret_name} | Delete project secret
+[**projectsSecretsGet**](SecretsApi.md#projectsSecretsGet) | **GET** /projects/{project_id}/secrets/{secret_name} | Get project secret
+[**projectsSecretsList**](SecretsApi.md#projectsSecretsList) | **GET** /projects/{project_id}/secrets | List project secrets of a specific type
+[**projectsSecretsUpdate**](SecretsApi.md#projectsSecretsUpdate) | **PUT** /projects/{project_id}/secrets/{secret_name} | Update project secret
 
 
-# **organisationsProjectsList**
-> ListProjectResponse organisationsProjectsList()
+# **projectsSecretsCreate**
+> SecretResponse projectsSecretsCreate(SecretBody)
 
-Get all the projects linked to a specific organisation
-
-### Example
-
-
-```typescript
-import {  } from '';
-import * as fs from 'fs';
-
-const configuration = .createConfiguration();
-const apiInstance = new .ProjectsApi(configuration);
-
-let body:.ProjectsApiOrganisationsProjectsListRequest = {
-  // string | Organisation ID reference
-  organisation_id: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
-  // OrganisationsListPageParameter | Query parameters for pagination (optional)
-  page: {
-    before: 20,
-    after: 20,
-    size: 20,
-  },
-};
-
-apiInstance.organisationsProjectsList(body).then((data:any) => {
-  console.log('API called successfully. Returned data: ' + data);
-}).catch((error:any) => console.error(error));
-```
-
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **organisation_id** | [**string**] | Organisation ID reference | defaults to undefined
- **page** | **OrganisationsListPageParameter** | Query parameters for pagination | (optional) defaults to undefined
-
-
-### Return type
-
-**ListProjectResponse**
-
-### Authorization
-
-[cookie](README.md#cookie), [token](README.md#token)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | List projects |  -  |
-**404** | Resource Not Found |  -  |
-**403** | Unauthorised |  -  |
-
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
-
-# **projectsCreate**
-> ProjectResponse projectsCreate()
-
-Create a new project
+Create a new project secret
 
 ### Example
 
@@ -88,17 +24,24 @@ import {  } from '';
 import * as fs from 'fs';
 
 const configuration = .createConfiguration();
-const apiInstance = new .ProjectsApi(configuration);
+const apiInstance = new .SecretsApi(configuration);
 
-let body:.ProjectsApiProjectsCreateRequest = {
-  // ProjectBody | Create/Update any field (optional)
-  ProjectBody: {
-    org_id: "org_id_example",
-    name: "name_example",
+let body:.SecretsApiProjectsSecretsCreateRequest = {
+  // string | Project ID reference
+  project_id: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
+  // SecretBody | Create/Update any field
+  SecretBody: {
+    name: "R",
+    type: "registry",
+    payload: {
+    registry: "https://index.docker.io/v1/",
+    registry_value: "SGVsbG8gd29ybGQ=",
+  },
+    encryption: "keys/dek/123",
   },
 };
 
-apiInstance.projectsCreate(body).then((data:any) => {
+apiInstance.projectsSecretsCreate(body).then((data:any) => {
   console.log('API called successfully. Returned data: ' + data);
 }).catch((error:any) => console.error(error));
 ```
@@ -108,12 +51,13 @@ apiInstance.projectsCreate(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ProjectBody** | **ProjectBody**| Create/Update any field |
+ **SecretBody** | **SecretBody**| Create/Update any field |
+ **project_id** | [**string**] | Project ID reference | defaults to undefined
 
 
 ### Return type
 
-**ProjectResponse**
+**SecretResponse**
 
 ### Authorization
 
@@ -128,7 +72,7 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**201** | Get project |  -  |
+**201** | Get secret |  -  |
 **404** | Resource Not Found |  -  |
 **400** | Resource Bad Request |  -  |
 **403** | Unauthorised |  -  |
@@ -136,10 +80,10 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
-# **projectsDelete**
-> DeletedResponse projectsDelete()
+# **projectsSecretsDelete**
+> DeletedResponse projectsSecretsDelete()
 
-Delete project, this will also delete all the resources within the project
+Delete project secret, if the secret is still linked to an active/deployed function - it cannot be removed
 
 ### Example
 
@@ -149,14 +93,16 @@ import {  } from '';
 import * as fs from 'fs';
 
 const configuration = .createConfiguration();
-const apiInstance = new .ProjectsApi(configuration);
+const apiInstance = new .SecretsApi(configuration);
 
-let body:.ProjectsApiProjectsDeleteRequest = {
+let body:.SecretsApiProjectsSecretsDeleteRequest = {
   // string | Project ID reference
   project_id: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
+  // string | Unique secret name
+  secret_name: "MY_SECRET",
 };
 
-apiInstance.projectsDelete(body).then((data:any) => {
+apiInstance.projectsSecretsDelete(body).then((data:any) => {
   console.log('API called successfully. Returned data: ' + data);
 }).catch((error:any) => console.error(error));
 ```
@@ -167,6 +113,7 @@ apiInstance.projectsDelete(body).then((data:any) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_id** | [**string**] | Project ID reference | defaults to undefined
+ **secret_name** | [**string**] | Unique secret name | defaults to undefined
 
 
 ### Return type
@@ -192,8 +139,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
-# **projectsGet**
-> ProjectResponse projectsGet()
+# **projectsSecretsGet**
+> SecretMetaResponse projectsSecretsGet()
 
 Get a specific project
 
@@ -205,14 +152,16 @@ import {  } from '';
 import * as fs from 'fs';
 
 const configuration = .createConfiguration();
-const apiInstance = new .ProjectsApi(configuration);
+const apiInstance = new .SecretsApi(configuration);
 
-let body:.ProjectsApiProjectsGetRequest = {
+let body:.SecretsApiProjectsSecretsGetRequest = {
   // string | Project ID reference
   project_id: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
+  // string | Unique secret name
+  secret_name: "MY_SECRET",
 };
 
-apiInstance.projectsGet(body).then((data:any) => {
+apiInstance.projectsSecretsGet(body).then((data:any) => {
   console.log('API called successfully. Returned data: ' + data);
 }).catch((error:any) => console.error(error));
 ```
@@ -223,11 +172,12 @@ apiInstance.projectsGet(body).then((data:any) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_id** | [**string**] | Project ID reference | defaults to undefined
+ **secret_name** | [**string**] | Unique secret name | defaults to undefined
 
 
 ### Return type
 
-**ProjectResponse**
+**SecretMetaResponse**
 
 ### Authorization
 
@@ -242,16 +192,16 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Get project |  -  |
+**200** | Get secret metadata |  -  |
 **404** | Resource Not Found |  -  |
 **403** | Unauthorised |  -  |
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
-# **projectsList**
-> ListProjectResponse projectsList()
+# **projectsSecretsList**
+> ListSecretResponse projectsSecretsList()
 
-Get all projects for this user, paginated
+List project secrets of a specific type
 
 ### Example
 
@@ -261,18 +211,22 @@ import {  } from '';
 import * as fs from 'fs';
 
 const configuration = .createConfiguration();
-const apiInstance = new .ProjectsApi(configuration);
+const apiInstance = new .SecretsApi(configuration);
 
-let body:.ProjectsApiProjectsListRequest = {
+let body:.SecretsApiProjectsSecretsListRequest = {
+  // string | Project ID reference
+  project_id: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
   // OrganisationsListPageParameter | Query parameters for pagination (optional)
   page: {
     before: 20,
     after: 20,
     size: 20,
   },
+  // SecretMetaType | Type of secret to filter on (optional)
+  secret_type: "registry",
 };
 
-apiInstance.projectsList(body).then((data:any) => {
+apiInstance.projectsSecretsList(body).then((data:any) => {
   console.log('API called successfully. Returned data: ' + data);
 }).catch((error:any) => console.error(error));
 ```
@@ -282,12 +236,14 @@ apiInstance.projectsList(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **project_id** | [**string**] | Project ID reference | defaults to undefined
  **page** | **OrganisationsListPageParameter** | Query parameters for pagination | (optional) defaults to undefined
+ **secret_type** | **SecretMetaType** | Type of secret to filter on | (optional) defaults to undefined
 
 
 ### Return type
 
-**ListProjectResponse**
+**ListSecretResponse**
 
 ### Authorization
 
@@ -302,13 +258,14 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | List projects |  -  |
+**200** | List secrets |  -  |
+**404** | Resource Not Found |  -  |
 **403** | Unauthorised |  -  |
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
-# **projectsUpdate**
-> ProjectResponse projectsUpdate()
+# **projectsSecretsUpdate**
+> SecretResponse projectsSecretsUpdate(SecretBodyPatch)
 
 Update project
 
@@ -320,19 +277,25 @@ import {  } from '';
 import * as fs from 'fs';
 
 const configuration = .createConfiguration();
-const apiInstance = new .ProjectsApi(configuration);
+const apiInstance = new .SecretsApi(configuration);
 
-let body:.ProjectsApiProjectsUpdateRequest = {
+let body:.SecretsApiProjectsSecretsUpdateRequest = {
   // string | Project ID reference
   project_id: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
-  // ProjectBodyPatch | Update any field (optional)
-  ProjectBodyPatch: {
-    org_id: "org_id_example",
-    name: "name_example",
+  // string | Unique secret name
+  secret_name: "MY_SECRET",
+  // SecretBodyPatch | Update any field
+  SecretBodyPatch: {
+    type: "registry",
+    payload: {
+    registry: "https://index.docker.io/v1/",
+    registry_value: "SGVsbG8gd29ybGQ=",
+  },
+    encryption: "keys/dek/123",
   },
 };
 
-apiInstance.projectsUpdate(body).then((data:any) => {
+apiInstance.projectsSecretsUpdate(body).then((data:any) => {
   console.log('API called successfully. Returned data: ' + data);
 }).catch((error:any) => console.error(error));
 ```
@@ -342,13 +305,14 @@ apiInstance.projectsUpdate(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ProjectBodyPatch** | **ProjectBodyPatch**| Update any field |
+ **SecretBodyPatch** | **SecretBodyPatch**| Update any field |
  **project_id** | [**string**] | Project ID reference | defaults to undefined
+ **secret_name** | [**string**] | Unique secret name | defaults to undefined
 
 
 ### Return type
 
-**ProjectResponse**
+**SecretResponse**
 
 ### Authorization
 
@@ -363,7 +327,7 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Get project |  -  |
+**200** | Get secret |  -  |
 **404** | Resource Not Found |  -  |
 **400** | Resource Bad Request |  -  |
 **403** | Unauthorised |  -  |
