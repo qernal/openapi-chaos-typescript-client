@@ -10,8 +10,8 @@
  * Do not edit the class manually.
  */
 
+import { ModelDate } from '../models/ModelDate.ts';
 import { SecretCreateType } from '../models/SecretCreateType.ts';
-import { SecretResponseDate } from '../models/SecretResponseDate.ts';
 import { SecretResponsePayload } from '../models/SecretResponsePayload.ts';
 import { HttpFile } from '../http/http.ts';
 
@@ -29,7 +29,7 @@ export class SecretResponse {
     * Secret revision
     */
     'revision': number;
-    'date': SecretResponseDate;
+    'date': ModelDate;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -61,7 +61,7 @@ export class SecretResponse {
         {
             "name": "date",
             "baseName": "date",
-            "type": "SecretResponseDate",
+            "type": "ModelDate",
             "format": ""
         }    ];
 

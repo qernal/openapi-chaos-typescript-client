@@ -11,29 +11,36 @@
  */
 
 import { ModelDate } from '../models/ModelDate.ts';
-import { SecretMetaResponsePayload } from '../models/SecretMetaResponsePayload.ts';
-import { SecretMetaType } from '../models/SecretMetaType.ts';
 import { HttpFile } from '../http/http.ts';
 
 /**
-* Secret metadata response
+* API auth token meta
 */
-export class SecretMetaResponse {
+export class AuthTokenMeta {
+    'id': string;
     /**
-    * Project name
+    * User
     */
+    'user_id': string;
     'name': string;
-    'type': SecretMetaType;
-    'payload'?: SecretMetaResponsePayload;
-    /**
-    * Secret revision
-    */
-    'revision': number;
+    'expiry_at'?: string;
     'date': ModelDate;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
+        {
+            "name": "id",
+            "baseName": "id",
+            "type": "string",
+            "format": "uuid"
+        },
+        {
+            "name": "user_id",
+            "baseName": "user_id",
+            "type": "string",
+            "format": "uuid"
+        },
         {
             "name": "name",
             "baseName": "name",
@@ -41,22 +48,10 @@ export class SecretMetaResponse {
             "format": ""
         },
         {
-            "name": "type",
-            "baseName": "type",
-            "type": "SecretMetaType",
-            "format": ""
-        },
-        {
-            "name": "payload",
-            "baseName": "payload",
-            "type": "SecretMetaResponsePayload",
-            "format": ""
-        },
-        {
-            "name": "revision",
-            "baseName": "revision",
-            "type": "number",
-            "format": ""
+            "name": "expiry_at",
+            "baseName": "expiry_at",
+            "type": "string",
+            "format": "datetime"
         },
         {
             "name": "date",
@@ -66,12 +61,10 @@ export class SecretMetaResponse {
         }    ];
 
     static getAttributeTypeMap() {
-        return SecretMetaResponse.attributeTypeMap;
+        return AuthTokenMeta.attributeTypeMap;
     }
 
     public constructor() {
     }
 }
-
-
 

@@ -2,13 +2,19 @@ import { ResponseContext, RequestContext, HttpFile } from '../http/http.ts';
 import { Configuration} from '../configuration.ts'
 import { Observable, of, from } from '../rxjsStub.ts';
 import {mergeMap, map} from  '../rxjsStub.ts';
+import { AuthToken } from '../models/AuthToken.ts';
+import { AuthTokenBody } from '../models/AuthTokenBody.ts';
+import { AuthTokenMeta } from '../models/AuthTokenMeta.ts';
+import { AuthTokenPatch } from '../models/AuthTokenPatch.ts';
 import { BadRequestResponse } from '../models/BadRequestResponse.ts';
 import { BadRequestResponseFields } from '../models/BadRequestResponseFields.ts';
 import { ConflictResponse } from '../models/ConflictResponse.ts';
 import { DeletedResponse } from '../models/DeletedResponse.ts';
+import { ListAuthTokens } from '../models/ListAuthTokens.ts';
 import { ListOrganisationResponse } from '../models/ListOrganisationResponse.ts';
 import { ListProjectResponse } from '../models/ListProjectResponse.ts';
 import { ListSecretResponse } from '../models/ListSecretResponse.ts';
+import { ModelDate } from '../models/ModelDate.ts';
 import { NotFoundResponse } from '../models/NotFoundResponse.ts';
 import { OrganisationBody } from '../models/OrganisationBody.ts';
 import { OrganisationResponse } from '../models/OrganisationResponse.ts';
@@ -32,7 +38,6 @@ import { SecretMetaResponseRegistryPayload } from '../models/SecretMetaResponseR
 import { SecretMetaType } from '../models/SecretMetaType.ts';
 import { SecretRegistry } from '../models/SecretRegistry.ts';
 import { SecretResponse } from '../models/SecretResponse.ts';
-import { SecretResponseDate } from '../models/SecretResponseDate.ts';
 import { SecretResponsePayload } from '../models/SecretResponsePayload.ts';
 import { UnauthorisedResponse } from '../models/UnauthorisedResponse.ts';
 
@@ -479,6 +484,141 @@ export class ObservableSecretsApi {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
                 return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.projectsSecretsUpdate(rsp)));
+            }));
+    }
+
+}
+
+import { TokensApiRequestFactory, TokensApiResponseProcessor} from "../apis/TokensApi.ts";
+export class ObservableTokensApi {
+    private requestFactory: TokensApiRequestFactory;
+    private responseProcessor: TokensApiResponseProcessor;
+    private configuration: Configuration;
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: TokensApiRequestFactory,
+        responseProcessor?: TokensApiResponseProcessor
+    ) {
+        this.configuration = configuration;
+        this.requestFactory = requestFactory || new TokensApiRequestFactory(configuration);
+        this.responseProcessor = responseProcessor || new TokensApiResponseProcessor();
+    }
+
+    /**
+     * Create new OAuth client which can be used to access user private data
+     * Create new auth token
+     * @param AuthTokenBody 
+     */
+    public authTokensCreate(AuthTokenBody: AuthTokenBody, _options?: Configuration): Observable<AuthToken> {
+        const requestContextPromise = this.requestFactory.authTokensCreate(AuthTokenBody, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.authTokensCreate(rsp)));
+            }));
+    }
+
+    /**
+     * Delete token
+     * @param token_id Token ID reference
+     */
+    public authTokensDelete(token_id: string, _options?: Configuration): Observable<DeletedResponse> {
+        const requestContextPromise = this.requestFactory.authTokensDelete(token_id, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.authTokensDelete(rsp)));
+            }));
+    }
+
+    /**
+     * Get token information
+     * @param token_id Token ID reference
+     */
+    public authTokensGet(token_id: string, _options?: Configuration): Observable<AuthTokenMeta> {
+        const requestContextPromise = this.requestFactory.authTokensGet(token_id, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.authTokensGet(rsp)));
+            }));
+    }
+
+    /**
+     * List all user auth tokens
+     * @param page Query parameters for pagination
+     */
+    public authTokensList(page?: OrganisationsListPageParameter, _options?: Configuration): Observable<ListAuthTokens> {
+        const requestContextPromise = this.requestFactory.authTokensList(page, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.authTokensList(rsp)));
+            }));
+    }
+
+    /**
+     * Update token
+     * @param token_id Token ID reference
+     * @param AuthTokenPatch 
+     */
+    public authTokensUpdate(token_id: string, AuthTokenPatch: AuthTokenPatch, _options?: Configuration): Observable<AuthToken> {
+        const requestContextPromise = this.requestFactory.authTokensUpdate(token_id, AuthTokenPatch, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.authTokensUpdate(rsp)));
             }));
     }
 

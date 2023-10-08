@@ -1,84 +1,20 @@
-# .ProjectsApi
+# .TokensApi
 
 All URIs are relative to *https://chaos.qernal.com/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**organisationsProjectsList**](ProjectsApi.md#organisationsProjectsList) | **GET** /organisations/{organisation_id}/projects | Get all projects within an organisation
-[**projectsCreate**](ProjectsApi.md#projectsCreate) | **POST** /projects | Create project
-[**projectsDelete**](ProjectsApi.md#projectsDelete) | **DELETE** /projects/{project_id} | Delete project
-[**projectsGet**](ProjectsApi.md#projectsGet) | **GET** /projects/{project_id} | Get project
-[**projectsList**](ProjectsApi.md#projectsList) | **GET** /projects | List projects
-[**projectsUpdate**](ProjectsApi.md#projectsUpdate) | **PUT** /projects/{project_id} | Update project
+[**authTokensCreate**](TokensApi.md#authTokensCreate) | **POST** /auth/tokens | Create new auth token
+[**authTokensDelete**](TokensApi.md#authTokensDelete) | **DELETE** /auth/tokens/{token_id} | Delete token
+[**authTokensGet**](TokensApi.md#authTokensGet) | **GET** /auth/tokens/{token_id} | Get token information
+[**authTokensList**](TokensApi.md#authTokensList) | **GET** /auth/tokens | List all user auth tokens
+[**authTokensUpdate**](TokensApi.md#authTokensUpdate) | **PUT** /auth/tokens/{token_id} | Update token
 
 
-# **organisationsProjectsList**
-> ListProjectResponse organisationsProjectsList()
+# **authTokensCreate**
+> AuthToken authTokensCreate(AuthTokenBody)
 
-Get all the projects linked to a specific organisation
-
-### Example
-
-
-```typescript
-import {  } from '';
-import * as fs from 'fs';
-
-const configuration = .createConfiguration();
-const apiInstance = new .ProjectsApi(configuration);
-
-let body:.ProjectsApiOrganisationsProjectsListRequest = {
-  // string | Organisation ID reference
-  organisation_id: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
-  // OrganisationsListPageParameter | Query parameters for pagination (optional)
-  page: {
-    before: 20,
-    after: 20,
-    size: 20,
-  },
-};
-
-apiInstance.organisationsProjectsList(body).then((data:any) => {
-  console.log('API called successfully. Returned data: ' + data);
-}).catch((error:any) => console.error(error));
-```
-
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **organisation_id** | [**string**] | Organisation ID reference | defaults to undefined
- **page** | **OrganisationsListPageParameter** | Query parameters for pagination | (optional) defaults to undefined
-
-
-### Return type
-
-**ListProjectResponse**
-
-### Authorization
-
-[cookie](README.md#cookie), [token](README.md#token)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | List projects |  -  |
-**404** | Resource Not Found |  -  |
-**403** | Unauthorised |  -  |
-
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
-
-# **projectsCreate**
-> ProjectResponse projectsCreate()
-
-Create a new project
+Create new OAuth client which can be used to access user private data
 
 ### Example
 
@@ -88,17 +24,17 @@ import {  } from '';
 import * as fs from 'fs';
 
 const configuration = .createConfiguration();
-const apiInstance = new .ProjectsApi(configuration);
+const apiInstance = new .TokensApi(configuration);
 
-let body:.ProjectsApiProjectsCreateRequest = {
-  // ProjectBody | Create/Update any field (optional)
-  ProjectBody: {
-    org_id: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
-    name: "first api",
+let body:.TokensApiAuthTokensCreateRequest = {
+  // AuthTokenBody
+  AuthTokenBody: {
+    name: "Build token",
+    expiry_duration: 1,
   },
 };
 
-apiInstance.projectsCreate(body).then((data:any) => {
+apiInstance.authTokensCreate(body).then((data:any) => {
   console.log('API called successfully. Returned data: ' + data);
 }).catch((error:any) => console.error(error));
 ```
@@ -108,12 +44,12 @@ apiInstance.projectsCreate(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ProjectBody** | **ProjectBody**| Create/Update any field |
+ **AuthTokenBody** | **AuthTokenBody**|  |
 
 
 ### Return type
 
-**ProjectResponse**
+**AuthToken**
 
 ### Authorization
 
@@ -128,18 +64,15 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**201** | Get project |  -  |
+**200** | OAuth2 with client id and client secret |  -  |
 **404** | Resource Not Found |  -  |
 **400** | Resource Bad Request |  -  |
-**403** | Unauthorised |  -  |
-**409** | Resource Conflict |  -  |
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
-# **projectsDelete**
-> DeletedResponse projectsDelete()
+# **authTokensDelete**
+> DeletedResponse authTokensDelete()
 
-Delete project, this will also delete all the resources within the project
 
 ### Example
 
@@ -149,14 +82,14 @@ import {  } from '';
 import * as fs from 'fs';
 
 const configuration = .createConfiguration();
-const apiInstance = new .ProjectsApi(configuration);
+const apiInstance = new .TokensApi(configuration);
 
-let body:.ProjectsApiProjectsDeleteRequest = {
-  // string | Project ID reference
-  project_id: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
+let body:.TokensApiAuthTokensDeleteRequest = {
+  // string | Token ID reference
+  token_id: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
 };
 
-apiInstance.projectsDelete(body).then((data:any) => {
+apiInstance.authTokensDelete(body).then((data:any) => {
   console.log('API called successfully. Returned data: ' + data);
 }).catch((error:any) => console.error(error));
 ```
@@ -166,7 +99,7 @@ apiInstance.projectsDelete(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | [**string**] | Project ID reference | defaults to undefined
+ **token_id** | [**string**] | Token ID reference | defaults to undefined
 
 
 ### Return type
@@ -188,14 +121,12 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **200** | Resource deleted |  -  |
 **404** | Resource Not Found |  -  |
-**403** | Unauthorised |  -  |
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
-# **projectsGet**
-> ProjectResponse projectsGet()
+# **authTokensGet**
+> AuthTokenMeta authTokensGet()
 
-Get a specific project
 
 ### Example
 
@@ -205,14 +136,14 @@ import {  } from '';
 import * as fs from 'fs';
 
 const configuration = .createConfiguration();
-const apiInstance = new .ProjectsApi(configuration);
+const apiInstance = new .TokensApi(configuration);
 
-let body:.ProjectsApiProjectsGetRequest = {
-  // string | Project ID reference
-  project_id: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
+let body:.TokensApiAuthTokensGetRequest = {
+  // string | Token ID reference
+  token_id: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
 };
 
-apiInstance.projectsGet(body).then((data:any) => {
+apiInstance.authTokensGet(body).then((data:any) => {
   console.log('API called successfully. Returned data: ' + data);
 }).catch((error:any) => console.error(error));
 ```
@@ -222,12 +153,12 @@ apiInstance.projectsGet(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | [**string**] | Project ID reference | defaults to undefined
+ **token_id** | [**string**] | Token ID reference | defaults to undefined
 
 
 ### Return type
 
-**ProjectResponse**
+**AuthTokenMeta**
 
 ### Authorization
 
@@ -242,16 +173,15 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Get project |  -  |
+**200** | Token meta information |  -  |
 **404** | Resource Not Found |  -  |
-**403** | Unauthorised |  -  |
+**400** | Resource Bad Request |  -  |
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
-# **projectsList**
-> ListProjectResponse projectsList()
+# **authTokensList**
+> ListAuthTokens authTokensList()
 
-Get all projects for this user, paginated
 
 ### Example
 
@@ -261,9 +191,9 @@ import {  } from '';
 import * as fs from 'fs';
 
 const configuration = .createConfiguration();
-const apiInstance = new .ProjectsApi(configuration);
+const apiInstance = new .TokensApi(configuration);
 
-let body:.ProjectsApiProjectsListRequest = {
+let body:.TokensApiAuthTokensListRequest = {
   // OrganisationsListPageParameter | Query parameters for pagination (optional)
   page: {
     before: 20,
@@ -272,7 +202,7 @@ let body:.ProjectsApiProjectsListRequest = {
   },
 };
 
-apiInstance.projectsList(body).then((data:any) => {
+apiInstance.authTokensList(body).then((data:any) => {
   console.log('API called successfully. Returned data: ' + data);
 }).catch((error:any) => console.error(error));
 ```
@@ -287,7 +217,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**ListProjectResponse**
+**ListAuthTokens**
 
 ### Authorization
 
@@ -302,15 +232,15 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | List projects |  -  |
-**403** | Unauthorised |  -  |
+**200** | List of auth token meta |  -  |
+**404** | Resource Not Found |  -  |
+**400** | Resource Bad Request |  -  |
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
-# **projectsUpdate**
-> ProjectResponse projectsUpdate()
+# **authTokensUpdate**
+> AuthToken authTokensUpdate(AuthTokenPatch)
 
-Update project
 
 ### Example
 
@@ -320,19 +250,16 @@ import {  } from '';
 import * as fs from 'fs';
 
 const configuration = .createConfiguration();
-const apiInstance = new .ProjectsApi(configuration);
+const apiInstance = new .TokensApi(configuration);
 
-let body:.ProjectsApiProjectsUpdateRequest = {
-  // string | Project ID reference
-  project_id: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
-  // ProjectBodyPatch | Update any field (optional)
-  ProjectBodyPatch: {
-    org_id: "org_id_example",
-    name: "name_example",
-  },
+let body:.TokensApiAuthTokensUpdateRequest = {
+  // string | Token ID reference
+  token_id: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
+  // AuthTokenPatch
+  AuthTokenPatch: null,
 };
 
-apiInstance.projectsUpdate(body).then((data:any) => {
+apiInstance.authTokensUpdate(body).then((data:any) => {
   console.log('API called successfully. Returned data: ' + data);
 }).catch((error:any) => console.error(error));
 ```
@@ -342,13 +269,13 @@ apiInstance.projectsUpdate(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ProjectBodyPatch** | **ProjectBodyPatch**| Update any field |
- **project_id** | [**string**] | Project ID reference | defaults to undefined
+ **AuthTokenPatch** | **AuthTokenPatch**|  |
+ **token_id** | [**string**] | Token ID reference | defaults to undefined
 
 
 ### Return type
 
-**ProjectResponse**
+**AuthToken**
 
 ### Authorization
 
@@ -363,10 +290,9 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Get project |  -  |
+**200** | OAuth2 with client id and client secret |  -  |
 **404** | Resource Not Found |  -  |
 **400** | Resource Bad Request |  -  |
-**403** | Unauthorised |  -  |
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 

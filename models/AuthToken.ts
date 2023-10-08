@@ -11,29 +11,43 @@
  */
 
 import { ModelDate } from '../models/ModelDate.ts';
-import { SecretMetaResponsePayload } from '../models/SecretMetaResponsePayload.ts';
-import { SecretMetaType } from '../models/SecretMetaType.ts';
 import { HttpFile } from '../http/http.ts';
 
 /**
-* Secret metadata response
+* API auth token
 */
-export class SecretMetaResponse {
+export class AuthToken {
+    'id': string;
     /**
-    * Project name
+    * User
+    */
+    'user_id': string;
+    /**
+    * Token name
     */
     'name': string;
-    'type': SecretMetaType;
-    'payload'?: SecretMetaResponsePayload;
+    'expiry_at'?: string;
     /**
-    * Secret revision
+    * OAuth2 client id and client secret used to generate API access token. Client secret can\'t be created and must be saved on user side
     */
-    'revision': number;
+    'token'?: string;
     'date': ModelDate;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
+        {
+            "name": "id",
+            "baseName": "id",
+            "type": "string",
+            "format": "uuid"
+        },
+        {
+            "name": "user_id",
+            "baseName": "user_id",
+            "type": "string",
+            "format": "uuid"
+        },
         {
             "name": "name",
             "baseName": "name",
@@ -41,21 +55,15 @@ export class SecretMetaResponse {
             "format": ""
         },
         {
-            "name": "type",
-            "baseName": "type",
-            "type": "SecretMetaType",
-            "format": ""
+            "name": "expiry_at",
+            "baseName": "expiry_at",
+            "type": "string",
+            "format": "datetime"
         },
         {
-            "name": "payload",
-            "baseName": "payload",
-            "type": "SecretMetaResponsePayload",
-            "format": ""
-        },
-        {
-            "name": "revision",
-            "baseName": "revision",
-            "type": "number",
+            "name": "token",
+            "baseName": "token",
+            "type": "string",
             "format": ""
         },
         {
@@ -66,12 +74,10 @@ export class SecretMetaResponse {
         }    ];
 
     static getAttributeTypeMap() {
-        return SecretMetaResponse.attributeTypeMap;
+        return AuthToken.attributeTypeMap;
     }
 
     public constructor() {
     }
 }
-
-
 

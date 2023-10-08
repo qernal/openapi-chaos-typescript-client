@@ -1,13 +1,19 @@
 import { ResponseContext, RequestContext, HttpFile } from '../http/http.ts';
 import { Configuration} from '../configuration.ts'
 
+import { AuthToken } from '../models/AuthToken.ts';
+import { AuthTokenBody } from '../models/AuthTokenBody.ts';
+import { AuthTokenMeta } from '../models/AuthTokenMeta.ts';
+import { AuthTokenPatch } from '../models/AuthTokenPatch.ts';
 import { BadRequestResponse } from '../models/BadRequestResponse.ts';
 import { BadRequestResponseFields } from '../models/BadRequestResponseFields.ts';
 import { ConflictResponse } from '../models/ConflictResponse.ts';
 import { DeletedResponse } from '../models/DeletedResponse.ts';
+import { ListAuthTokens } from '../models/ListAuthTokens.ts';
 import { ListOrganisationResponse } from '../models/ListOrganisationResponse.ts';
 import { ListProjectResponse } from '../models/ListProjectResponse.ts';
 import { ListSecretResponse } from '../models/ListSecretResponse.ts';
+import { ModelDate } from '../models/ModelDate.ts';
 import { NotFoundResponse } from '../models/NotFoundResponse.ts';
 import { OrganisationBody } from '../models/OrganisationBody.ts';
 import { OrganisationResponse } from '../models/OrganisationResponse.ts';
@@ -31,7 +37,6 @@ import { SecretMetaResponseRegistryPayload } from '../models/SecretMetaResponseR
 import { SecretMetaType } from '../models/SecretMetaType.ts';
 import { SecretRegistry } from '../models/SecretRegistry.ts';
 import { SecretResponse } from '../models/SecretResponse.ts';
-import { SecretResponseDate } from '../models/SecretResponseDate.ts';
 import { SecretResponsePayload } from '../models/SecretResponsePayload.ts';
 import { UnauthorisedResponse } from '../models/UnauthorisedResponse.ts';
 
@@ -415,6 +420,110 @@ export class ObjectSecretsApi {
      */
     public projectsSecretsUpdate(param: SecretsApiProjectsSecretsUpdateRequest, options?: Configuration): Promise<SecretResponse> {
         return this.api.projectsSecretsUpdate(param.project_id, param.secret_name, param.SecretBodyPatch,  options).toPromise();
+    }
+
+}
+
+import { ObservableTokensApi } from "./ObservableAPI.ts";
+import { TokensApiRequestFactory, TokensApiResponseProcessor} from "../apis/TokensApi.ts";
+
+export interface TokensApiAuthTokensCreateRequest {
+    /**
+     * 
+     * @type AuthTokenBody
+     * @memberof TokensApiauthTokensCreate
+     */
+    AuthTokenBody: AuthTokenBody
+}
+
+export interface TokensApiAuthTokensDeleteRequest {
+    /**
+     * Token ID reference
+     * @type string
+     * @memberof TokensApiauthTokensDelete
+     */
+    token_id: string
+}
+
+export interface TokensApiAuthTokensGetRequest {
+    /**
+     * Token ID reference
+     * @type string
+     * @memberof TokensApiauthTokensGet
+     */
+    token_id: string
+}
+
+export interface TokensApiAuthTokensListRequest {
+    /**
+     * Query parameters for pagination
+     * @type OrganisationsListPageParameter
+     * @memberof TokensApiauthTokensList
+     */
+    page?: OrganisationsListPageParameter
+}
+
+export interface TokensApiAuthTokensUpdateRequest {
+    /**
+     * Token ID reference
+     * @type string
+     * @memberof TokensApiauthTokensUpdate
+     */
+    token_id: string
+    /**
+     * 
+     * @type AuthTokenPatch
+     * @memberof TokensApiauthTokensUpdate
+     */
+    AuthTokenPatch: AuthTokenPatch
+}
+
+export class ObjectTokensApi {
+    private api: ObservableTokensApi
+
+    public constructor(configuration: Configuration, requestFactory?: TokensApiRequestFactory, responseProcessor?: TokensApiResponseProcessor) {
+        this.api = new ObservableTokensApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * Create new OAuth client which can be used to access user private data
+     * Create new auth token
+     * @param param the request object
+     */
+    public authTokensCreate(param: TokensApiAuthTokensCreateRequest, options?: Configuration): Promise<AuthToken> {
+        return this.api.authTokensCreate(param.AuthTokenBody,  options).toPromise();
+    }
+
+    /**
+     * Delete token
+     * @param param the request object
+     */
+    public authTokensDelete(param: TokensApiAuthTokensDeleteRequest, options?: Configuration): Promise<DeletedResponse> {
+        return this.api.authTokensDelete(param.token_id,  options).toPromise();
+    }
+
+    /**
+     * Get token information
+     * @param param the request object
+     */
+    public authTokensGet(param: TokensApiAuthTokensGetRequest, options?: Configuration): Promise<AuthTokenMeta> {
+        return this.api.authTokensGet(param.token_id,  options).toPromise();
+    }
+
+    /**
+     * List all user auth tokens
+     * @param param the request object
+     */
+    public authTokensList(param: TokensApiAuthTokensListRequest = {}, options?: Configuration): Promise<ListAuthTokens> {
+        return this.api.authTokensList(param.page,  options).toPromise();
+    }
+
+    /**
+     * Update token
+     * @param param the request object
+     */
+    public authTokensUpdate(param: TokensApiAuthTokensUpdateRequest, options?: Configuration): Promise<AuthToken> {
+        return this.api.authTokensUpdate(param.token_id, param.AuthTokenPatch,  options).toPromise();
     }
 
 }

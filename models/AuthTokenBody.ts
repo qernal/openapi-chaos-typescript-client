@@ -12,28 +12,37 @@
 
 import { HttpFile } from '../http/http.ts';
 
-export class SecretResponseDate {
-    'created_at': Date;
-    'updated_at': Date;
+/**
+* API auth token create
+*/
+export class AuthTokenBody {
+    /**
+    * Token name
+    */
+    'name': string;
+    /**
+    * Token expiration duration in days. 0 - token will never expire
+    */
+    'expiry_duration': number;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "created_at",
-            "baseName": "created_at",
-            "type": "Date",
-            "format": "date-time"
+            "name": "name",
+            "baseName": "name",
+            "type": "string",
+            "format": ""
         },
         {
-            "name": "updated_at",
-            "baseName": "updated_at",
-            "type": "Date",
-            "format": "date-time"
+            "name": "expiry_duration",
+            "baseName": "expiry_duration",
+            "type": "number",
+            "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return SecretResponseDate.attributeTypeMap;
+        return AuthTokenBody.attributeTypeMap;
     }
 
     public constructor() {

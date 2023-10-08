@@ -1,13 +1,19 @@
 import { ResponseContext, RequestContext, HttpFile } from '../http/http.ts';
 import { Configuration} from '../configuration.ts'
 
+import { AuthToken } from '../models/AuthToken.ts';
+import { AuthTokenBody } from '../models/AuthTokenBody.ts';
+import { AuthTokenMeta } from '../models/AuthTokenMeta.ts';
+import { AuthTokenPatch } from '../models/AuthTokenPatch.ts';
 import { BadRequestResponse } from '../models/BadRequestResponse.ts';
 import { BadRequestResponseFields } from '../models/BadRequestResponseFields.ts';
 import { ConflictResponse } from '../models/ConflictResponse.ts';
 import { DeletedResponse } from '../models/DeletedResponse.ts';
+import { ListAuthTokens } from '../models/ListAuthTokens.ts';
 import { ListOrganisationResponse } from '../models/ListOrganisationResponse.ts';
 import { ListProjectResponse } from '../models/ListProjectResponse.ts';
 import { ListSecretResponse } from '../models/ListSecretResponse.ts';
+import { ModelDate } from '../models/ModelDate.ts';
 import { NotFoundResponse } from '../models/NotFoundResponse.ts';
 import { OrganisationBody } from '../models/OrganisationBody.ts';
 import { OrganisationResponse } from '../models/OrganisationResponse.ts';
@@ -31,7 +37,6 @@ import { SecretMetaResponseRegistryPayload } from '../models/SecretMetaResponseR
 import { SecretMetaType } from '../models/SecretMetaType.ts';
 import { SecretRegistry } from '../models/SecretRegistry.ts';
 import { SecretResponse } from '../models/SecretResponse.ts';
-import { SecretResponseDate } from '../models/SecretResponseDate.ts';
 import { SecretResponsePayload } from '../models/SecretResponsePayload.ts';
 import { UnauthorisedResponse } from '../models/UnauthorisedResponse.ts';
 import { ObservableOrganisationsApi } from './ObservableAPI.ts';
@@ -253,6 +258,72 @@ export class PromiseSecretsApi {
      */
     public projectsSecretsUpdate(project_id: string, secret_name: string, SecretBodyPatch: SecretBodyPatch, _options?: Configuration): Promise<SecretResponse> {
         const result = this.api.projectsSecretsUpdate(project_id, secret_name, SecretBodyPatch, _options);
+        return result.toPromise();
+    }
+
+
+}
+
+
+
+import { ObservableTokensApi } from './ObservableAPI.ts';
+
+import { TokensApiRequestFactory, TokensApiResponseProcessor} from "../apis/TokensApi.ts";
+export class PromiseTokensApi {
+    private api: ObservableTokensApi
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: TokensApiRequestFactory,
+        responseProcessor?: TokensApiResponseProcessor
+    ) {
+        this.api = new ObservableTokensApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * Create new OAuth client which can be used to access user private data
+     * Create new auth token
+     * @param AuthTokenBody 
+     */
+    public authTokensCreate(AuthTokenBody: AuthTokenBody, _options?: Configuration): Promise<AuthToken> {
+        const result = this.api.authTokensCreate(AuthTokenBody, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Delete token
+     * @param token_id Token ID reference
+     */
+    public authTokensDelete(token_id: string, _options?: Configuration): Promise<DeletedResponse> {
+        const result = this.api.authTokensDelete(token_id, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Get token information
+     * @param token_id Token ID reference
+     */
+    public authTokensGet(token_id: string, _options?: Configuration): Promise<AuthTokenMeta> {
+        const result = this.api.authTokensGet(token_id, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * List all user auth tokens
+     * @param page Query parameters for pagination
+     */
+    public authTokensList(page?: OrganisationsListPageParameter, _options?: Configuration): Promise<ListAuthTokens> {
+        const result = this.api.authTokensList(page, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Update token
+     * @param token_id Token ID reference
+     * @param AuthTokenPatch 
+     */
+    public authTokensUpdate(token_id: string, AuthTokenPatch: AuthTokenPatch, _options?: Configuration): Promise<AuthToken> {
+        const result = this.api.authTokensUpdate(token_id, AuthTokenPatch, _options);
         return result.toPromise();
     }
 

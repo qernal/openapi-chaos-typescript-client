@@ -29,7 +29,7 @@ const apiInstance = new .OrganisationsApi(configuration);
 let body:.OrganisationsApiOrganisationsCreateRequest = {
   // OrganisationBody | Create/Update any field (optional)
   OrganisationBody: {
-    name: "name_example",
+    name: "my org",
   },
 };
 
@@ -261,7 +261,7 @@ let body:.OrganisationsApiOrganisationsUpdateRequest = {
   organisation_id: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
   // OrganisationBody | Create/Update any field (optional)
   OrganisationBody: {
-    name: "name_example",
+    name: "my org",
   },
 };
 
