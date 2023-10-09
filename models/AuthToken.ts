@@ -17,18 +17,21 @@ import { HttpFile } from '../http/http.ts';
 * API auth token
 */
 export class AuthToken {
+    /**
+    * Auth token uuid
+    */
     'id': string;
     /**
     * User
     */
     'user_id': string;
     /**
-    * Token name
+    * Name of token
     */
     'name': string;
     'expiry_at'?: string;
     /**
-    * OAuth2 client id and client secret used to generate API access token. Client secret can\'t be created and must be saved on user side
+    * Combined token required for requesting an access token, this field is only returned once on creation or update (during regeneration).
     */
     'token'?: string;
     'date': ModelDate;

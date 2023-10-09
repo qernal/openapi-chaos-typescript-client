@@ -24,7 +24,7 @@ import { OrganisationsListPageParameter } from '../models/OrganisationsListPageP
 export class TokensApiRequestFactory extends BaseAPIRequestFactory {
 
     /**
-     * Create new OAuth client which can be used to access user private data
+     * Create new auth token for use with the CLI and TF Provider  ### Warning The `token` field is only shown once and can\'t be retrieved again without generating a new token. Securely save this once the response has been received. 
      * Create new auth token
      * @param AuthTokenBody 
      */

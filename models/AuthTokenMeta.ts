@@ -22,6 +22,9 @@ export class AuthTokenMeta {
     * User
     */
     'user_id': string;
+    /**
+    * Name of token
+    */
     'name': string;
     'expiry_at'?: string;
     'date': ModelDate;

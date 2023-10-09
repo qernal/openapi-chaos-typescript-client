@@ -22,22 +22,22 @@ export interface TokenProvider {
 }
 
 /**
- * Applies apiKey authentication to the request context.
+ * Applies http authentication to the request context.
  */
 export class TokenAuthentication implements SecurityAuthentication {
     /**
-     * Configures this api key authentication with the necessary properties
+     * Configures the http authentication with the required details.
      *
-     * @param apiKey: The api key to be used for every request
+     * @param tokenProvider service that can provide the up-to-date token when needed
      */
-    public constructor(private apiKey: string) {}
+    public constructor(private tokenProvider: TokenProvider) {}
 
     public getName(): string {
         return "token";
     }
 
-    public applySecurityAuthentication(context: RequestContext) {
-        context.setHeaderParam("QERNAL-AUTH-TOKEN", this.apiKey);
+    public async applySecurityAuthentication(context: RequestContext) {
+        context.setHeaderParam("Authorization", "Bearer " + await this.tokenProvider.getToken());
     }
 }
 
@@ -75,7 +75,7 @@ export type OAuth2Configuration = { accessToken: string };
 
 export type AuthMethodsConfiguration = {
     "default"?: SecurityAuthentication,
-    "token"?: ApiKeyConfiguration,
+    "token"?: HttpBearerConfiguration,
     "cookie"?: ApiKeyConfiguration
 }
 
@@ -93,7 +93,7 @@ export function configureAuthMethods(config: AuthMethodsConfiguration | undefine
 
     if (config["token"]) {
         authMethods["token"] = new TokenAuthentication(
-            config["token"]
+            config["token"]["tokenProvider"]
         );
     }
 

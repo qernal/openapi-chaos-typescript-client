@@ -14,7 +14,7 @@ Method | HTTP request | Description
 # **authTokensCreate**
 > AuthToken authTokensCreate(AuthTokenBody)
 
-Create new OAuth client which can be used to access user private data
+Create new auth token for use with the CLI and TF Provider  ### Warning The `token` field is only shown once and can\'t be retrieved again without generating a new token. Securely save this once the response has been received. 
 
 ### Example
 
@@ -29,8 +29,8 @@ const apiInstance = new .TokensApi(configuration);
 let body:.TokensApiAuthTokensCreateRequest = {
   // AuthTokenBody
   AuthTokenBody: {
-    name: "Build token",
-    expiry_duration: 1,
+    name: "TF token",
+    expiry_duration: 90,
   },
 };
 
@@ -64,7 +64,7 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | OAuth2 with client id and client secret |  -  |
+**200** | Generated token response |  -  |
 **404** | Resource Not Found |  -  |
 **400** | Resource Bad Request |  -  |
 
@@ -290,7 +290,7 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | OAuth2 with client id and client secret |  -  |
+**200** | Generated token response |  -  |
 **404** | Resource Not Found |  -  |
 **400** | Resource Bad Request |  -  |
 

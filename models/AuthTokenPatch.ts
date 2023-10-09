@@ -17,7 +17,7 @@ import { HttpFile } from '../http/http.ts';
 */
 export class AuthTokenPatch {
     /**
-    * Token name
+    * Name of token
     */
     'name'?: string;
     /**

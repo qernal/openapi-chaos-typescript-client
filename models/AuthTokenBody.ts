@@ -17,7 +17,7 @@ import { HttpFile } from '../http/http.ts';
 */
 export class AuthTokenBody {
     /**
-    * Token name
+    * Name of token
     */
     'name': string;
     /**
