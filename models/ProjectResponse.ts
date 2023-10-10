@@ -10,6 +10,7 @@
  * Do not edit the class manually.
  */
 
+import { ModelDate } from '../models/ModelDate.ts';
 import { HttpFile } from '../http/http.ts';
 
 /**
@@ -28,6 +29,7 @@ export class ProjectResponse {
     * Project name
     */
     'name': string;
+    'date': ModelDate;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -48,6 +50,12 @@ export class ProjectResponse {
             "name": "name",
             "baseName": "name",
             "type": "string",
+            "format": ""
+        },
+        {
+            "name": "date",
+            "baseName": "date",
+            "type": "ModelDate",
             "format": ""
         }    ];
 
