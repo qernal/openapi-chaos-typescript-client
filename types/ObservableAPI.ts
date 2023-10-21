@@ -10,7 +10,11 @@ import { BadRequestResponse } from '../models/BadRequestResponse.ts';
 import { BadRequestResponseFields } from '../models/BadRequestResponseFields.ts';
 import { ConflictResponse } from '../models/ConflictResponse.ts';
 import { DeletedResponse } from '../models/DeletedResponse.ts';
+import { Host } from '../models/Host.ts';
+import { HostBody } from '../models/HostBody.ts';
+import { HostBodyPatch } from '../models/HostBodyPatch.ts';
 import { ListAuthTokens } from '../models/ListAuthTokens.ts';
+import { ListHosts } from '../models/ListHosts.ts';
 import { ListOrganisationResponse } from '../models/ListOrganisationResponse.ts';
 import { ListProjectResponse } from '../models/ListProjectResponse.ts';
 import { ListSecretResponse } from '../models/ListSecretResponse.ts';
@@ -40,6 +44,146 @@ import { SecretRegistry } from '../models/SecretRegistry.ts';
 import { SecretResponse } from '../models/SecretResponse.ts';
 import { SecretResponsePayload } from '../models/SecretResponsePayload.ts';
 import { UnauthorisedResponse } from '../models/UnauthorisedResponse.ts';
+
+import { HostsApiRequestFactory, HostsApiResponseProcessor} from "../apis/HostsApi.ts";
+export class ObservableHostsApi {
+    private requestFactory: HostsApiRequestFactory;
+    private responseProcessor: HostsApiResponseProcessor;
+    private configuration: Configuration;
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: HostsApiRequestFactory,
+        responseProcessor?: HostsApiResponseProcessor
+    ) {
+        this.configuration = configuration;
+        this.requestFactory = requestFactory || new HostsApiRequestFactory(configuration);
+        this.responseProcessor = responseProcessor || new HostsApiResponseProcessor();
+    }
+
+    /**
+     * Assign a host/domain to a project - hosts are globally unique and require verification, so a host cannot be assigned to multiple projects.  A host can be a valid domain, either a root domain or a subdomain. 
+     * Create host for project
+     * @param project_id Project ID reference
+     * @param HostBody 
+     */
+    public projectsHostsCreate(project_id: string, HostBody: HostBody, _options?: Configuration): Observable<Host> {
+        const requestContextPromise = this.requestFactory.projectsHostsCreate(project_id, HostBody, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.projectsHostsCreate(rsp)));
+            }));
+    }
+
+    /**
+     * Delete specific host by hostname
+     * @param project_id Project ID reference
+     * @param hostname Hostname
+     */
+    public projectsHostsDelete(project_id: string, hostname: string, _options?: Configuration): Observable<DeletedResponse> {
+        const requestContextPromise = this.requestFactory.projectsHostsDelete(project_id, hostname, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.projectsHostsDelete(rsp)));
+            }));
+    }
+
+    /**
+     * Get specific host by hostname
+     * @param project_id Project ID reference
+     * @param hostname Hostname
+     */
+    public projectsHostsGet(project_id: string, hostname: string, _options?: Configuration): Observable<Host> {
+        const requestContextPromise = this.requestFactory.projectsHostsGet(project_id, hostname, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.projectsHostsGet(rsp)));
+            }));
+    }
+
+    /**
+     * List hosts for project
+     * @param project_id Project ID reference
+     * @param page Query parameters for pagination
+     */
+    public projectsHostsList(project_id: string, page?: OrganisationsListPageParameter, _options?: Configuration): Observable<ListHosts> {
+        const requestContextPromise = this.requestFactory.projectsHostsList(project_id, page, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.projectsHostsList(rsp)));
+            }));
+    }
+
+    /**
+     * Update specific host by hostname
+     * @param project_id Project ID reference
+     * @param hostname Hostname
+     * @param HostBodyPatch 
+     */
+    public projectsHostsUpdate(project_id: string, hostname: string, HostBodyPatch: HostBodyPatch, _options?: Configuration): Observable<Host> {
+        const requestContextPromise = this.requestFactory.projectsHostsUpdate(project_id, hostname, HostBodyPatch, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.projectsHostsUpdate(rsp)));
+            }));
+    }
+
+}
 
 import { OrganisationsApiRequestFactory, OrganisationsApiResponseProcessor} from "../apis/OrganisationsApi.ts";
 export class ObservableOrganisationsApi {

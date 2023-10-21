@@ -9,7 +9,11 @@ import { BadRequestResponse } from '../models/BadRequestResponse.ts';
 import { BadRequestResponseFields } from '../models/BadRequestResponseFields.ts';
 import { ConflictResponse } from '../models/ConflictResponse.ts';
 import { DeletedResponse } from '../models/DeletedResponse.ts';
+import { Host } from '../models/Host.ts';
+import { HostBody } from '../models/HostBody.ts';
+import { HostBodyPatch } from '../models/HostBodyPatch.ts';
 import { ListAuthTokens } from '../models/ListAuthTokens.ts';
+import { ListHosts } from '../models/ListHosts.ts';
 import { ListOrganisationResponse } from '../models/ListOrganisationResponse.ts';
 import { ListProjectResponse } from '../models/ListProjectResponse.ts';
 import { ListSecretResponse } from '../models/ListSecretResponse.ts';
@@ -39,6 +43,77 @@ import { SecretRegistry } from '../models/SecretRegistry.ts';
 import { SecretResponse } from '../models/SecretResponse.ts';
 import { SecretResponsePayload } from '../models/SecretResponsePayload.ts';
 import { UnauthorisedResponse } from '../models/UnauthorisedResponse.ts';
+import { ObservableHostsApi } from './ObservableAPI.ts';
+
+import { HostsApiRequestFactory, HostsApiResponseProcessor} from "../apis/HostsApi.ts";
+export class PromiseHostsApi {
+    private api: ObservableHostsApi
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: HostsApiRequestFactory,
+        responseProcessor?: HostsApiResponseProcessor
+    ) {
+        this.api = new ObservableHostsApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * Assign a host/domain to a project - hosts are globally unique and require verification, so a host cannot be assigned to multiple projects.  A host can be a valid domain, either a root domain or a subdomain. 
+     * Create host for project
+     * @param project_id Project ID reference
+     * @param HostBody 
+     */
+    public projectsHostsCreate(project_id: string, HostBody: HostBody, _options?: Configuration): Promise<Host> {
+        const result = this.api.projectsHostsCreate(project_id, HostBody, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Delete specific host by hostname
+     * @param project_id Project ID reference
+     * @param hostname Hostname
+     */
+    public projectsHostsDelete(project_id: string, hostname: string, _options?: Configuration): Promise<DeletedResponse> {
+        const result = this.api.projectsHostsDelete(project_id, hostname, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Get specific host by hostname
+     * @param project_id Project ID reference
+     * @param hostname Hostname
+     */
+    public projectsHostsGet(project_id: string, hostname: string, _options?: Configuration): Promise<Host> {
+        const result = this.api.projectsHostsGet(project_id, hostname, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * List hosts for project
+     * @param project_id Project ID reference
+     * @param page Query parameters for pagination
+     */
+    public projectsHostsList(project_id: string, page?: OrganisationsListPageParameter, _options?: Configuration): Promise<ListHosts> {
+        const result = this.api.projectsHostsList(project_id, page, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Update specific host by hostname
+     * @param project_id Project ID reference
+     * @param hostname Hostname
+     * @param HostBodyPatch 
+     */
+    public projectsHostsUpdate(project_id: string, hostname: string, HostBodyPatch: HostBodyPatch, _options?: Configuration): Promise<Host> {
+        const result = this.api.projectsHostsUpdate(project_id, hostname, HostBodyPatch, _options);
+        return result.toPromise();
+    }
+
+
+}
+
+
+
 import { ObservableOrganisationsApi } from './ObservableAPI.ts';
 
 import { OrganisationsApiRequestFactory, OrganisationsApiResponseProcessor} from "../apis/OrganisationsApi.ts";

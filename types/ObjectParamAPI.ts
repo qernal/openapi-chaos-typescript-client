@@ -9,7 +9,11 @@ import { BadRequestResponse } from '../models/BadRequestResponse.ts';
 import { BadRequestResponseFields } from '../models/BadRequestResponseFields.ts';
 import { ConflictResponse } from '../models/ConflictResponse.ts';
 import { DeletedResponse } from '../models/DeletedResponse.ts';
+import { Host } from '../models/Host.ts';
+import { HostBody } from '../models/HostBody.ts';
+import { HostBodyPatch } from '../models/HostBodyPatch.ts';
 import { ListAuthTokens } from '../models/ListAuthTokens.ts';
+import { ListHosts } from '../models/ListHosts.ts';
 import { ListOrganisationResponse } from '../models/ListOrganisationResponse.ts';
 import { ListProjectResponse } from '../models/ListProjectResponse.ts';
 import { ListSecretResponse } from '../models/ListSecretResponse.ts';
@@ -39,6 +43,140 @@ import { SecretRegistry } from '../models/SecretRegistry.ts';
 import { SecretResponse } from '../models/SecretResponse.ts';
 import { SecretResponsePayload } from '../models/SecretResponsePayload.ts';
 import { UnauthorisedResponse } from '../models/UnauthorisedResponse.ts';
+
+import { ObservableHostsApi } from "./ObservableAPI.ts";
+import { HostsApiRequestFactory, HostsApiResponseProcessor} from "../apis/HostsApi.ts";
+
+export interface HostsApiProjectsHostsCreateRequest {
+    /**
+     * Project ID reference
+     * @type string
+     * @memberof HostsApiprojectsHostsCreate
+     */
+    project_id: string
+    /**
+     * 
+     * @type HostBody
+     * @memberof HostsApiprojectsHostsCreate
+     */
+    HostBody: HostBody
+}
+
+export interface HostsApiProjectsHostsDeleteRequest {
+    /**
+     * Project ID reference
+     * @type string
+     * @memberof HostsApiprojectsHostsDelete
+     */
+    project_id: string
+    /**
+     * Hostname
+     * @type string
+     * @memberof HostsApiprojectsHostsDelete
+     */
+    hostname: string
+}
+
+export interface HostsApiProjectsHostsGetRequest {
+    /**
+     * Project ID reference
+     * @type string
+     * @memberof HostsApiprojectsHostsGet
+     */
+    project_id: string
+    /**
+     * Hostname
+     * @type string
+     * @memberof HostsApiprojectsHostsGet
+     */
+    hostname: string
+}
+
+export interface HostsApiProjectsHostsListRequest {
+    /**
+     * Project ID reference
+     * @type string
+     * @memberof HostsApiprojectsHostsList
+     */
+    project_id: string
+    /**
+     * Query parameters for pagination
+     * @type OrganisationsListPageParameter
+     * @memberof HostsApiprojectsHostsList
+     */
+    page?: OrganisationsListPageParameter
+}
+
+export interface HostsApiProjectsHostsUpdateRequest {
+    /**
+     * Project ID reference
+     * @type string
+     * @memberof HostsApiprojectsHostsUpdate
+     */
+    project_id: string
+    /**
+     * Hostname
+     * @type string
+     * @memberof HostsApiprojectsHostsUpdate
+     */
+    hostname: string
+    /**
+     * 
+     * @type HostBodyPatch
+     * @memberof HostsApiprojectsHostsUpdate
+     */
+    HostBodyPatch: HostBodyPatch
+}
+
+export class ObjectHostsApi {
+    private api: ObservableHostsApi
+
+    public constructor(configuration: Configuration, requestFactory?: HostsApiRequestFactory, responseProcessor?: HostsApiResponseProcessor) {
+        this.api = new ObservableHostsApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * Assign a host/domain to a project - hosts are globally unique and require verification, so a host cannot be assigned to multiple projects.  A host can be a valid domain, either a root domain or a subdomain. 
+     * Create host for project
+     * @param param the request object
+     */
+    public projectsHostsCreate(param: HostsApiProjectsHostsCreateRequest, options?: Configuration): Promise<Host> {
+        return this.api.projectsHostsCreate(param.project_id, param.HostBody,  options).toPromise();
+    }
+
+    /**
+     * Delete specific host by hostname
+     * @param param the request object
+     */
+    public projectsHostsDelete(param: HostsApiProjectsHostsDeleteRequest, options?: Configuration): Promise<DeletedResponse> {
+        return this.api.projectsHostsDelete(param.project_id, param.hostname,  options).toPromise();
+    }
+
+    /**
+     * Get specific host by hostname
+     * @param param the request object
+     */
+    public projectsHostsGet(param: HostsApiProjectsHostsGetRequest, options?: Configuration): Promise<Host> {
+        return this.api.projectsHostsGet(param.project_id, param.hostname,  options).toPromise();
+    }
+
+    /**
+     * List hosts for project
+     * @param param the request object
+     */
+    public projectsHostsList(param: HostsApiProjectsHostsListRequest, options?: Configuration): Promise<ListHosts> {
+        return this.api.projectsHostsList(param.project_id, param.page,  options).toPromise();
+    }
+
+    /**
+     * Update specific host by hostname
+     * @param param the request object
+     */
+    public projectsHostsUpdate(param: HostsApiProjectsHostsUpdateRequest, options?: Configuration): Promise<Host> {
+        return this.api.projectsHostsUpdate(param.project_id, param.hostname, param.HostBodyPatch,  options).toPromise();
+    }
+
+}
 
 import { ObservableOrganisationsApi } from "./ObservableAPI.ts";
 import { OrganisationsApiRequestFactory, OrganisationsApiResponseProcessor} from "../apis/OrganisationsApi.ts";

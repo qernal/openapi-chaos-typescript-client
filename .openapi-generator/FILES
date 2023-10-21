@@ -1,9 +1,11 @@
 .gitignore
 .openapi-generator-ignore
+HostsApi.md
 OrganisationsApi.md
 ProjectsApi.md
 SecretsApi.md
 TokensApi.md
+apis/HostsApi.ts
 apis/OrganisationsApi.ts
 apis/ProjectsApi.ts
 apis/SecretsApi.ts
@@ -25,7 +27,11 @@ models/BadRequestResponse.ts
 models/BadRequestResponseFields.ts
 models/ConflictResponse.ts
 models/DeletedResponse.ts
+models/Host.ts
+models/HostBody.ts
+models/HostBodyPatch.ts
 models/ListAuthTokens.ts
+models/ListHosts.ts
 models/ListOrganisationResponse.ts
 models/ListProjectResponse.ts
 models/ListSecretResponse.ts

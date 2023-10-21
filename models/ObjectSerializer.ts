@@ -6,7 +6,11 @@ export * from '../models/BadRequestResponse.ts';
 export * from '../models/BadRequestResponseFields.ts';
 export * from '../models/ConflictResponse.ts';
 export * from '../models/DeletedResponse.ts';
+export * from '../models/Host.ts';
+export * from '../models/HostBody.ts';
+export * from '../models/HostBodyPatch.ts';
 export * from '../models/ListAuthTokens.ts';
+export * from '../models/ListHosts.ts';
 export * from '../models/ListOrganisationResponse.ts';
 export * from '../models/ListProjectResponse.ts';
 export * from '../models/ListSecretResponse.ts';
@@ -45,7 +49,11 @@ import { BadRequestResponse } from '../models/BadRequestResponse.ts';
 import { BadRequestResponseFields } from '../models/BadRequestResponseFields.ts';
 import { ConflictResponse } from '../models/ConflictResponse.ts';
 import { DeletedResponse } from '../models/DeletedResponse.ts';
+import { Host } from '../models/Host.ts';
+import { HostBody } from '../models/HostBody.ts';
+import { HostBodyPatch } from '../models/HostBodyPatch.ts';
 import { ListAuthTokens } from '../models/ListAuthTokens.ts';
+import { ListHosts } from '../models/ListHosts.ts';
 import { ListOrganisationResponse } from '../models/ListOrganisationResponse.ts';
 import { ListProjectResponse } from '../models/ListProjectResponse.ts';
 import { ListSecretResponse } from '../models/ListSecretResponse.ts';
@@ -109,7 +117,11 @@ let typeMap: {[index: string]: any} = {
     "BadRequestResponseFields": BadRequestResponseFields,
     "ConflictResponse": ConflictResponse,
     "DeletedResponse": DeletedResponse,
+    "Host": Host,
+    "HostBody": HostBody,
+    "HostBodyPatch": HostBodyPatch,
     "ListAuthTokens": ListAuthTokens,
+    "ListHosts": ListHosts,
     "ListOrganisationResponse": ListOrganisationResponse,
     "ListProjectResponse": ListProjectResponse,
     "ListSecretResponse": ListSecretResponse,
