@@ -13,6 +13,7 @@ import { DeletedResponse } from '../models/DeletedResponse.ts';
 import { Host } from '../models/Host.ts';
 import { HostBody } from '../models/HostBody.ts';
 import { HostBodyPatch } from '../models/HostBodyPatch.ts';
+import { HostVerificationStatus } from '../models/HostVerificationStatus.ts';
 import { ListAuthTokens } from '../models/ListAuthTokens.ts';
 import { ListHosts } from '../models/ListHosts.ts';
 import { ListOrganisationResponse } from '../models/ListOrganisationResponse.ts';

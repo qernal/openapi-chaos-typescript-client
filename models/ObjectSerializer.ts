@@ -9,6 +9,7 @@ export * from '../models/DeletedResponse.ts';
 export * from '../models/Host.ts';
 export * from '../models/HostBody.ts';
 export * from '../models/HostBodyPatch.ts';
+export * from '../models/HostVerificationStatus.ts';
 export * from '../models/ListAuthTokens.ts';
 export * from '../models/ListHosts.ts';
 export * from '../models/ListOrganisationResponse.ts';
@@ -49,9 +50,10 @@ import { BadRequestResponse } from '../models/BadRequestResponse.ts';
 import { BadRequestResponseFields } from '../models/BadRequestResponseFields.ts';
 import { ConflictResponse } from '../models/ConflictResponse.ts';
 import { DeletedResponse } from '../models/DeletedResponse.ts';
-import { Host } from '../models/Host.ts';
+import { Host           } from '../models/Host.ts';
 import { HostBody } from '../models/HostBody.ts';
 import { HostBodyPatch } from '../models/HostBodyPatch.ts';
+import { HostVerificationStatus } from '../models/HostVerificationStatus.ts';
 import { ListAuthTokens } from '../models/ListAuthTokens.ts';
 import { ListHosts } from '../models/ListHosts.ts';
 import { ListOrganisationResponse } from '../models/ListOrganisationResponse.ts';
@@ -104,6 +106,7 @@ const supportedMediaTypes: { [mediaType: string]: number } = {
 
 
 let enumsMap: Set<string> = new Set<string>([
+    "HostVerificationStatus",
     "SecretCreateType",
     "SecretMetaType",
 ]);

@@ -10,6 +10,7 @@
  * Do not edit the class manually.
  */
 
+import { HostVerificationStatus } from '../models/HostVerificationStatus.ts';
 import { ModelDate } from '../models/ModelDate.ts';
 import { HttpFile } from '../http/http.ts';
 
@@ -50,6 +51,7 @@ export class Host {
     */
     'verified_at'?: string;
     'date': ModelDate;
+    'verification_status': HostVerificationStatus;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -107,6 +109,12 @@ export class Host {
             "baseName": "date",
             "type": "ModelDate",
             "format": ""
+        },
+        {
+            "name": "verification_status",
+            "baseName": "verification_status",
+            "type": "HostVerificationStatus",
+            "format": ""
         }    ];
 
     static getAttributeTypeMap() {
@@ -116,4 +124,6 @@ export class Host {
     public constructor() {
     }
 }
+
+
 

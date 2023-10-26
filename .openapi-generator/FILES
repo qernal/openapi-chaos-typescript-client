@@ -30,6 +30,7 @@ models/DeletedResponse.ts
 models/Host.ts
 models/HostBody.ts
 models/HostBodyPatch.ts
+models/HostVerificationStatus.ts
 models/ListAuthTokens.ts
 models/ListHosts.ts
 models/ListOrganisationResponse.ts
