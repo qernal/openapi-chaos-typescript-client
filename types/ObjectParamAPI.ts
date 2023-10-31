@@ -1,4 +1,4 @@
-import { ResponseContext, RequestContext, HttpFile } from '../http/http.ts';
+import { ResponseContext, RequestContext, HttpFile, HttpInfo } from '../http/http.ts';
 import { Configuration} from '../configuration.ts'
 
 import { AuthToken } from '../models/AuthToken.ts';
@@ -141,8 +141,25 @@ export class ObjectHostsApi {
      * Create host for project
      * @param param the request object
      */
+    public projectsHostsCreateWithHttpInfo(param: HostsApiProjectsHostsCreateRequest, options?: Configuration): Promise<HttpInfo<Host>> {
+        return this.api.projectsHostsCreateWithHttpInfo(param.project_id, param.HostBody,  options).toPromise();
+    }
+
+    /**
+     * Assign a host/domain to a project - hosts are globally unique and require verification, so a host cannot be assigned to multiple projects.  A host can be a valid domain, either a root domain or a subdomain. 
+     * Create host for project
+     * @param param the request object
+     */
     public projectsHostsCreate(param: HostsApiProjectsHostsCreateRequest, options?: Configuration): Promise<Host> {
         return this.api.projectsHostsCreate(param.project_id, param.HostBody,  options).toPromise();
+    }
+
+    /**
+     * Delete specific host by hostname
+     * @param param the request object
+     */
+    public projectsHostsDeleteWithHttpInfo(param: HostsApiProjectsHostsDeleteRequest, options?: Configuration): Promise<HttpInfo<DeletedResponse>> {
+        return this.api.projectsHostsDeleteWithHttpInfo(param.project_id, param.hostname,  options).toPromise();
     }
 
     /**
@@ -157,6 +174,14 @@ export class ObjectHostsApi {
      * Get specific host by hostname
      * @param param the request object
      */
+    public projectsHostsGetWithHttpInfo(param: HostsApiProjectsHostsGetRequest, options?: Configuration): Promise<HttpInfo<Host>> {
+        return this.api.projectsHostsGetWithHttpInfo(param.project_id, param.hostname,  options).toPromise();
+    }
+
+    /**
+     * Get specific host by hostname
+     * @param param the request object
+     */
     public projectsHostsGet(param: HostsApiProjectsHostsGetRequest, options?: Configuration): Promise<Host> {
         return this.api.projectsHostsGet(param.project_id, param.hostname,  options).toPromise();
     }
@@ -165,8 +190,24 @@ export class ObjectHostsApi {
      * List hosts for project
      * @param param the request object
      */
+    public projectsHostsListWithHttpInfo(param: HostsApiProjectsHostsListRequest, options?: Configuration): Promise<HttpInfo<ListHosts>> {
+        return this.api.projectsHostsListWithHttpInfo(param.project_id, param.page,  options).toPromise();
+    }
+
+    /**
+     * List hosts for project
+     * @param param the request object
+     */
     public projectsHostsList(param: HostsApiProjectsHostsListRequest, options?: Configuration): Promise<ListHosts> {
         return this.api.projectsHostsList(param.project_id, param.page,  options).toPromise();
+    }
+
+    /**
+     * Update specific host by hostname
+     * @param param the request object
+     */
+    public projectsHostsUpdateWithHttpInfo(param: HostsApiProjectsHostsUpdateRequest, options?: Configuration): Promise<HttpInfo<Host>> {
+        return this.api.projectsHostsUpdateWithHttpInfo(param.project_id, param.hostname, param.HostBodyPatch,  options).toPromise();
     }
 
     /**
@@ -245,8 +286,26 @@ export class ObjectOrganisationsApi {
      * Create organisations
      * @param param the request object
      */
+    public organisationsCreateWithHttpInfo(param: OrganisationsApiOrganisationsCreateRequest = {}, options?: Configuration): Promise<HttpInfo<OrganisationResponse>> {
+        return this.api.organisationsCreateWithHttpInfo(param.OrganisationBody,  options).toPromise();
+    }
+
+    /**
+     * Create an organisation
+     * Create organisations
+     * @param param the request object
+     */
     public organisationsCreate(param: OrganisationsApiOrganisationsCreateRequest = {}, options?: Configuration): Promise<OrganisationResponse> {
         return this.api.organisationsCreate(param.OrganisationBody,  options).toPromise();
+    }
+
+    /**
+     * Delete organisation, this will also delete all the resources within the organisation
+     * Delete an organisation
+     * @param param the request object
+     */
+    public organisationsDeleteWithHttpInfo(param: OrganisationsApiOrganisationsDeleteRequest, options?: Configuration): Promise<HttpInfo<DeletedResponse>> {
+        return this.api.organisationsDeleteWithHttpInfo(param.organisation_id,  options).toPromise();
     }
 
     /**
@@ -263,6 +322,15 @@ export class ObjectOrganisationsApi {
      * Get an organisation
      * @param param the request object
      */
+    public organisationsGetWithHttpInfo(param: OrganisationsApiOrganisationsGetRequest, options?: Configuration): Promise<HttpInfo<OrganisationResponse>> {
+        return this.api.organisationsGetWithHttpInfo(param.organisation_id,  options).toPromise();
+    }
+
+    /**
+     * Get a single organisation
+     * Get an organisation
+     * @param param the request object
+     */
     public organisationsGet(param: OrganisationsApiOrganisationsGetRequest, options?: Configuration): Promise<OrganisationResponse> {
         return this.api.organisationsGet(param.organisation_id,  options).toPromise();
     }
@@ -272,8 +340,26 @@ export class ObjectOrganisationsApi {
      * List organisations
      * @param param the request object
      */
+    public organisationsListWithHttpInfo(param: OrganisationsApiOrganisationsListRequest = {}, options?: Configuration): Promise<HttpInfo<ListOrganisationResponse>> {
+        return this.api.organisationsListWithHttpInfo(param.page,  options).toPromise();
+    }
+
+    /**
+     * List organisations
+     * List organisations
+     * @param param the request object
+     */
     public organisationsList(param: OrganisationsApiOrganisationsListRequest = {}, options?: Configuration): Promise<ListOrganisationResponse> {
         return this.api.organisationsList(param.page,  options).toPromise();
+    }
+
+    /**
+     * Update an organisation
+     * Update an organisation
+     * @param param the request object
+     */
+    public organisationsUpdateWithHttpInfo(param: OrganisationsApiOrganisationsUpdateRequest, options?: Configuration): Promise<HttpInfo<OrganisationResponse>> {
+        return this.api.organisationsUpdateWithHttpInfo(param.organisation_id, param.OrganisationBody,  options).toPromise();
     }
 
     /**
@@ -368,8 +454,26 @@ export class ObjectProjectsApi {
      * Get all projects within an organisation
      * @param param the request object
      */
+    public organisationsProjectsListWithHttpInfo(param: ProjectsApiOrganisationsProjectsListRequest, options?: Configuration): Promise<HttpInfo<ListProjectResponse>> {
+        return this.api.organisationsProjectsListWithHttpInfo(param.organisation_id, param.page,  options).toPromise();
+    }
+
+    /**
+     * Get all the projects linked to a specific organisation
+     * Get all projects within an organisation
+     * @param param the request object
+     */
     public organisationsProjectsList(param: ProjectsApiOrganisationsProjectsListRequest, options?: Configuration): Promise<ListProjectResponse> {
         return this.api.organisationsProjectsList(param.organisation_id, param.page,  options).toPromise();
+    }
+
+    /**
+     * Create a new project
+     * Create project
+     * @param param the request object
+     */
+    public projectsCreateWithHttpInfo(param: ProjectsApiProjectsCreateRequest = {}, options?: Configuration): Promise<HttpInfo<ProjectResponse>> {
+        return this.api.projectsCreateWithHttpInfo(param.ProjectBody,  options).toPromise();
     }
 
     /**
@@ -386,8 +490,26 @@ export class ObjectProjectsApi {
      * Delete project
      * @param param the request object
      */
+    public projectsDeleteWithHttpInfo(param: ProjectsApiProjectsDeleteRequest, options?: Configuration): Promise<HttpInfo<DeletedResponse>> {
+        return this.api.projectsDeleteWithHttpInfo(param.project_id,  options).toPromise();
+    }
+
+    /**
+     * Delete project, this will also delete all the resources within the project
+     * Delete project
+     * @param param the request object
+     */
     public projectsDelete(param: ProjectsApiProjectsDeleteRequest, options?: Configuration): Promise<DeletedResponse> {
         return this.api.projectsDelete(param.project_id,  options).toPromise();
+    }
+
+    /**
+     * Get a specific project
+     * Get project
+     * @param param the request object
+     */
+    public projectsGetWithHttpInfo(param: ProjectsApiProjectsGetRequest, options?: Configuration): Promise<HttpInfo<ProjectResponse>> {
+        return this.api.projectsGetWithHttpInfo(param.project_id,  options).toPromise();
     }
 
     /**
@@ -404,8 +526,26 @@ export class ObjectProjectsApi {
      * List projects
      * @param param the request object
      */
+    public projectsListWithHttpInfo(param: ProjectsApiProjectsListRequest = {}, options?: Configuration): Promise<HttpInfo<ListProjectResponse>> {
+        return this.api.projectsListWithHttpInfo(param.page,  options).toPromise();
+    }
+
+    /**
+     * Get all projects for this user, paginated
+     * List projects
+     * @param param the request object
+     */
     public projectsList(param: ProjectsApiProjectsListRequest = {}, options?: Configuration): Promise<ListProjectResponse> {
         return this.api.projectsList(param.page,  options).toPromise();
+    }
+
+    /**
+     * Update project
+     * Update project
+     * @param param the request object
+     */
+    public projectsUpdateWithHttpInfo(param: ProjectsApiProjectsUpdateRequest, options?: Configuration): Promise<HttpInfo<ProjectResponse>> {
+        return this.api.projectsUpdateWithHttpInfo(param.project_id, param.ProjectBodyPatch,  options).toPromise();
     }
 
     /**
@@ -521,8 +661,26 @@ export class ObjectSecretsApi {
      * Create project secret
      * @param param the request object
      */
+    public projectsSecretsCreateWithHttpInfo(param: SecretsApiProjectsSecretsCreateRequest, options?: Configuration): Promise<HttpInfo<SecretResponse>> {
+        return this.api.projectsSecretsCreateWithHttpInfo(param.project_id, param.SecretBody,  options).toPromise();
+    }
+
+    /**
+     * Create a new project secret
+     * Create project secret
+     * @param param the request object
+     */
     public projectsSecretsCreate(param: SecretsApiProjectsSecretsCreateRequest, options?: Configuration): Promise<SecretResponse> {
         return this.api.projectsSecretsCreate(param.project_id, param.SecretBody,  options).toPromise();
+    }
+
+    /**
+     * Delete project secret, if the secret is still linked to an active/deployed function - it cannot be removed
+     * Delete project secret
+     * @param param the request object
+     */
+    public projectsSecretsDeleteWithHttpInfo(param: SecretsApiProjectsSecretsDeleteRequest, options?: Configuration): Promise<HttpInfo<DeletedResponse>> {
+        return this.api.projectsSecretsDeleteWithHttpInfo(param.project_id, param.secret_name,  options).toPromise();
     }
 
     /**
@@ -539,6 +697,15 @@ export class ObjectSecretsApi {
      * Get project secret
      * @param param the request object
      */
+    public projectsSecretsGetWithHttpInfo(param: SecretsApiProjectsSecretsGetRequest, options?: Configuration): Promise<HttpInfo<SecretMetaResponse>> {
+        return this.api.projectsSecretsGetWithHttpInfo(param.project_id, param.secret_name,  options).toPromise();
+    }
+
+    /**
+     * Get a specific project
+     * Get project secret
+     * @param param the request object
+     */
     public projectsSecretsGet(param: SecretsApiProjectsSecretsGetRequest, options?: Configuration): Promise<SecretMetaResponse> {
         return this.api.projectsSecretsGet(param.project_id, param.secret_name,  options).toPromise();
     }
@@ -548,8 +715,26 @@ export class ObjectSecretsApi {
      * List project secrets of a specific type
      * @param param the request object
      */
+    public projectsSecretsListWithHttpInfo(param: SecretsApiProjectsSecretsListRequest, options?: Configuration): Promise<HttpInfo<ListSecretResponse>> {
+        return this.api.projectsSecretsListWithHttpInfo(param.project_id, param.page, param.secret_type,  options).toPromise();
+    }
+
+    /**
+     * List project secrets of a specific type
+     * List project secrets of a specific type
+     * @param param the request object
+     */
     public projectsSecretsList(param: SecretsApiProjectsSecretsListRequest, options?: Configuration): Promise<ListSecretResponse> {
         return this.api.projectsSecretsList(param.project_id, param.page, param.secret_type,  options).toPromise();
+    }
+
+    /**
+     * Update project
+     * Update project secret
+     * @param param the request object
+     */
+    public projectsSecretsUpdateWithHttpInfo(param: SecretsApiProjectsSecretsUpdateRequest, options?: Configuration): Promise<HttpInfo<SecretResponse>> {
+        return this.api.projectsSecretsUpdateWithHttpInfo(param.project_id, param.secret_name, param.SecretBodyPatch,  options).toPromise();
     }
 
     /**
@@ -629,8 +814,25 @@ export class ObjectTokensApi {
      * Create new auth token
      * @param param the request object
      */
+    public authTokensCreateWithHttpInfo(param: TokensApiAuthTokensCreateRequest, options?: Configuration): Promise<HttpInfo<AuthToken>> {
+        return this.api.authTokensCreateWithHttpInfo(param.AuthTokenBody,  options).toPromise();
+    }
+
+    /**
+     * Create new auth token for use with the CLI and TF Provider  ### Warning The `token` field is only shown once and can\'t be retrieved again without generating a new token. Securely save this once the response has been received. 
+     * Create new auth token
+     * @param param the request object
+     */
     public authTokensCreate(param: TokensApiAuthTokensCreateRequest, options?: Configuration): Promise<AuthToken> {
         return this.api.authTokensCreate(param.AuthTokenBody,  options).toPromise();
+    }
+
+    /**
+     * Delete token
+     * @param param the request object
+     */
+    public authTokensDeleteWithHttpInfo(param: TokensApiAuthTokensDeleteRequest, options?: Configuration): Promise<HttpInfo<DeletedResponse>> {
+        return this.api.authTokensDeleteWithHttpInfo(param.token_id,  options).toPromise();
     }
 
     /**
@@ -645,6 +847,14 @@ export class ObjectTokensApi {
      * Get token information
      * @param param the request object
      */
+    public authTokensGetWithHttpInfo(param: TokensApiAuthTokensGetRequest, options?: Configuration): Promise<HttpInfo<AuthTokenMeta>> {
+        return this.api.authTokensGetWithHttpInfo(param.token_id,  options).toPromise();
+    }
+
+    /**
+     * Get token information
+     * @param param the request object
+     */
     public authTokensGet(param: TokensApiAuthTokensGetRequest, options?: Configuration): Promise<AuthTokenMeta> {
         return this.api.authTokensGet(param.token_id,  options).toPromise();
     }
@@ -653,8 +863,24 @@ export class ObjectTokensApi {
      * List all user auth tokens
      * @param param the request object
      */
+    public authTokensListWithHttpInfo(param: TokensApiAuthTokensListRequest = {}, options?: Configuration): Promise<HttpInfo<ListAuthTokens>> {
+        return this.api.authTokensListWithHttpInfo(param.page,  options).toPromise();
+    }
+
+    /**
+     * List all user auth tokens
+     * @param param the request object
+     */
     public authTokensList(param: TokensApiAuthTokensListRequest = {}, options?: Configuration): Promise<ListAuthTokens> {
         return this.api.authTokensList(param.page,  options).toPromise();
+    }
+
+    /**
+     * Update token
+     * @param param the request object
+     */
+    public authTokensUpdateWithHttpInfo(param: TokensApiAuthTokensUpdateRequest, options?: Configuration): Promise<HttpInfo<AuthToken>> {
+        return this.api.authTokensUpdateWithHttpInfo(param.token_id, param.AuthTokenPatch,  options).toPromise();
     }
 
     /**

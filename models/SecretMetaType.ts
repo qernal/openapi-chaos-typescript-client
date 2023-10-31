@@ -15,4 +15,9 @@ import { HttpFile } from '../http/http.ts';
 /**
 * Secrets types: registry, certificate, environment, dek
 */
-export type SecretMetaType = "registry" | "certificate" | "environment" | "dek" ;
+export enum SecretMetaType {
+    registry = 'registry',
+    certificate = 'certificate',
+    environment = 'environment',
+    dek = 'dek'
+}

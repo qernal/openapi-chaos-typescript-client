@@ -15,4 +15,8 @@ import { HttpFile } from '../http/http.ts';
 /**
 * Secrets types: registry, certificate, environment
 */
-export type SecretCreateType = "registry" | "certificate" | "environment" ;
+export enum SecretCreateType {
+    registry = 'registry',
+    certificate = 'certificate',
+    environment = 'environment'
+}

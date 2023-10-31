@@ -1,7 +1,7 @@
 // TODO: better import syntax?
 import {BaseAPIRequestFactory, RequiredError, COLLECTION_FORMATS} from './baseapi.ts';
 import {Configuration} from '../configuration.ts';
-import {RequestContext, HttpMethod, ResponseContext, HttpFile} from '../http/http.ts';
+import {RequestContext, HttpMethod, ResponseContext, HttpFile, HttpInfo} from '../http/http.ts';
 import {ObjectSerializer} from '../models/ObjectSerializer.ts';
 import {ApiException} from './exception.ts';
 import {canConsumeForm, isCodeInRange} from '../util.ts';
@@ -266,14 +266,14 @@ export class OrganisationsApiResponseProcessor {
      * @params response Response returned by the server for a request to organisationsCreate
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async organisationsCreate(response: ResponseContext): Promise<OrganisationResponse > {
+     public async organisationsCreateWithHttpInfo(response: ResponseContext): Promise<HttpInfo<OrganisationResponse >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("201", response.httpStatusCode)) {
             const body: OrganisationResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "OrganisationResponse", ""
             ) as OrganisationResponse;
-            return body;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
         if (isCodeInRange("400", response.httpStatusCode)) {
             const body: BadRequestResponse = ObjectSerializer.deserialize(
@@ -303,7 +303,7 @@ export class OrganisationsApiResponseProcessor {
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "OrganisationResponse", ""
             ) as OrganisationResponse;
-            return body;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
         throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
@@ -316,14 +316,14 @@ export class OrganisationsApiResponseProcessor {
      * @params response Response returned by the server for a request to organisationsDelete
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async organisationsDelete(response: ResponseContext): Promise<DeletedResponse > {
+     public async organisationsDeleteWithHttpInfo(response: ResponseContext): Promise<HttpInfo<DeletedResponse >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: DeletedResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "DeletedResponse", ""
             ) as DeletedResponse;
-            return body;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
         if (isCodeInRange("404", response.httpStatusCode)) {
             const body: NotFoundResponse = ObjectSerializer.deserialize(
@@ -346,7 +346,7 @@ export class OrganisationsApiResponseProcessor {
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "DeletedResponse", ""
             ) as DeletedResponse;
-            return body;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
         throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
@@ -359,14 +359,14 @@ export class OrganisationsApiResponseProcessor {
      * @params response Response returned by the server for a request to organisationsGet
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async organisationsGet(response: ResponseContext): Promise<OrganisationResponse > {
+     public async organisationsGetWithHttpInfo(response: ResponseContext): Promise<HttpInfo<OrganisationResponse >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: OrganisationResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "OrganisationResponse", ""
             ) as OrganisationResponse;
-            return body;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
         if (isCodeInRange("404", response.httpStatusCode)) {
             const body: NotFoundResponse = ObjectSerializer.deserialize(
@@ -389,7 +389,7 @@ export class OrganisationsApiResponseProcessor {
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "OrganisationResponse", ""
             ) as OrganisationResponse;
-            return body;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
         throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
@@ -402,14 +402,14 @@ export class OrganisationsApiResponseProcessor {
      * @params response Response returned by the server for a request to organisationsList
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async organisationsList(response: ResponseContext): Promise<ListOrganisationResponse > {
+     public async organisationsListWithHttpInfo(response: ResponseContext): Promise<HttpInfo<ListOrganisationResponse >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: ListOrganisationResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "ListOrganisationResponse", ""
             ) as ListOrganisationResponse;
-            return body;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
         if (isCodeInRange("403", response.httpStatusCode)) {
             const body: UnauthorisedResponse = ObjectSerializer.deserialize(
@@ -425,7 +425,7 @@ export class OrganisationsApiResponseProcessor {
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "ListOrganisationResponse", ""
             ) as ListOrganisationResponse;
-            return body;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
         throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
@@ -438,14 +438,14 @@ export class OrganisationsApiResponseProcessor {
      * @params response Response returned by the server for a request to organisationsUpdate
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async organisationsUpdate(response: ResponseContext): Promise<OrganisationResponse > {
+     public async organisationsUpdateWithHttpInfo(response: ResponseContext): Promise<HttpInfo<OrganisationResponse >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: OrganisationResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "OrganisationResponse", ""
             ) as OrganisationResponse;
-            return body;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
         if (isCodeInRange("404", response.httpStatusCode)) {
             const body: NotFoundResponse = ObjectSerializer.deserialize(
@@ -475,7 +475,7 @@ export class OrganisationsApiResponseProcessor {
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "OrganisationResponse", ""
             ) as OrganisationResponse;
-            return body;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
         throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);

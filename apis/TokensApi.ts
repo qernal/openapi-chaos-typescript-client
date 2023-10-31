@@ -1,7 +1,7 @@
 // TODO: better import syntax?
 import {BaseAPIRequestFactory, RequiredError, COLLECTION_FORMATS} from './baseapi.ts';
 import {Configuration} from '../configuration.ts';
-import {RequestContext, HttpMethod, ResponseContext, HttpFile} from '../http/http.ts';
+import {RequestContext, HttpMethod, ResponseContext, HttpFile, HttpInfo} from '../http/http.ts';
 import {ObjectSerializer} from '../models/ObjectSerializer.ts';
 import {ApiException} from './exception.ts';
 import {canConsumeForm, isCodeInRange} from '../util.ts';
@@ -272,14 +272,14 @@ export class TokensApiResponseProcessor {
      * @params response Response returned by the server for a request to authTokensCreate
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async authTokensCreate(response: ResponseContext): Promise<AuthToken > {
+     public async authTokensCreateWithHttpInfo(response: ResponseContext): Promise<HttpInfo<AuthToken >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: AuthToken = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "AuthToken", ""
             ) as AuthToken;
-            return body;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
         if (isCodeInRange("404", response.httpStatusCode)) {
             const body: NotFoundResponse = ObjectSerializer.deserialize(
@@ -302,7 +302,7 @@ export class TokensApiResponseProcessor {
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "AuthToken", ""
             ) as AuthToken;
-            return body;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
         throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
@@ -315,14 +315,14 @@ export class TokensApiResponseProcessor {
      * @params response Response returned by the server for a request to authTokensDelete
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async authTokensDelete(response: ResponseContext): Promise<DeletedResponse > {
+     public async authTokensDeleteWithHttpInfo(response: ResponseContext): Promise<HttpInfo<DeletedResponse >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: DeletedResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "DeletedResponse", ""
             ) as DeletedResponse;
-            return body;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
         if (isCodeInRange("404", response.httpStatusCode)) {
             const body: NotFoundResponse = ObjectSerializer.deserialize(
@@ -338,7 +338,7 @@ export class TokensApiResponseProcessor {
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "DeletedResponse", ""
             ) as DeletedResponse;
-            return body;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
         throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
@@ -351,14 +351,14 @@ export class TokensApiResponseProcessor {
      * @params response Response returned by the server for a request to authTokensGet
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async authTokensGet(response: ResponseContext): Promise<AuthTokenMeta > {
+     public async authTokensGetWithHttpInfo(response: ResponseContext): Promise<HttpInfo<AuthTokenMeta >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: AuthTokenMeta = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "AuthTokenMeta", ""
             ) as AuthTokenMeta;
-            return body;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
         if (isCodeInRange("404", response.httpStatusCode)) {
             const body: NotFoundResponse = ObjectSerializer.deserialize(
@@ -381,7 +381,7 @@ export class TokensApiResponseProcessor {
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "AuthTokenMeta", ""
             ) as AuthTokenMeta;
-            return body;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
         throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
@@ -394,14 +394,14 @@ export class TokensApiResponseProcessor {
      * @params response Response returned by the server for a request to authTokensList
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async authTokensList(response: ResponseContext): Promise<ListAuthTokens > {
+     public async authTokensListWithHttpInfo(response: ResponseContext): Promise<HttpInfo<ListAuthTokens >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: ListAuthTokens = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "ListAuthTokens", ""
             ) as ListAuthTokens;
-            return body;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
         if (isCodeInRange("404", response.httpStatusCode)) {
             const body: NotFoundResponse = ObjectSerializer.deserialize(
@@ -424,7 +424,7 @@ export class TokensApiResponseProcessor {
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "ListAuthTokens", ""
             ) as ListAuthTokens;
-            return body;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
         throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
@@ -437,14 +437,14 @@ export class TokensApiResponseProcessor {
      * @params response Response returned by the server for a request to authTokensUpdate
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async authTokensUpdate(response: ResponseContext): Promise<AuthToken > {
+     public async authTokensUpdateWithHttpInfo(response: ResponseContext): Promise<HttpInfo<AuthToken >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: AuthToken = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "AuthToken", ""
             ) as AuthToken;
-            return body;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
         if (isCodeInRange("404", response.httpStatusCode)) {
             const body: NotFoundResponse = ObjectSerializer.deserialize(
@@ -467,7 +467,7 @@ export class TokensApiResponseProcessor {
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "AuthToken", ""
             ) as AuthToken;
-            return body;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
         throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);

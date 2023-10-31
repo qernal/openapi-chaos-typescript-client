@@ -1,7 +1,7 @@
 // TODO: better import syntax?
 import {BaseAPIRequestFactory, RequiredError, COLLECTION_FORMATS} from './baseapi.ts';
 import {Configuration} from '../configuration.ts';
-import {RequestContext, HttpMethod, ResponseContext, HttpFile} from '../http/http.ts';
+import {RequestContext, HttpMethod, ResponseContext, HttpFile, HttpInfo} from '../http/http.ts';
 import {ObjectSerializer} from '../models/ObjectSerializer.ts';
 import {ApiException} from './exception.ts';
 import {canConsumeForm, isCodeInRange} from '../util.ts';
@@ -317,14 +317,14 @@ export class ProjectsApiResponseProcessor {
      * @params response Response returned by the server for a request to organisationsProjectsList
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async organisationsProjectsList(response: ResponseContext): Promise<ListProjectResponse > {
+     public async organisationsProjectsListWithHttpInfo(response: ResponseContext): Promise<HttpInfo<ListProjectResponse >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: ListProjectResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "ListProjectResponse", ""
             ) as ListProjectResponse;
-            return body;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
         if (isCodeInRange("404", response.httpStatusCode)) {
             const body: NotFoundResponse = ObjectSerializer.deserialize(
@@ -347,7 +347,7 @@ export class ProjectsApiResponseProcessor {
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "ListProjectResponse", ""
             ) as ListProjectResponse;
-            return body;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
         throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
@@ -360,14 +360,14 @@ export class ProjectsApiResponseProcessor {
      * @params response Response returned by the server for a request to projectsCreate
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async projectsCreate(response: ResponseContext): Promise<ProjectResponse > {
+     public async projectsCreateWithHttpInfo(response: ResponseContext): Promise<HttpInfo<ProjectResponse >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("201", response.httpStatusCode)) {
             const body: ProjectResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "ProjectResponse", ""
             ) as ProjectResponse;
-            return body;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
         if (isCodeInRange("404", response.httpStatusCode)) {
             const body: NotFoundResponse = ObjectSerializer.deserialize(
@@ -404,7 +404,7 @@ export class ProjectsApiResponseProcessor {
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "ProjectResponse", ""
             ) as ProjectResponse;
-            return body;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
         throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
@@ -417,14 +417,14 @@ export class ProjectsApiResponseProcessor {
      * @params response Response returned by the server for a request to projectsDelete
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async projectsDelete(response: ResponseContext): Promise<DeletedResponse > {
+     public async projectsDeleteWithHttpInfo(response: ResponseContext): Promise<HttpInfo<DeletedResponse >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: DeletedResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "DeletedResponse", ""
             ) as DeletedResponse;
-            return body;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
         if (isCodeInRange("404", response.httpStatusCode)) {
             const body: NotFoundResponse = ObjectSerializer.deserialize(
@@ -447,7 +447,7 @@ export class ProjectsApiResponseProcessor {
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "DeletedResponse", ""
             ) as DeletedResponse;
-            return body;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
         throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
@@ -460,14 +460,14 @@ export class ProjectsApiResponseProcessor {
      * @params response Response returned by the server for a request to projectsGet
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async projectsGet(response: ResponseContext): Promise<ProjectResponse > {
+     public async projectsGetWithHttpInfo(response: ResponseContext): Promise<HttpInfo<ProjectResponse >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: ProjectResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "ProjectResponse", ""
             ) as ProjectResponse;
-            return body;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
         if (isCodeInRange("404", response.httpStatusCode)) {
             const body: NotFoundResponse = ObjectSerializer.deserialize(
@@ -490,7 +490,7 @@ export class ProjectsApiResponseProcessor {
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "ProjectResponse", ""
             ) as ProjectResponse;
-            return body;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
         throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
@@ -503,14 +503,14 @@ export class ProjectsApiResponseProcessor {
      * @params response Response returned by the server for a request to projectsList
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async projectsList(response: ResponseContext): Promise<ListProjectResponse > {
+     public async projectsListWithHttpInfo(response: ResponseContext): Promise<HttpInfo<ListProjectResponse >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: ListProjectResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "ListProjectResponse", ""
             ) as ListProjectResponse;
-            return body;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
         if (isCodeInRange("403", response.httpStatusCode)) {
             const body: UnauthorisedResponse = ObjectSerializer.deserialize(
@@ -526,7 +526,7 @@ export class ProjectsApiResponseProcessor {
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "ListProjectResponse", ""
             ) as ListProjectResponse;
-            return body;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
         throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
@@ -539,14 +539,14 @@ export class ProjectsApiResponseProcessor {
      * @params response Response returned by the server for a request to projectsUpdate
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async projectsUpdate(response: ResponseContext): Promise<ProjectResponse > {
+     public async projectsUpdateWithHttpInfo(response: ResponseContext): Promise<HttpInfo<ProjectResponse >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: ProjectResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "ProjectResponse", ""
             ) as ProjectResponse;
-            return body;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
         if (isCodeInRange("404", response.httpStatusCode)) {
             const body: NotFoundResponse = ObjectSerializer.deserialize(
@@ -576,7 +576,7 @@ export class ProjectsApiResponseProcessor {
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "ProjectResponse", ""
             ) as ProjectResponse;
-            return body;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
         throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);

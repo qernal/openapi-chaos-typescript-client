@@ -1,7 +1,7 @@
 // TODO: better import syntax?
 import {BaseAPIRequestFactory, RequiredError, COLLECTION_FORMATS} from './baseapi.ts';
 import {Configuration} from '../configuration.ts';
-import {RequestContext, HttpMethod, ResponseContext, HttpFile} from '../http/http.ts';
+import {RequestContext, HttpMethod, ResponseContext, HttpFile, HttpInfo} from '../http/http.ts';
 import {ObjectSerializer} from '../models/ObjectSerializer.ts';
 import {ApiException} from './exception.ts';
 import {canConsumeForm, isCodeInRange} from '../util.ts';
@@ -326,14 +326,14 @@ export class SecretsApiResponseProcessor {
      * @params response Response returned by the server for a request to projectsSecretsCreate
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async projectsSecretsCreate(response: ResponseContext): Promise<SecretResponse > {
+     public async projectsSecretsCreateWithHttpInfo(response: ResponseContext): Promise<HttpInfo<SecretResponse >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("201", response.httpStatusCode)) {
             const body: SecretResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "SecretResponse", ""
             ) as SecretResponse;
-            return body;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
         if (isCodeInRange("404", response.httpStatusCode)) {
             const body: NotFoundResponse = ObjectSerializer.deserialize(
@@ -370,7 +370,7 @@ export class SecretsApiResponseProcessor {
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "SecretResponse", ""
             ) as SecretResponse;
-            return body;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
         throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
@@ -383,14 +383,14 @@ export class SecretsApiResponseProcessor {
      * @params response Response returned by the server for a request to projectsSecretsDelete
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async projectsSecretsDelete(response: ResponseContext): Promise<DeletedResponse > {
+     public async projectsSecretsDeleteWithHttpInfo(response: ResponseContext): Promise<HttpInfo<DeletedResponse >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: DeletedResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "DeletedResponse", ""
             ) as DeletedResponse;
-            return body;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
         if (isCodeInRange("404", response.httpStatusCode)) {
             const body: NotFoundResponse = ObjectSerializer.deserialize(
@@ -413,7 +413,7 @@ export class SecretsApiResponseProcessor {
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "DeletedResponse", ""
             ) as DeletedResponse;
-            return body;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
         throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
@@ -426,14 +426,14 @@ export class SecretsApiResponseProcessor {
      * @params response Response returned by the server for a request to projectsSecretsGet
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async projectsSecretsGet(response: ResponseContext): Promise<SecretMetaResponse > {
+     public async projectsSecretsGetWithHttpInfo(response: ResponseContext): Promise<HttpInfo<SecretMetaResponse >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: SecretMetaResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "SecretMetaResponse", ""
             ) as SecretMetaResponse;
-            return body;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
         if (isCodeInRange("404", response.httpStatusCode)) {
             const body: NotFoundResponse = ObjectSerializer.deserialize(
@@ -456,7 +456,7 @@ export class SecretsApiResponseProcessor {
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "SecretMetaResponse", ""
             ) as SecretMetaResponse;
-            return body;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
         throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
@@ -469,14 +469,14 @@ export class SecretsApiResponseProcessor {
      * @params response Response returned by the server for a request to projectsSecretsList
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async projectsSecretsList(response: ResponseContext): Promise<ListSecretResponse > {
+     public async projectsSecretsListWithHttpInfo(response: ResponseContext): Promise<HttpInfo<ListSecretResponse >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: ListSecretResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "ListSecretResponse", ""
             ) as ListSecretResponse;
-            return body;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
         if (isCodeInRange("404", response.httpStatusCode)) {
             const body: NotFoundResponse = ObjectSerializer.deserialize(
@@ -499,7 +499,7 @@ export class SecretsApiResponseProcessor {
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "ListSecretResponse", ""
             ) as ListSecretResponse;
-            return body;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
         throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
@@ -512,14 +512,14 @@ export class SecretsApiResponseProcessor {
      * @params response Response returned by the server for a request to projectsSecretsUpdate
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async projectsSecretsUpdate(response: ResponseContext): Promise<SecretResponse > {
+     public async projectsSecretsUpdateWithHttpInfo(response: ResponseContext): Promise<HttpInfo<SecretResponse >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: SecretResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "SecretResponse", ""
             ) as SecretResponse;
-            return body;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
         if (isCodeInRange("404", response.httpStatusCode)) {
             const body: NotFoundResponse = ObjectSerializer.deserialize(
@@ -549,7 +549,7 @@ export class SecretsApiResponseProcessor {
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "SecretResponse", ""
             ) as SecretResponse;
-            return body;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
         throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
