@@ -231,6 +231,39 @@ export class ObservableHostsApi {
         return this.projectsHostsUpdateWithHttpInfo(project_id, hostname, HostBodyPatch, _options).pipe(map((apiResponse: HttpInfo<Host>) => apiResponse.data));
     }
 
+    /**
+     * Schedule host verification task
+     * @param project_id Project ID reference
+     * @param hostname Hostname
+     */
+    public projectsHostsVerifyCreateWithHttpInfo(project_id: string, hostname: string, _options?: Configuration): Observable<HttpInfo<Host>> {
+        const requestContextPromise = this.requestFactory.projectsHostsVerifyCreate(project_id, hostname, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.projectsHostsVerifyCreateWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * Schedule host verification task
+     * @param project_id Project ID reference
+     * @param hostname Hostname
+     */
+    public projectsHostsVerifyCreate(project_id: string, hostname: string, _options?: Configuration): Observable<Host> {
+        return this.projectsHostsVerifyCreateWithHttpInfo(project_id, hostname, _options).pipe(map((apiResponse: HttpInfo<Host>) => apiResponse.data));
+    }
+
 }
 
 import { OrganisationsApiRequestFactory, OrganisationsApiResponseProcessor} from "../apis/OrganisationsApi.ts";

@@ -301,6 +301,56 @@ export class HostsApiRequestFactory extends BaseAPIRequestFactory {
         return requestContext;
     }
 
+    /**
+     * Schedule host verification task
+     * @param project_id Project ID reference
+     * @param hostname Hostname
+     */
+    public async projectsHostsVerifyCreate(project_id: string, hostname: string, _options?: Configuration): Promise<RequestContext> {
+        let _config = _options || this.configuration;
+
+        // verify required parameter 'project_id' is not null or undefined
+        if (project_id === null || project_id === undefined) {
+            throw new RequiredError("HostsApi", "projectsHostsVerifyCreate", "project_id");
+        }
+
+
+        // verify required parameter 'hostname' is not null or undefined
+        if (hostname === null || hostname === undefined) {
+            throw new RequiredError("HostsApi", "projectsHostsVerifyCreate", "hostname");
+        }
+
+
+        // Path Params
+        const localVarPath = '/projects/{project_id}/hosts/{hostname}/verify'
+            .replace('{' + 'project_id' + '}', encodeURIComponent(String(project_id)))
+            .replace('{' + 'hostname' + '}', encodeURIComponent(String(hostname)));
+
+        // Make Request Context
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+
+        let authMethod: SecurityAuthentication | undefined;
+        // Apply auth methods
+        authMethod = _config.authMethods["cookie"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        // Apply auth methods
+        authMethod = _config.authMethods["token"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        
+        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        if (defaultAuth?.applySecurityAuthentication) {
+            await defaultAuth?.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
+    }
+
 }
 
 export class HostsApiResponseProcessor {
@@ -485,6 +535,49 @@ export class HostsApiResponseProcessor {
                 "NotFoundResponse", ""
             ) as NotFoundResponse;
             throw new ApiException<NotFoundResponse>(response.httpStatusCode, "Resource Not Found", body, response.headers);
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: Host = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Host", ""
+            ) as Host;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+    }
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to projectsHostsVerifyCreate
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async projectsHostsVerifyCreateWithHttpInfo(response: ResponseContext): Promise<HttpInfo<Host >> {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+            const body: Host = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Host", ""
+            ) as Host;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+        if (isCodeInRange("404", response.httpStatusCode)) {
+            const body: NotFoundResponse = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "NotFoundResponse", ""
+            ) as NotFoundResponse;
+            throw new ApiException<NotFoundResponse>(response.httpStatusCode, "Resource Not Found", body, response.headers);
+        }
+        if (isCodeInRange("400", response.httpStatusCode)) {
+            const body: BadRequestResponse = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "BadRequestResponse", ""
+            ) as BadRequestResponse;
+            throw new ApiException<BadRequestResponse>(response.httpStatusCode, "Resource Bad Request", body, response.headers);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml

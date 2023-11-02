@@ -129,6 +129,21 @@ export interface HostsApiProjectsHostsUpdateRequest {
     HostBodyPatch: HostBodyPatch
 }
 
+export interface HostsApiProjectsHostsVerifyCreateRequest {
+    /**
+     * Project ID reference
+     * @type string
+     * @memberof HostsApiprojectsHostsVerifyCreate
+     */
+    project_id: string
+    /**
+     * Hostname
+     * @type string
+     * @memberof HostsApiprojectsHostsVerifyCreate
+     */
+    hostname: string
+}
+
 export class ObjectHostsApi {
     private api: ObservableHostsApi
 
@@ -216,6 +231,22 @@ export class ObjectHostsApi {
      */
     public projectsHostsUpdate(param: HostsApiProjectsHostsUpdateRequest, options?: Configuration): Promise<Host> {
         return this.api.projectsHostsUpdate(param.project_id, param.hostname, param.HostBodyPatch,  options).toPromise();
+    }
+
+    /**
+     * Schedule host verification task
+     * @param param the request object
+     */
+    public projectsHostsVerifyCreateWithHttpInfo(param: HostsApiProjectsHostsVerifyCreateRequest, options?: Configuration): Promise<HttpInfo<Host>> {
+        return this.api.projectsHostsVerifyCreateWithHttpInfo(param.project_id, param.hostname,  options).toPromise();
+    }
+
+    /**
+     * Schedule host verification task
+     * @param param the request object
+     */
+    public projectsHostsVerifyCreate(param: HostsApiProjectsHostsVerifyCreateRequest, options?: Configuration): Promise<Host> {
+        return this.api.projectsHostsVerifyCreate(param.project_id, param.hostname,  options).toPromise();
     }
 
 }

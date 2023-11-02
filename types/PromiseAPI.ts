@@ -162,6 +162,26 @@ export class PromiseHostsApi {
         return result.toPromise();
     }
 
+    /**
+     * Schedule host verification task
+     * @param project_id Project ID reference
+     * @param hostname Hostname
+     */
+    public projectsHostsVerifyCreateWithHttpInfo(project_id: string, hostname: string, _options?: Configuration): Promise<HttpInfo<Host>> {
+        const result = this.api.projectsHostsVerifyCreateWithHttpInfo(project_id, hostname, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Schedule host verification task
+     * @param project_id Project ID reference
+     * @param hostname Hostname
+     */
+    public projectsHostsVerifyCreate(project_id: string, hostname: string, _options?: Configuration): Promise<Host> {
+        const result = this.api.projectsHostsVerifyCreate(project_id, hostname, _options);
+        return result.toPromise();
+    }
+
 
 }
 
