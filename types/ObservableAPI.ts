@@ -10,15 +10,29 @@ import { BadRequestResponse } from '../models/BadRequestResponse.ts';
 import { BadRequestResponseFields } from '../models/BadRequestResponseFields.ts';
 import { ConflictResponse } from '../models/ConflictResponse.ts';
 import { DeletedResponse } from '../models/DeletedResponse.ts';
+import { Function } from '../models/Function.ts';
+import { FunctionBody } from '../models/FunctionBody.ts';
+import { FunctionCompliance } from '../models/FunctionCompliance.ts';
+import { FunctionDeployment } from '../models/FunctionDeployment.ts';
+import { FunctionDeploymentBody } from '../models/FunctionDeploymentBody.ts';
+import { FunctionEnv } from '../models/FunctionEnv.ts';
+import { FunctionReplicas } from '../models/FunctionReplicas.ts';
+import { FunctionReplicasAffinity } from '../models/FunctionReplicasAffinity.ts';
+import { FunctionRoute } from '../models/FunctionRoute.ts';
+import { FunctionScaling } from '../models/FunctionScaling.ts';
+import { FunctionSize } from '../models/FunctionSize.ts';
+import { FunctionType } from '../models/FunctionType.ts';
 import { Host } from '../models/Host.ts';
 import { HostBody } from '../models/HostBody.ts';
 import { HostBodyPatch } from '../models/HostBodyPatch.ts';
 import { HostVerificationStatus } from '../models/HostVerificationStatus.ts';
 import { ListAuthTokens } from '../models/ListAuthTokens.ts';
+import { ListFunction } from '../models/ListFunction.ts';
 import { ListHosts } from '../models/ListHosts.ts';
 import { ListOrganisationResponse } from '../models/ListOrganisationResponse.ts';
 import { ListProjectResponse } from '../models/ListProjectResponse.ts';
 import { ListSecretResponse } from '../models/ListSecretResponse.ts';
+import { Location } from '../models/Location.ts';
 import { ModelDate } from '../models/ModelDate.ts';
 import { NotFoundResponse } from '../models/NotFoundResponse.ts';
 import { OrganisationBody } from '../models/OrganisationBody.ts';
@@ -29,6 +43,8 @@ import { PaginationMeta } from '../models/PaginationMeta.ts';
 import { ProjectBody } from '../models/ProjectBody.ts';
 import { ProjectBodyPatch } from '../models/ProjectBodyPatch.ts';
 import { ProjectResponse } from '../models/ProjectResponse.ts';
+import { ProviderInner } from '../models/ProviderInner.ts';
+import { ProviderInnerLocations } from '../models/ProviderInnerLocations.ts';
 import { SecretBody } from '../models/SecretBody.ts';
 import { SecretBodyPatch } from '../models/SecretBodyPatch.ts';
 import { SecretCertificate } from '../models/SecretCertificate.ts';
@@ -45,6 +61,265 @@ import { SecretRegistry } from '../models/SecretRegistry.ts';
 import { SecretResponse } from '../models/SecretResponse.ts';
 import { SecretResponsePayload } from '../models/SecretResponsePayload.ts';
 import { UnauthorisedResponse } from '../models/UnauthorisedResponse.ts';
+
+import { FunctionsApiRequestFactory, FunctionsApiResponseProcessor} from "../apis/FunctionsApi.ts";
+export class ObservableFunctionsApi {
+    private requestFactory: FunctionsApiRequestFactory;
+    private responseProcessor: FunctionsApiResponseProcessor;
+    private configuration: Configuration;
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: FunctionsApiRequestFactory,
+        responseProcessor?: FunctionsApiResponseProcessor
+    ) {
+        this.configuration = configuration;
+        this.requestFactory = requestFactory || new FunctionsApiRequestFactory(configuration);
+        this.responseProcessor = responseProcessor || new FunctionsApiResponseProcessor();
+    }
+
+    /**
+     * Delete a function (and all revisions)
+     * Delete function
+     * @param function_id Function ID reference
+     */
+    public functionsDeleteWithHttpInfo(function_id: string, _options?: Configuration): Observable<HttpInfo<DeletedResponse>> {
+        const requestContextPromise = this.requestFactory.functionsDelete(function_id, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.functionsDeleteWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * Delete a function (and all revisions)
+     * Delete function
+     * @param function_id Function ID reference
+     */
+    public functionsDelete(function_id: string, _options?: Configuration): Observable<DeletedResponse> {
+        return this.functionsDeleteWithHttpInfo(function_id, _options).pipe(map((apiResponse: HttpInfo<DeletedResponse>) => apiResponse.data));
+    }
+
+    /**
+     * Get a specific function (latest revision)
+     * Get function (latest revision)
+     * @param function_id Function ID reference
+     */
+    public functionsGetWithHttpInfo(function_id: string, _options?: Configuration): Observable<HttpInfo<Function>> {
+        const requestContextPromise = this.requestFactory.functionsGet(function_id, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.functionsGetWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * Get a specific function (latest revision)
+     * Get function (latest revision)
+     * @param function_id Function ID reference
+     */
+    public functionsGet(function_id: string, _options?: Configuration): Observable<Function> {
+        return this.functionsGetWithHttpInfo(function_id, _options).pipe(map((apiResponse: HttpInfo<Function>) => apiResponse.data));
+    }
+
+    /**
+     * Get a specific revision of a function
+     * Get a specific revision of a function
+     * @param function_id Function ID reference
+     * @param function_revision_id Function revision ID reference
+     */
+    public functionsRevisionsGetWithHttpInfo(function_id: string, function_revision_id: string, _options?: Configuration): Observable<HttpInfo<Function>> {
+        const requestContextPromise = this.requestFactory.functionsRevisionsGet(function_id, function_revision_id, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.functionsRevisionsGetWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * Get a specific revision of a function
+     * Get a specific revision of a function
+     * @param function_id Function ID reference
+     * @param function_revision_id Function revision ID reference
+     */
+    public functionsRevisionsGet(function_id: string, function_revision_id: string, _options?: Configuration): Observable<Function> {
+        return this.functionsRevisionsGetWithHttpInfo(function_id, function_revision_id, _options).pipe(map((apiResponse: HttpInfo<Function>) => apiResponse.data));
+    }
+
+    /**
+     * List all revisions for a function
+     * List all revisions for a function
+     * @param function_id Function ID reference
+     * @param page Query parameters for pagination
+     */
+    public functionsRevisionsListWithHttpInfo(function_id: string, page?: OrganisationsListPageParameter, _options?: Configuration): Observable<HttpInfo<ListFunction>> {
+        const requestContextPromise = this.requestFactory.functionsRevisionsList(function_id, page, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.functionsRevisionsListWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * List all revisions for a function
+     * List all revisions for a function
+     * @param function_id Function ID reference
+     * @param page Query parameters for pagination
+     */
+    public functionsRevisionsList(function_id: string, page?: OrganisationsListPageParameter, _options?: Configuration): Observable<ListFunction> {
+        return this.functionsRevisionsListWithHttpInfo(function_id, page, _options).pipe(map((apiResponse: HttpInfo<ListFunction>) => apiResponse.data));
+    }
+
+    /**
+     * Update a function (creates a new revision)
+     * Update function
+     * @param function_id Function ID reference
+     * @param Function Update any field
+     */
+    public functionsUpdateWithHttpInfo(function_id: string, Function: Function, _options?: Configuration): Observable<HttpInfo<Function>> {
+        const requestContextPromise = this.requestFactory.functionsUpdate(function_id, Function, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.functionsUpdateWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * Update a function (creates a new revision)
+     * Update function
+     * @param function_id Function ID reference
+     * @param Function Update any field
+     */
+    public functionsUpdate(function_id: string, Function: Function, _options?: Configuration): Observable<Function> {
+        return this.functionsUpdateWithHttpInfo(function_id, Function, _options).pipe(map((apiResponse: HttpInfo<Function>) => apiResponse.data));
+    }
+
+    /**
+     * Create a new function
+     * Create function
+     * @param project_id Project ID reference
+     * @param FunctionBody Create/Update any field
+     */
+    public projectsFunctionsCreateWithHttpInfo(project_id: string, FunctionBody: FunctionBody, _options?: Configuration): Observable<HttpInfo<Function>> {
+        const requestContextPromise = this.requestFactory.projectsFunctionsCreate(project_id, FunctionBody, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.projectsFunctionsCreateWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * Create a new function
+     * Create function
+     * @param project_id Project ID reference
+     * @param FunctionBody Create/Update any field
+     */
+    public projectsFunctionsCreate(project_id: string, FunctionBody: FunctionBody, _options?: Configuration): Observable<Function> {
+        return this.projectsFunctionsCreateWithHttpInfo(project_id, FunctionBody, _options).pipe(map((apiResponse: HttpInfo<Function>) => apiResponse.data));
+    }
+
+    /**
+     * List all functions
+     * List all functions within a project
+     * @param project_id Project ID reference
+     * @param page Query parameters for pagination
+     */
+    public projectsFunctionsListWithHttpInfo(project_id: string, page?: OrganisationsListPageParameter, _options?: Configuration): Observable<HttpInfo<ListFunction>> {
+        const requestContextPromise = this.requestFactory.projectsFunctionsList(project_id, page, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.projectsFunctionsListWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * List all functions
+     * List all functions within a project
+     * @param project_id Project ID reference
+     * @param page Query parameters for pagination
+     */
+    public projectsFunctionsList(project_id: string, page?: OrganisationsListPageParameter, _options?: Configuration): Observable<ListFunction> {
+        return this.projectsFunctionsListWithHttpInfo(project_id, page, _options).pipe(map((apiResponse: HttpInfo<ListFunction>) => apiResponse.data));
+    }
+
+}
 
 import { HostsApiRequestFactory, HostsApiResponseProcessor} from "../apis/HostsApi.ts";
 export class ObservableHostsApi {
@@ -667,6 +942,55 @@ export class ObservableProjectsApi {
      */
     public projectsUpdate(project_id: string, ProjectBodyPatch?: ProjectBodyPatch, _options?: Configuration): Observable<ProjectResponse> {
         return this.projectsUpdateWithHttpInfo(project_id, ProjectBodyPatch, _options).pipe(map((apiResponse: HttpInfo<ProjectResponse>) => apiResponse.data));
+    }
+
+}
+
+import { ProvidersApiRequestFactory, ProvidersApiResponseProcessor} from "../apis/ProvidersApi.ts";
+export class ObservableProvidersApi {
+    private requestFactory: ProvidersApiRequestFactory;
+    private responseProcessor: ProvidersApiResponseProcessor;
+    private configuration: Configuration;
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: ProvidersApiRequestFactory,
+        responseProcessor?: ProvidersApiResponseProcessor
+    ) {
+        this.configuration = configuration;
+        this.requestFactory = requestFactory || new ProvidersApiRequestFactory(configuration);
+        this.responseProcessor = responseProcessor || new ProvidersApiResponseProcessor();
+    }
+
+    /**
+     * Retrieve a list of all providers with their respective deployed regions and cities.
+     * Get available providers
+     */
+    public providersGetWithHttpInfo(_options?: Configuration): Observable<HttpInfo<Array<ProviderInner>>> {
+        const requestContextPromise = this.requestFactory.providersGet(_options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.providersGetWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * Retrieve a list of all providers with their respective deployed regions and cities.
+     * Get available providers
+     */
+    public providersGet(_options?: Configuration): Observable<Array<ProviderInner>> {
+        return this.providersGetWithHttpInfo(_options).pipe(map((apiResponse: HttpInfo<Array<ProviderInner>>) => apiResponse.data));
     }
 
 }

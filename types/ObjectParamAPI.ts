@@ -9,15 +9,29 @@ import { BadRequestResponse } from '../models/BadRequestResponse.ts';
 import { BadRequestResponseFields } from '../models/BadRequestResponseFields.ts';
 import { ConflictResponse } from '../models/ConflictResponse.ts';
 import { DeletedResponse } from '../models/DeletedResponse.ts';
+import { Function } from '../models/Function.ts';
+import { FunctionBody } from '../models/FunctionBody.ts';
+import { FunctionCompliance } from '../models/FunctionCompliance.ts';
+import { FunctionDeployment } from '../models/FunctionDeployment.ts';
+import { FunctionDeploymentBody } from '../models/FunctionDeploymentBody.ts';
+import { FunctionEnv } from '../models/FunctionEnv.ts';
+import { FunctionReplicas } from '../models/FunctionReplicas.ts';
+import { FunctionReplicasAffinity } from '../models/FunctionReplicasAffinity.ts';
+import { FunctionRoute } from '../models/FunctionRoute.ts';
+import { FunctionScaling } from '../models/FunctionScaling.ts';
+import { FunctionSize } from '../models/FunctionSize.ts';
+import { FunctionType } from '../models/FunctionType.ts';
 import { Host } from '../models/Host.ts';
 import { HostBody } from '../models/HostBody.ts';
 import { HostBodyPatch } from '../models/HostBodyPatch.ts';
 import { HostVerificationStatus } from '../models/HostVerificationStatus.ts';
 import { ListAuthTokens } from '../models/ListAuthTokens.ts';
+import { ListFunction } from '../models/ListFunction.ts';
 import { ListHosts } from '../models/ListHosts.ts';
 import { ListOrganisationResponse } from '../models/ListOrganisationResponse.ts';
 import { ListProjectResponse } from '../models/ListProjectResponse.ts';
 import { ListSecretResponse } from '../models/ListSecretResponse.ts';
+import { Location } from '../models/Location.ts';
 import { ModelDate } from '../models/ModelDate.ts';
 import { NotFoundResponse } from '../models/NotFoundResponse.ts';
 import { OrganisationBody } from '../models/OrganisationBody.ts';
@@ -28,6 +42,8 @@ import { PaginationMeta } from '../models/PaginationMeta.ts';
 import { ProjectBody } from '../models/ProjectBody.ts';
 import { ProjectBodyPatch } from '../models/ProjectBodyPatch.ts';
 import { ProjectResponse } from '../models/ProjectResponse.ts';
+import { ProviderInner } from '../models/ProviderInner.ts';
+import { ProviderInnerLocations } from '../models/ProviderInnerLocations.ts';
 import { SecretBody } from '../models/SecretBody.ts';
 import { SecretBodyPatch } from '../models/SecretBodyPatch.ts';
 import { SecretCertificate } from '../models/SecretCertificate.ts';
@@ -44,6 +60,237 @@ import { SecretRegistry } from '../models/SecretRegistry.ts';
 import { SecretResponse } from '../models/SecretResponse.ts';
 import { SecretResponsePayload } from '../models/SecretResponsePayload.ts';
 import { UnauthorisedResponse } from '../models/UnauthorisedResponse.ts';
+
+import { ObservableFunctionsApi } from "./ObservableAPI.ts";
+import { FunctionsApiRequestFactory, FunctionsApiResponseProcessor} from "../apis/FunctionsApi.ts";
+
+export interface FunctionsApiFunctionsDeleteRequest {
+    /**
+     * Function ID reference
+     * @type string
+     * @memberof FunctionsApifunctionsDelete
+     */
+    function_id: string
+}
+
+export interface FunctionsApiFunctionsGetRequest {
+    /**
+     * Function ID reference
+     * @type string
+     * @memberof FunctionsApifunctionsGet
+     */
+    function_id: string
+}
+
+export interface FunctionsApiFunctionsRevisionsGetRequest {
+    /**
+     * Function ID reference
+     * @type string
+     * @memberof FunctionsApifunctionsRevisionsGet
+     */
+    function_id: string
+    /**
+     * Function revision ID reference
+     * @type string
+     * @memberof FunctionsApifunctionsRevisionsGet
+     */
+    function_revision_id: string
+}
+
+export interface FunctionsApiFunctionsRevisionsListRequest {
+    /**
+     * Function ID reference
+     * @type string
+     * @memberof FunctionsApifunctionsRevisionsList
+     */
+    function_id: string
+    /**
+     * Query parameters for pagination
+     * @type OrganisationsListPageParameter
+     * @memberof FunctionsApifunctionsRevisionsList
+     */
+    page?: OrganisationsListPageParameter
+}
+
+export interface FunctionsApiFunctionsUpdateRequest {
+    /**
+     * Function ID reference
+     * @type string
+     * @memberof FunctionsApifunctionsUpdate
+     */
+    function_id: string
+    /**
+     * Update any field
+     * @type Function
+     * @memberof FunctionsApifunctionsUpdate
+     */
+    Function: Function
+}
+
+export interface FunctionsApiProjectsFunctionsCreateRequest {
+    /**
+     * Project ID reference
+     * @type string
+     * @memberof FunctionsApiprojectsFunctionsCreate
+     */
+    project_id: string
+    /**
+     * Create/Update any field
+     * @type FunctionBody
+     * @memberof FunctionsApiprojectsFunctionsCreate
+     */
+    FunctionBody: FunctionBody
+}
+
+export interface FunctionsApiProjectsFunctionsListRequest {
+    /**
+     * Project ID reference
+     * @type string
+     * @memberof FunctionsApiprojectsFunctionsList
+     */
+    project_id: string
+    /**
+     * Query parameters for pagination
+     * @type OrganisationsListPageParameter
+     * @memberof FunctionsApiprojectsFunctionsList
+     */
+    page?: OrganisationsListPageParameter
+}
+
+export class ObjectFunctionsApi {
+    private api: ObservableFunctionsApi
+
+    public constructor(configuration: Configuration, requestFactory?: FunctionsApiRequestFactory, responseProcessor?: FunctionsApiResponseProcessor) {
+        this.api = new ObservableFunctionsApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * Delete a function (and all revisions)
+     * Delete function
+     * @param param the request object
+     */
+    public functionsDeleteWithHttpInfo(param: FunctionsApiFunctionsDeleteRequest, options?: Configuration): Promise<HttpInfo<DeletedResponse>> {
+        return this.api.functionsDeleteWithHttpInfo(param.function_id,  options).toPromise();
+    }
+
+    /**
+     * Delete a function (and all revisions)
+     * Delete function
+     * @param param the request object
+     */
+    public functionsDelete(param: FunctionsApiFunctionsDeleteRequest, options?: Configuration): Promise<DeletedResponse> {
+        return this.api.functionsDelete(param.function_id,  options).toPromise();
+    }
+
+    /**
+     * Get a specific function (latest revision)
+     * Get function (latest revision)
+     * @param param the request object
+     */
+    public functionsGetWithHttpInfo(param: FunctionsApiFunctionsGetRequest, options?: Configuration): Promise<HttpInfo<Function>> {
+        return this.api.functionsGetWithHttpInfo(param.function_id,  options).toPromise();
+    }
+
+    /**
+     * Get a specific function (latest revision)
+     * Get function (latest revision)
+     * @param param the request object
+     */
+    public functionsGet(param: FunctionsApiFunctionsGetRequest, options?: Configuration): Promise<Function> {
+        return this.api.functionsGet(param.function_id,  options).toPromise();
+    }
+
+    /**
+     * Get a specific revision of a function
+     * Get a specific revision of a function
+     * @param param the request object
+     */
+    public functionsRevisionsGetWithHttpInfo(param: FunctionsApiFunctionsRevisionsGetRequest, options?: Configuration): Promise<HttpInfo<Function>> {
+        return this.api.functionsRevisionsGetWithHttpInfo(param.function_id, param.function_revision_id,  options).toPromise();
+    }
+
+    /**
+     * Get a specific revision of a function
+     * Get a specific revision of a function
+     * @param param the request object
+     */
+    public functionsRevisionsGet(param: FunctionsApiFunctionsRevisionsGetRequest, options?: Configuration): Promise<Function> {
+        return this.api.functionsRevisionsGet(param.function_id, param.function_revision_id,  options).toPromise();
+    }
+
+    /**
+     * List all revisions for a function
+     * List all revisions for a function
+     * @param param the request object
+     */
+    public functionsRevisionsListWithHttpInfo(param: FunctionsApiFunctionsRevisionsListRequest, options?: Configuration): Promise<HttpInfo<ListFunction>> {
+        return this.api.functionsRevisionsListWithHttpInfo(param.function_id, param.page,  options).toPromise();
+    }
+
+    /**
+     * List all revisions for a function
+     * List all revisions for a function
+     * @param param the request object
+     */
+    public functionsRevisionsList(param: FunctionsApiFunctionsRevisionsListRequest, options?: Configuration): Promise<ListFunction> {
+        return this.api.functionsRevisionsList(param.function_id, param.page,  options).toPromise();
+    }
+
+    /**
+     * Update a function (creates a new revision)
+     * Update function
+     * @param param the request object
+     */
+    public functionsUpdateWithHttpInfo(param: FunctionsApiFunctionsUpdateRequest, options?: Configuration): Promise<HttpInfo<Function>> {
+        return this.api.functionsUpdateWithHttpInfo(param.function_id, param.Function,  options).toPromise();
+    }
+
+    /**
+     * Update a function (creates a new revision)
+     * Update function
+     * @param param the request object
+     */
+    public functionsUpdate(param: FunctionsApiFunctionsUpdateRequest, options?: Configuration): Promise<Function> {
+        return this.api.functionsUpdate(param.function_id, param.Function,  options).toPromise();
+    }
+
+    /**
+     * Create a new function
+     * Create function
+     * @param param the request object
+     */
+    public projectsFunctionsCreateWithHttpInfo(param: FunctionsApiProjectsFunctionsCreateRequest, options?: Configuration): Promise<HttpInfo<Function>> {
+        return this.api.projectsFunctionsCreateWithHttpInfo(param.project_id, param.FunctionBody,  options).toPromise();
+    }
+
+    /**
+     * Create a new function
+     * Create function
+     * @param param the request object
+     */
+    public projectsFunctionsCreate(param: FunctionsApiProjectsFunctionsCreateRequest, options?: Configuration): Promise<Function> {
+        return this.api.projectsFunctionsCreate(param.project_id, param.FunctionBody,  options).toPromise();
+    }
+
+    /**
+     * List all functions
+     * List all functions within a project
+     * @param param the request object
+     */
+    public projectsFunctionsListWithHttpInfo(param: FunctionsApiProjectsFunctionsListRequest, options?: Configuration): Promise<HttpInfo<ListFunction>> {
+        return this.api.projectsFunctionsListWithHttpInfo(param.project_id, param.page,  options).toPromise();
+    }
+
+    /**
+     * List all functions
+     * List all functions within a project
+     * @param param the request object
+     */
+    public projectsFunctionsList(param: FunctionsApiProjectsFunctionsListRequest, options?: Configuration): Promise<ListFunction> {
+        return this.api.projectsFunctionsList(param.project_id, param.page,  options).toPromise();
+    }
+
+}
 
 import { ObservableHostsApi } from "./ObservableAPI.ts";
 import { HostsApiRequestFactory, HostsApiResponseProcessor} from "../apis/HostsApi.ts";
@@ -586,6 +833,39 @@ export class ObjectProjectsApi {
      */
     public projectsUpdate(param: ProjectsApiProjectsUpdateRequest, options?: Configuration): Promise<ProjectResponse> {
         return this.api.projectsUpdate(param.project_id, param.ProjectBodyPatch,  options).toPromise();
+    }
+
+}
+
+import { ObservableProvidersApi } from "./ObservableAPI.ts";
+import { ProvidersApiRequestFactory, ProvidersApiResponseProcessor} from "../apis/ProvidersApi.ts";
+
+export interface ProvidersApiProvidersGetRequest {
+}
+
+export class ObjectProvidersApi {
+    private api: ObservableProvidersApi
+
+    public constructor(configuration: Configuration, requestFactory?: ProvidersApiRequestFactory, responseProcessor?: ProvidersApiResponseProcessor) {
+        this.api = new ObservableProvidersApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * Retrieve a list of all providers with their respective deployed regions and cities.
+     * Get available providers
+     * @param param the request object
+     */
+    public providersGetWithHttpInfo(param: ProvidersApiProvidersGetRequest = {}, options?: Configuration): Promise<HttpInfo<Array<ProviderInner>>> {
+        return this.api.providersGetWithHttpInfo( options).toPromise();
+    }
+
+    /**
+     * Retrieve a list of all providers with their respective deployed regions and cities.
+     * Get available providers
+     * @param param the request object
+     */
+    public providersGet(param: ProvidersApiProvidersGetRequest = {}, options?: Configuration): Promise<Array<ProviderInner>> {
+        return this.api.providersGet( options).toPromise();
     }
 
 }

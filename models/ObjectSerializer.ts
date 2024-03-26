@@ -6,15 +6,29 @@ export * from '../models/BadRequestResponse.ts';
 export * from '../models/BadRequestResponseFields.ts';
 export * from '../models/ConflictResponse.ts';
 export * from '../models/DeletedResponse.ts';
+export * from '../models/Function.ts';
+export * from '../models/FunctionBody.ts';
+export * from '../models/FunctionCompliance.ts';
+export * from '../models/FunctionDeployment.ts';
+export * from '../models/FunctionDeploymentBody.ts';
+export * from '../models/FunctionEnv.ts';
+export * from '../models/FunctionReplicas.ts';
+export * from '../models/FunctionReplicasAffinity.ts';
+export * from '../models/FunctionRoute.ts';
+export * from '../models/FunctionScaling.ts';
+export * from '../models/FunctionSize.ts';
+export * from '../models/FunctionType.ts';
 export * from '../models/Host.ts';
 export * from '../models/HostBody.ts';
 export * from '../models/HostBodyPatch.ts';
 export * from '../models/HostVerificationStatus.ts';
 export * from '../models/ListAuthTokens.ts';
+export * from '../models/ListFunction.ts';
 export * from '../models/ListHosts.ts';
 export * from '../models/ListOrganisationResponse.ts';
 export * from '../models/ListProjectResponse.ts';
 export * from '../models/ListSecretResponse.ts';
+export * from '../models/Location.ts';
 export * from '../models/ModelDate.ts';
 export * from '../models/NotFoundResponse.ts';
 export * from '../models/OrganisationBody.ts';
@@ -25,6 +39,8 @@ export * from '../models/PaginationMeta.ts';
 export * from '../models/ProjectBody.ts';
 export * from '../models/ProjectBodyPatch.ts';
 export * from '../models/ProjectResponse.ts';
+export * from '../models/ProviderInner.ts';
+export * from '../models/ProviderInnerLocations.ts';
 export * from '../models/SecretBody.ts';
 export * from '../models/SecretBodyPatch.ts';
 export * from '../models/SecretCertificate.ts';
@@ -50,15 +66,29 @@ import { BadRequestResponse } from '../models/BadRequestResponse.ts';
 import { BadRequestResponseFields } from '../models/BadRequestResponseFields.ts';
 import { ConflictResponse } from '../models/ConflictResponse.ts';
 import { DeletedResponse } from '../models/DeletedResponse.ts';
+import { Function  , FunctionVersionEnum               } from '../models/Function.ts';
+import { FunctionBody , FunctionBodyVersionEnum              } from '../models/FunctionBody.ts';
+import { FunctionCompliance } from '../models/FunctionCompliance.ts';
+import { FunctionDeployment } from '../models/FunctionDeployment.ts';
+import { FunctionDeploymentBody } from '../models/FunctionDeploymentBody.ts';
+import { FunctionEnv } from '../models/FunctionEnv.ts';
+import { FunctionReplicas } from '../models/FunctionReplicas.ts';
+import { FunctionReplicasAffinity } from '../models/FunctionReplicasAffinity.ts';
+import { FunctionRoute } from '../models/FunctionRoute.ts';
+import { FunctionScaling, FunctionScalingTypeEnum     } from '../models/FunctionScaling.ts';
+import { FunctionSize } from '../models/FunctionSize.ts';
+import { FunctionType } from '../models/FunctionType.ts';
 import { Host           } from '../models/Host.ts';
 import { HostBody } from '../models/HostBody.ts';
 import { HostBodyPatch } from '../models/HostBodyPatch.ts';
 import { HostVerificationStatus } from '../models/HostVerificationStatus.ts';
 import { ListAuthTokens } from '../models/ListAuthTokens.ts';
+import { ListFunction } from '../models/ListFunction.ts';
 import { ListHosts } from '../models/ListHosts.ts';
 import { ListOrganisationResponse } from '../models/ListOrganisationResponse.ts';
 import { ListProjectResponse } from '../models/ListProjectResponse.ts';
 import { ListSecretResponse } from '../models/ListSecretResponse.ts';
+import { Location } from '../models/Location.ts';
 import { ModelDate } from '../models/ModelDate.ts';
 import { NotFoundResponse } from '../models/NotFoundResponse.ts';
 import { OrganisationBody } from '../models/OrganisationBody.ts';
@@ -69,6 +99,8 @@ import { PaginationMeta } from '../models/PaginationMeta.ts';
 import { ProjectBody } from '../models/ProjectBody.ts';
 import { ProjectBodyPatch } from '../models/ProjectBodyPatch.ts';
 import { ProjectResponse } from '../models/ProjectResponse.ts';
+import { ProviderInner } from '../models/ProviderInner.ts';
+import { ProviderInnerLocations } from '../models/ProviderInnerLocations.ts';
 import { SecretBody     } from '../models/SecretBody.ts';
 import { SecretBodyPatch    } from '../models/SecretBodyPatch.ts';
 import { SecretCertificate } from '../models/SecretCertificate.ts';
@@ -99,6 +131,11 @@ let primitives = [
                  ];
 
 let enumsMap: Set<string> = new Set<string>([
+    "FunctionVersionEnum",
+    "FunctionBodyVersionEnum",
+    "FunctionCompliance",
+    "FunctionScalingTypeEnum",
+    "FunctionType",
     "HostVerificationStatus",
     "SecretCreateType",
     "SecretMetaType",
@@ -113,14 +150,26 @@ let typeMap: {[index: string]: any} = {
     "BadRequestResponseFields": BadRequestResponseFields,
     "ConflictResponse": ConflictResponse,
     "DeletedResponse": DeletedResponse,
+    "Function": Function,
+    "FunctionBody": FunctionBody,
+    "FunctionDeployment": FunctionDeployment,
+    "FunctionDeploymentBody": FunctionDeploymentBody,
+    "FunctionEnv": FunctionEnv,
+    "FunctionReplicas": FunctionReplicas,
+    "FunctionReplicasAffinity": FunctionReplicasAffinity,
+    "FunctionRoute": FunctionRoute,
+    "FunctionScaling": FunctionScaling,
+    "FunctionSize": FunctionSize,
     "Host": Host,
     "HostBody": HostBody,
     "HostBodyPatch": HostBodyPatch,
     "ListAuthTokens": ListAuthTokens,
+    "ListFunction": ListFunction,
     "ListHosts": ListHosts,
     "ListOrganisationResponse": ListOrganisationResponse,
     "ListProjectResponse": ListProjectResponse,
     "ListSecretResponse": ListSecretResponse,
+    "Location": Location,
     "ModelDate": ModelDate,
     "NotFoundResponse": NotFoundResponse,
     "OrganisationBody": OrganisationBody,
@@ -131,6 +180,8 @@ let typeMap: {[index: string]: any} = {
     "ProjectBody": ProjectBody,
     "ProjectBodyPatch": ProjectBodyPatch,
     "ProjectResponse": ProjectResponse,
+    "ProviderInner": ProviderInner,
+    "ProviderInnerLocations": ProviderInnerLocations,
     "SecretBody": SecretBody,
     "SecretBodyPatch": SecretBodyPatch,
     "SecretCertificate": SecretCertificate,
