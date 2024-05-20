@@ -30,7 +30,7 @@ export class SecretsApiRequestFactory extends BaseAPIRequestFactory {
      * Create a new project secret
      * Create project secret
      * @param project_id Project ID reference
-     * @param SecretBody Create/Update any field
+     * @param SecretBody Create/Update any field  The example generated may only be for one of the secret types, look towards the payload section of the schema for further fields, values and examples. 
      */
     public async projectsSecretsCreate(project_id: string, SecretBody: SecretBody, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;

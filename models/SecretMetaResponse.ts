@@ -20,7 +20,7 @@ import { HttpFile } from '../http/http.ts';
 */
 export class SecretMetaResponse {
     /**
-    * Project name
+    * Secret name
     */
     'name': string;
     'type': SecretMetaType;

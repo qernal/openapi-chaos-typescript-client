@@ -212,9 +212,11 @@ export class ProjectsApiRequestFactory extends BaseAPIRequestFactory {
      * Get all projects for this user, paginated
      * List projects
      * @param page Query parameters for pagination
+     * @param f_name Filter resource on name, if the value ends in an asterix it will be treated as a partial search otherwise, it\&#39;ll be an exact match 
      */
-    public async projectsList(page?: OrganisationsListPageParameter, _options?: Configuration): Promise<RequestContext> {
+    public async projectsList(page?: OrganisationsListPageParameter, f_name?: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
+
 
 
         // Path Params
@@ -227,6 +229,11 @@ export class ProjectsApiRequestFactory extends BaseAPIRequestFactory {
         // Query Params
         if (page !== undefined) {
             requestContext.setQueryParam("page", ObjectSerializer.serialize(page, "OrganisationsListPageParameter", ""));
+        }
+
+        // Query Params
+        if (f_name !== undefined) {
+            requestContext.setQueryParam("f_name", ObjectSerializer.serialize(f_name, "string", ""));
         }
 
 

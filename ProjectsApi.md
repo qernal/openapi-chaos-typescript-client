@@ -94,7 +94,7 @@ let body:.ProjectsApiProjectsCreateRequest = {
   // ProjectBody | Create/Update any field (optional)
   ProjectBody: {
     org_id: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
-    name: "first api",
+    name: "first-api",
   },
 };
 
@@ -270,6 +270,8 @@ let body:.ProjectsApiProjectsListRequest = {
     after: 20,
     size: 20,
   },
+  // string | Filter resource on name, if the value ends in an asterix it will be treated as a partial search otherwise, it\'ll be an exact match  (optional)
+  f_name: "my-proj*",
 };
 
 apiInstance.projectsList(body).then((data:any) => {
@@ -283,6 +285,7 @@ apiInstance.projectsList(body).then((data:any) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **page** | **OrganisationsListPageParameter** | Query parameters for pagination | (optional) defaults to undefined
+ **f_name** | [**string**] | Filter resource on name, if the value ends in an asterix it will be treated as a partial search otherwise, it\&#39;ll be an exact match  | (optional) defaults to undefined
 
 
 ### Return type
@@ -327,8 +330,8 @@ let body:.ProjectsApiProjectsUpdateRequest = {
   project_id: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
   // ProjectBodyPatch | Update any field (optional)
   ProjectBodyPatch: {
-    org_id: "org_id_example",
-    name: "name_example",
+    org_id: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
+    name: "first-api",
   },
 };
 

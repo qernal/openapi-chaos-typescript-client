@@ -17,11 +17,11 @@ import { HttpFile } from '../http/http.ts';
 */
 export class HostBodyPatch {
     /**
-    * Reference to secret certificate path
+    * The secret reference to the certificate
     */
     'certificate'?: string;
     /**
-    * If the host is disabled, then this host won\'t be accessible and so the deployments will not work on this host
+    * If the host is disabled, then this host won\'t be accessible and so the deployments will not be routable
     */
     'disabled'?: boolean;
 

@@ -29,7 +29,7 @@ const apiInstance = new .TokensApi(configuration);
 let body:.TokensApiAuthTokensCreateRequest = {
   // AuthTokenBody
   AuthTokenBody: {
-    name: "TF token",
+    name: "tf-token",
     expiry_duration: 90,
   },
 };

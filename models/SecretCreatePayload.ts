@@ -20,7 +20,7 @@ import { HttpFile } from '../http/http.ts';
 */
 export class SecretCreatePayload {
     /**
-    * Url to private container repository (for docker registry use https://index.docker.io/v1/)
+    * Url to private container repository (for docker registry use docker.io)
     */
     'registry': string;
     /**

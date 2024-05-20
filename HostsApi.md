@@ -32,7 +32,7 @@ let body:.HostsApiProjectsHostsCreateRequest = {
   project_id: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
   // HostBody
   HostBody: {
-    host: "host_example",
+    host: "example-domain.com",
     certificate: "projects:secrets/MY_CERT",
     disabled: true,
   },

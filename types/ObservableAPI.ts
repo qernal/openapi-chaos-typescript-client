@@ -660,9 +660,10 @@ export class ObservableOrganisationsApi {
      * List organisations
      * List organisations
      * @param page Query parameters for pagination
+     * @param f_name Filter resource on name, if the value ends in an asterix it will be treated as a partial search otherwise, it\&#39;ll be an exact match 
      */
-    public organisationsListWithHttpInfo(page?: OrganisationsListPageParameter, _options?: Configuration): Observable<HttpInfo<ListOrganisationResponse>> {
-        const requestContextPromise = this.requestFactory.organisationsList(page, _options);
+    public organisationsListWithHttpInfo(page?: OrganisationsListPageParameter, f_name?: string, _options?: Configuration): Observable<HttpInfo<ListOrganisationResponse>> {
+        const requestContextPromise = this.requestFactory.organisationsList(page, f_name, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -684,9 +685,10 @@ export class ObservableOrganisationsApi {
      * List organisations
      * List organisations
      * @param page Query parameters for pagination
+     * @param f_name Filter resource on name, if the value ends in an asterix it will be treated as a partial search otherwise, it\&#39;ll be an exact match 
      */
-    public organisationsList(page?: OrganisationsListPageParameter, _options?: Configuration): Observable<ListOrganisationResponse> {
-        return this.organisationsListWithHttpInfo(page, _options).pipe(map((apiResponse: HttpInfo<ListOrganisationResponse>) => apiResponse.data));
+    public organisationsList(page?: OrganisationsListPageParameter, f_name?: string, _options?: Configuration): Observable<ListOrganisationResponse> {
+        return this.organisationsListWithHttpInfo(page, f_name, _options).pipe(map((apiResponse: HttpInfo<ListOrganisationResponse>) => apiResponse.data));
     }
 
     /**
@@ -880,9 +882,10 @@ export class ObservableProjectsApi {
      * Get all projects for this user, paginated
      * List projects
      * @param page Query parameters for pagination
+     * @param f_name Filter resource on name, if the value ends in an asterix it will be treated as a partial search otherwise, it\&#39;ll be an exact match 
      */
-    public projectsListWithHttpInfo(page?: OrganisationsListPageParameter, _options?: Configuration): Observable<HttpInfo<ListProjectResponse>> {
-        const requestContextPromise = this.requestFactory.projectsList(page, _options);
+    public projectsListWithHttpInfo(page?: OrganisationsListPageParameter, f_name?: string, _options?: Configuration): Observable<HttpInfo<ListProjectResponse>> {
+        const requestContextPromise = this.requestFactory.projectsList(page, f_name, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -904,9 +907,10 @@ export class ObservableProjectsApi {
      * Get all projects for this user, paginated
      * List projects
      * @param page Query parameters for pagination
+     * @param f_name Filter resource on name, if the value ends in an asterix it will be treated as a partial search otherwise, it\&#39;ll be an exact match 
      */
-    public projectsList(page?: OrganisationsListPageParameter, _options?: Configuration): Observable<ListProjectResponse> {
-        return this.projectsListWithHttpInfo(page, _options).pipe(map((apiResponse: HttpInfo<ListProjectResponse>) => apiResponse.data));
+    public projectsList(page?: OrganisationsListPageParameter, f_name?: string, _options?: Configuration): Observable<ListProjectResponse> {
+        return this.projectsListWithHttpInfo(page, f_name, _options).pipe(map((apiResponse: HttpInfo<ListProjectResponse>) => apiResponse.data));
     }
 
     /**
@@ -1015,7 +1019,7 @@ export class ObservableSecretsApi {
      * Create a new project secret
      * Create project secret
      * @param project_id Project ID reference
-     * @param SecretBody Create/Update any field
+     * @param SecretBody Create/Update any field  The example generated may only be for one of the secret types, look towards the payload section of the schema for further fields, values and examples. 
      */
     public projectsSecretsCreateWithHttpInfo(project_id: string, SecretBody: SecretBody, _options?: Configuration): Observable<HttpInfo<SecretResponse>> {
         const requestContextPromise = this.requestFactory.projectsSecretsCreate(project_id, SecretBody, _options);
@@ -1040,7 +1044,7 @@ export class ObservableSecretsApi {
      * Create a new project secret
      * Create project secret
      * @param project_id Project ID reference
-     * @param SecretBody Create/Update any field
+     * @param SecretBody Create/Update any field  The example generated may only be for one of the secret types, look towards the payload section of the schema for further fields, values and examples. 
      */
     public projectsSecretsCreate(project_id: string, SecretBody: SecretBody, _options?: Configuration): Observable<SecretResponse> {
         return this.projectsSecretsCreateWithHttpInfo(project_id, SecretBody, _options).pipe(map((apiResponse: HttpInfo<SecretResponse>) => apiResponse.data));

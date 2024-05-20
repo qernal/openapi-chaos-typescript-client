@@ -535,6 +535,12 @@ export interface OrganisationsApiOrganisationsListRequest {
      * @memberof OrganisationsApiorganisationsList
      */
     page?: OrganisationsListPageParameter
+    /**
+     * Filter resource on name, if the value ends in an asterix it will be treated as a partial search otherwise, it\&#39;ll be an exact match 
+     * @type string
+     * @memberof OrganisationsApiorganisationsList
+     */
+    f_name?: string
 }
 
 export interface OrganisationsApiOrganisationsUpdateRequest {
@@ -619,7 +625,7 @@ export class ObjectOrganisationsApi {
      * @param param the request object
      */
     public organisationsListWithHttpInfo(param: OrganisationsApiOrganisationsListRequest = {}, options?: Configuration): Promise<HttpInfo<ListOrganisationResponse>> {
-        return this.api.organisationsListWithHttpInfo(param.page,  options).toPromise();
+        return this.api.organisationsListWithHttpInfo(param.page, param.f_name,  options).toPromise();
     }
 
     /**
@@ -628,7 +634,7 @@ export class ObjectOrganisationsApi {
      * @param param the request object
      */
     public organisationsList(param: OrganisationsApiOrganisationsListRequest = {}, options?: Configuration): Promise<ListOrganisationResponse> {
-        return this.api.organisationsList(param.page,  options).toPromise();
+        return this.api.organisationsList(param.page, param.f_name,  options).toPromise();
     }
 
     /**
@@ -703,6 +709,12 @@ export interface ProjectsApiProjectsListRequest {
      * @memberof ProjectsApiprojectsList
      */
     page?: OrganisationsListPageParameter
+    /**
+     * Filter resource on name, if the value ends in an asterix it will be treated as a partial search otherwise, it\&#39;ll be an exact match 
+     * @type string
+     * @memberof ProjectsApiprojectsList
+     */
+    f_name?: string
 }
 
 export interface ProjectsApiProjectsUpdateRequest {
@@ -805,7 +817,7 @@ export class ObjectProjectsApi {
      * @param param the request object
      */
     public projectsListWithHttpInfo(param: ProjectsApiProjectsListRequest = {}, options?: Configuration): Promise<HttpInfo<ListProjectResponse>> {
-        return this.api.projectsListWithHttpInfo(param.page,  options).toPromise();
+        return this.api.projectsListWithHttpInfo(param.page, param.f_name,  options).toPromise();
     }
 
     /**
@@ -814,7 +826,7 @@ export class ObjectProjectsApi {
      * @param param the request object
      */
     public projectsList(param: ProjectsApiProjectsListRequest = {}, options?: Configuration): Promise<ListProjectResponse> {
-        return this.api.projectsList(param.page,  options).toPromise();
+        return this.api.projectsList(param.page, param.f_name,  options).toPromise();
     }
 
     /**
@@ -881,7 +893,7 @@ export interface SecretsApiProjectsSecretsCreateRequest {
      */
     project_id: string
     /**
-     * Create/Update any field
+     * Create/Update any field  The example generated may only be for one of the secret types, look towards the payload section of the schema for further fields, values and examples. 
      * @type SecretBody
      * @memberof SecretsApiprojectsSecretsCreate
      */

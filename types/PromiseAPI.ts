@@ -450,9 +450,10 @@ export class PromiseOrganisationsApi {
      * List organisations
      * List organisations
      * @param page Query parameters for pagination
+     * @param f_name Filter resource on name, if the value ends in an asterix it will be treated as a partial search otherwise, it\&#39;ll be an exact match 
      */
-    public organisationsListWithHttpInfo(page?: OrganisationsListPageParameter, _options?: Configuration): Promise<HttpInfo<ListOrganisationResponse>> {
-        const result = this.api.organisationsListWithHttpInfo(page, _options);
+    public organisationsListWithHttpInfo(page?: OrganisationsListPageParameter, f_name?: string, _options?: Configuration): Promise<HttpInfo<ListOrganisationResponse>> {
+        const result = this.api.organisationsListWithHttpInfo(page, f_name, _options);
         return result.toPromise();
     }
 
@@ -460,9 +461,10 @@ export class PromiseOrganisationsApi {
      * List organisations
      * List organisations
      * @param page Query parameters for pagination
+     * @param f_name Filter resource on name, if the value ends in an asterix it will be treated as a partial search otherwise, it\&#39;ll be an exact match 
      */
-    public organisationsList(page?: OrganisationsListPageParameter, _options?: Configuration): Promise<ListOrganisationResponse> {
-        const result = this.api.organisationsList(page, _options);
+    public organisationsList(page?: OrganisationsListPageParameter, f_name?: string, _options?: Configuration): Promise<ListOrganisationResponse> {
+        const result = this.api.organisationsList(page, f_name, _options);
         return result.toPromise();
     }
 
@@ -593,9 +595,10 @@ export class PromiseProjectsApi {
      * Get all projects for this user, paginated
      * List projects
      * @param page Query parameters for pagination
+     * @param f_name Filter resource on name, if the value ends in an asterix it will be treated as a partial search otherwise, it\&#39;ll be an exact match 
      */
-    public projectsListWithHttpInfo(page?: OrganisationsListPageParameter, _options?: Configuration): Promise<HttpInfo<ListProjectResponse>> {
-        const result = this.api.projectsListWithHttpInfo(page, _options);
+    public projectsListWithHttpInfo(page?: OrganisationsListPageParameter, f_name?: string, _options?: Configuration): Promise<HttpInfo<ListProjectResponse>> {
+        const result = this.api.projectsListWithHttpInfo(page, f_name, _options);
         return result.toPromise();
     }
 
@@ -603,9 +606,10 @@ export class PromiseProjectsApi {
      * Get all projects for this user, paginated
      * List projects
      * @param page Query parameters for pagination
+     * @param f_name Filter resource on name, if the value ends in an asterix it will be treated as a partial search otherwise, it\&#39;ll be an exact match 
      */
-    public projectsList(page?: OrganisationsListPageParameter, _options?: Configuration): Promise<ListProjectResponse> {
-        const result = this.api.projectsList(page, _options);
+    public projectsList(page?: OrganisationsListPageParameter, f_name?: string, _options?: Configuration): Promise<ListProjectResponse> {
+        const result = this.api.projectsList(page, f_name, _options);
         return result.toPromise();
     }
 
@@ -691,7 +695,7 @@ export class PromiseSecretsApi {
      * Create a new project secret
      * Create project secret
      * @param project_id Project ID reference
-     * @param SecretBody Create/Update any field
+     * @param SecretBody Create/Update any field  The example generated may only be for one of the secret types, look towards the payload section of the schema for further fields, values and examples. 
      */
     public projectsSecretsCreateWithHttpInfo(project_id: string, SecretBody: SecretBody, _options?: Configuration): Promise<HttpInfo<SecretResponse>> {
         const result = this.api.projectsSecretsCreateWithHttpInfo(project_id, SecretBody, _options);
@@ -702,7 +706,7 @@ export class PromiseSecretsApi {
      * Create a new project secret
      * Create project secret
      * @param project_id Project ID reference
-     * @param SecretBody Create/Update any field
+     * @param SecretBody Create/Update any field  The example generated may only be for one of the secret types, look towards the payload section of the schema for further fields, values and examples. 
      */
     public projectsSecretsCreate(project_id: string, SecretBody: SecretBody, _options?: Configuration): Promise<SecretResponse> {
         const result = this.api.projectsSecretsCreate(project_id, SecretBody, _options);

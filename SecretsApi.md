@@ -29,12 +29,12 @@ const apiInstance = new .SecretsApi(configuration);
 let body:.SecretsApiProjectsSecretsCreateRequest = {
   // string | Project ID reference
   project_id: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
-  // SecretBody | Create/Update any field
+  // SecretBody | Create/Update any field  The example generated may only be for one of the secret types, look towards the payload section of the schema for further fields, values and examples. 
   SecretBody: {
     name: "R",
     type: "registry",
     payload: {
-    registry: "https://index.docker.io/v1/",
+    registry: "ghcr.io",
     registry_value: "SGVsbG8gd29ybGQ=",
   },
     encryption: "keys/dek/123",
@@ -51,7 +51,7 @@ apiInstance.projectsSecretsCreate(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **SecretBody** | **SecretBody**| Create/Update any field |
+ **SecretBody** | **SecretBody**| Create/Update any field  The example generated may only be for one of the secret types, look towards the payload section of the schema for further fields, values and examples.  |
  **project_id** | [**string**] | Project ID reference | defaults to undefined
 
 
@@ -288,7 +288,7 @@ let body:.SecretsApiProjectsSecretsUpdateRequest = {
   SecretBodyPatch: {
     type: "registry",
     payload: {
-    registry: "https://index.docker.io/v1/",
+    registry: "ghcr.io",
     registry_value: "SGVsbG8gd29ybGQ=",
   },
     encryption: "keys/dek/123",

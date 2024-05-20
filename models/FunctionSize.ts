@@ -17,11 +17,11 @@ import { HttpFile } from '../http/http.ts';
 */
 export class FunctionSize {
     /**
-    * CPU in 0.1 vCPU increments, for a whole vCPU specify 1024 Must be in multiples of 128, with the same multiplier as memory 
+    * CPU in 0.1 vCPU increments, for a whole vCPU specify 1024 Must be in multiples of 128, with the same multiplier as memory from the base 
     */
     'cpu': number;
     /**
-    * Memory in 128 MB increments, values are integer always in MB Must be in multiples of 128, with the same multiplier as CPU 
+    * Memory in 128 MB increments, values are integer always in MB Must be in multiples of 128, with the same multiplier as CPU from the base 
     */
     'memory': number;
 

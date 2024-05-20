@@ -29,7 +29,7 @@ const apiInstance = new .OrganisationsApi(configuration);
 let body:.OrganisationsApiOrganisationsCreateRequest = {
   // OrganisationBody | Create/Update any field (optional)
   OrganisationBody: {
-    name: "my org",
+    name: "my-org",
   },
 };
 
@@ -204,6 +204,8 @@ let body:.OrganisationsApiOrganisationsListRequest = {
     after: 20,
     size: 20,
   },
+  // string | Filter resource on name, if the value ends in an asterix it will be treated as a partial search otherwise, it\'ll be an exact match  (optional)
+  f_name: "my-proj*",
 };
 
 apiInstance.organisationsList(body).then((data:any) => {
@@ -217,6 +219,7 @@ apiInstance.organisationsList(body).then((data:any) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **page** | **OrganisationsListPageParameter** | Query parameters for pagination | (optional) defaults to undefined
+ **f_name** | [**string**] | Filter resource on name, if the value ends in an asterix it will be treated as a partial search otherwise, it\&#39;ll be an exact match  | (optional) defaults to undefined
 
 
 ### Return type
@@ -261,7 +264,7 @@ let body:.OrganisationsApiOrganisationsUpdateRequest = {
   organisation_id: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
   // OrganisationBody | Create/Update any field (optional)
   OrganisationBody: {
-    name: "my org",
+    name: "my-org",
   },
 };
 
