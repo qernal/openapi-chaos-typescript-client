@@ -31,7 +31,7 @@ let body:.SecretsApiProjectsSecretsCreateRequest = {
   project_id: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
   // SecretBody | Create/Update any field  The example generated may only be for one of the secret types, look towards the payload section of the schema for further fields, values and examples. 
   SecretBody: {
-    name: "R",
+    name: "MY_SECRET",
     type: "registry",
     payload: {
     registry: "ghcr.io",

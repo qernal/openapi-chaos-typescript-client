@@ -20,7 +20,7 @@ export class SecretResponsePayload {
     */
     'certificate': string;
     /**
-    * Registry domain
+    * Private registry domain/location, when using the private docker hub registry sepcify `docker.io` > Without http scheme 
     */
     'registry': string;
 
@@ -37,7 +37,7 @@ export class SecretResponsePayload {
             "name": "registry",
             "baseName": "registry",
             "type": "string",
-            "format": "string"
+            "format": "hostname"
         }    ];
 
     static getAttributeTypeMap() {

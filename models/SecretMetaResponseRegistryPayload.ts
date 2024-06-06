@@ -17,7 +17,7 @@ import { HttpFile } from '../http/http.ts';
 */
 export class SecretMetaResponseRegistryPayload {
     /**
-    * Registry domain
+    * Private registry domain/location, when using the private docker hub registry sepcify `docker.io` > Without http scheme 
     */
     'registry': string;
 
@@ -28,7 +28,7 @@ export class SecretMetaResponseRegistryPayload {
             "name": "registry",
             "baseName": "registry",
             "type": "string",
-            "format": "string"
+            "format": "hostname"
         }    ];
 
     static getAttributeTypeMap() {

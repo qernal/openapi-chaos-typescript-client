@@ -17,7 +17,7 @@ import { HttpFile } from '../http/http.ts';
 */
 export class SecretRegistry {
     /**
-    * Url to private container repository (for docker registry use docker.io)
+    * Private registry domain/location, when using the private docker hub registry sepcify `docker.io` > Without http scheme 
     */
     'registry': string;
     /**
@@ -32,7 +32,7 @@ export class SecretRegistry {
             "name": "registry",
             "baseName": "registry",
             "type": "string",
-            "format": "url"
+            "format": "hostname"
         },
         {
             "name": "registry_value",
