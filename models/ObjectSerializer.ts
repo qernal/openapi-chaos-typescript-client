@@ -27,6 +27,7 @@ export * from '../models/ListFunction.ts';
 export * from '../models/ListHosts.ts';
 export * from '../models/ListOrganisationResponse.ts';
 export * from '../models/ListProjectResponse.ts';
+export * from '../models/ListProviderResponse.ts';
 export * from '../models/ListSecretResponse.ts';
 export * from '../models/Location.ts';
 export * from '../models/ModelDate.ts';
@@ -39,8 +40,8 @@ export * from '../models/PaginationMeta.ts';
 export * from '../models/ProjectBody.ts';
 export * from '../models/ProjectBodyPatch.ts';
 export * from '../models/ProjectResponse.ts';
-export * from '../models/ProviderInner.ts';
-export * from '../models/ProviderInnerLocations.ts';
+export * from '../models/Provider.ts';
+export * from '../models/ProviderLocations.ts';
 export * from '../models/SecretBody.ts';
 export * from '../models/SecretBodyPatch.ts';
 export * from '../models/SecretCertificate.ts';
@@ -87,6 +88,7 @@ import { ListFunction } from '../models/ListFunction.ts';
 import { ListHosts } from '../models/ListHosts.ts';
 import { ListOrganisationResponse } from '../models/ListOrganisationResponse.ts';
 import { ListProjectResponse } from '../models/ListProjectResponse.ts';
+import { ListProviderResponse } from '../models/ListProviderResponse.ts';
 import { ListSecretResponse } from '../models/ListSecretResponse.ts';
 import { Location } from '../models/Location.ts';
 import { ModelDate } from '../models/ModelDate.ts';
@@ -99,8 +101,8 @@ import { PaginationMeta } from '../models/PaginationMeta.ts';
 import { ProjectBody } from '../models/ProjectBody.ts';
 import { ProjectBodyPatch } from '../models/ProjectBodyPatch.ts';
 import { ProjectResponse } from '../models/ProjectResponse.ts';
-import { ProviderInner } from '../models/ProviderInner.ts';
-import { ProviderInnerLocations } from '../models/ProviderInnerLocations.ts';
+import { Provider } from '../models/Provider.ts';
+import { ProviderLocations } from '../models/ProviderLocations.ts';
 import { SecretBody     } from '../models/SecretBody.ts';
 import { SecretBodyPatch    } from '../models/SecretBodyPatch.ts';
 import { SecretCertificate } from '../models/SecretCertificate.ts';
@@ -168,6 +170,7 @@ let typeMap: {[index: string]: any} = {
     "ListHosts": ListHosts,
     "ListOrganisationResponse": ListOrganisationResponse,
     "ListProjectResponse": ListProjectResponse,
+    "ListProviderResponse": ListProviderResponse,
     "ListSecretResponse": ListSecretResponse,
     "Location": Location,
     "ModelDate": ModelDate,
@@ -180,8 +183,8 @@ let typeMap: {[index: string]: any} = {
     "ProjectBody": ProjectBody,
     "ProjectBodyPatch": ProjectBodyPatch,
     "ProjectResponse": ProjectResponse,
-    "ProviderInner": ProviderInner,
-    "ProviderInnerLocations": ProviderInnerLocations,
+    "Provider": Provider,
+    "ProviderLocations": ProviderLocations,
     "SecretBody": SecretBody,
     "SecretBodyPatch": SecretBodyPatch,
     "SecretCertificate": SecretCertificate,

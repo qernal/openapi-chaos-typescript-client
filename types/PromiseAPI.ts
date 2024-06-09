@@ -30,6 +30,7 @@ import { ListFunction } from '../models/ListFunction.ts';
 import { ListHosts } from '../models/ListHosts.ts';
 import { ListOrganisationResponse } from '../models/ListOrganisationResponse.ts';
 import { ListProjectResponse } from '../models/ListProjectResponse.ts';
+import { ListProviderResponse } from '../models/ListProviderResponse.ts';
 import { ListSecretResponse } from '../models/ListSecretResponse.ts';
 import { Location } from '../models/Location.ts';
 import { ModelDate } from '../models/ModelDate.ts';
@@ -42,8 +43,8 @@ import { PaginationMeta } from '../models/PaginationMeta.ts';
 import { ProjectBody } from '../models/ProjectBody.ts';
 import { ProjectBodyPatch } from '../models/ProjectBodyPatch.ts';
 import { ProjectResponse } from '../models/ProjectResponse.ts';
-import { ProviderInner } from '../models/ProviderInner.ts';
-import { ProviderInnerLocations } from '../models/ProviderInnerLocations.ts';
+import { Provider } from '../models/Provider.ts';
+import { ProviderLocations } from '../models/ProviderLocations.ts';
 import { SecretBody } from '../models/SecretBody.ts';
 import { SecretBodyPatch } from '../models/SecretBodyPatch.ts';
 import { SecretCertificate } from '../models/SecretCertificate.ts';
@@ -657,18 +658,20 @@ export class PromiseProvidersApi {
     /**
      * Retrieve a list of all providers with their respective deployed regions and cities.
      * Get available providers
+     * @param page Query parameters for pagination
      */
-    public providersGetWithHttpInfo(_options?: Configuration): Promise<HttpInfo<Array<ProviderInner>>> {
-        const result = this.api.providersGetWithHttpInfo(_options);
+    public providersListWithHttpInfo(page?: OrganisationsListPageParameter, _options?: Configuration): Promise<HttpInfo<ListProviderResponse>> {
+        const result = this.api.providersListWithHttpInfo(page, _options);
         return result.toPromise();
     }
 
     /**
      * Retrieve a list of all providers with their respective deployed regions and cities.
      * Get available providers
+     * @param page Query parameters for pagination
      */
-    public providersGet(_options?: Configuration): Promise<Array<ProviderInner>> {
-        const result = this.api.providersGet(_options);
+    public providersList(page?: OrganisationsListPageParameter, _options?: Configuration): Promise<ListProviderResponse> {
+        const result = this.api.providersList(page, _options);
         return result.toPromise();
     }
 

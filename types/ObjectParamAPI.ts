@@ -30,6 +30,7 @@ import { ListFunction } from '../models/ListFunction.ts';
 import { ListHosts } from '../models/ListHosts.ts';
 import { ListOrganisationResponse } from '../models/ListOrganisationResponse.ts';
 import { ListProjectResponse } from '../models/ListProjectResponse.ts';
+import { ListProviderResponse } from '../models/ListProviderResponse.ts';
 import { ListSecretResponse } from '../models/ListSecretResponse.ts';
 import { Location } from '../models/Location.ts';
 import { ModelDate } from '../models/ModelDate.ts';
@@ -42,8 +43,8 @@ import { PaginationMeta } from '../models/PaginationMeta.ts';
 import { ProjectBody } from '../models/ProjectBody.ts';
 import { ProjectBodyPatch } from '../models/ProjectBodyPatch.ts';
 import { ProjectResponse } from '../models/ProjectResponse.ts';
-import { ProviderInner } from '../models/ProviderInner.ts';
-import { ProviderInnerLocations } from '../models/ProviderInnerLocations.ts';
+import { Provider } from '../models/Provider.ts';
+import { ProviderLocations } from '../models/ProviderLocations.ts';
 import { SecretBody } from '../models/SecretBody.ts';
 import { SecretBodyPatch } from '../models/SecretBodyPatch.ts';
 import { SecretCertificate } from '../models/SecretCertificate.ts';
@@ -852,7 +853,13 @@ export class ObjectProjectsApi {
 import { ObservableProvidersApi } from "./ObservableAPI.ts";
 import { ProvidersApiRequestFactory, ProvidersApiResponseProcessor} from "../apis/ProvidersApi.ts";
 
-export interface ProvidersApiProvidersGetRequest {
+export interface ProvidersApiProvidersListRequest {
+    /**
+     * Query parameters for pagination
+     * @type OrganisationsListPageParameter
+     * @memberof ProvidersApiprovidersList
+     */
+    page?: OrganisationsListPageParameter
 }
 
 export class ObjectProvidersApi {
@@ -867,8 +874,8 @@ export class ObjectProvidersApi {
      * Get available providers
      * @param param the request object
      */
-    public providersGetWithHttpInfo(param: ProvidersApiProvidersGetRequest = {}, options?: Configuration): Promise<HttpInfo<Array<ProviderInner>>> {
-        return this.api.providersGetWithHttpInfo( options).toPromise();
+    public providersListWithHttpInfo(param: ProvidersApiProvidersListRequest = {}, options?: Configuration): Promise<HttpInfo<ListProviderResponse>> {
+        return this.api.providersListWithHttpInfo(param.page,  options).toPromise();
     }
 
     /**
@@ -876,8 +883,8 @@ export class ObjectProvidersApi {
      * Get available providers
      * @param param the request object
      */
-    public providersGet(param: ProvidersApiProvidersGetRequest = {}, options?: Configuration): Promise<Array<ProviderInner>> {
-        return this.api.providersGet( options).toPromise();
+    public providersList(param: ProvidersApiProvidersListRequest = {}, options?: Configuration): Promise<ListProviderResponse> {
+        return this.api.providersList(param.page,  options).toPromise();
     }
 
 }

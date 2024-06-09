@@ -10,40 +10,35 @@
  * Do not edit the class manually.
  */
 
+import { PaginationMeta } from '../models/PaginationMeta.ts';
+import { Provider } from '../models/Provider.ts';
 import { HttpFile } from '../http/http.ts';
 
 /**
-* Locations at varying levels this provider operates within
+* List of providers
 */
-export class ProviderInnerLocations {
-    'continents'?: Array<string>;
-    'countries'?: Array<string>;
-    'cities'?: Array<string>;
+export class ListProviderResponse {
+    'meta': PaginationMeta;
+    'data': Array<Provider>;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "continents",
-            "baseName": "continents",
-            "type": "Array<string>",
+            "name": "meta",
+            "baseName": "meta",
+            "type": "PaginationMeta",
             "format": ""
         },
         {
-            "name": "countries",
-            "baseName": "countries",
-            "type": "Array<string>",
-            "format": ""
-        },
-        {
-            "name": "cities",
-            "baseName": "cities",
-            "type": "Array<string>",
+            "name": "data",
+            "baseName": "data",
+            "type": "Array<Provider>",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return ProviderInnerLocations.attributeTypeMap;
+        return ListProviderResponse.attributeTypeMap;
     }
 
     public constructor() {

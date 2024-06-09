@@ -10,16 +10,19 @@
  * Do not edit the class manually.
  */
 
-import { ProviderInnerLocations } from '../models/ProviderInnerLocations.ts';
+import { ProviderLocations } from '../models/ProviderLocations.ts';
 import { HttpFile } from '../http/http.ts';
 
-export class ProviderInner {
-    'id'?: string;
+/**
+* List of providers
+*/
+export class Provider {
+    'id': string;
     /**
     * Name of provider
     */
-    'name'?: string;
-    'locations'?: ProviderInnerLocations;
+    'name': string;
+    'locations': ProviderLocations;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -39,12 +42,12 @@ export class ProviderInner {
         {
             "name": "locations",
             "baseName": "locations",
-            "type": "ProviderInnerLocations",
+            "type": "ProviderLocations",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return ProviderInner.attributeTypeMap;
+        return Provider.attributeTypeMap;
     }
 
     public constructor() {

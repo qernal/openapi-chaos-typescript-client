@@ -31,6 +31,7 @@ import { ListFunction } from '../models/ListFunction.ts';
 import { ListHosts } from '../models/ListHosts.ts';
 import { ListOrganisationResponse } from '../models/ListOrganisationResponse.ts';
 import { ListProjectResponse } from '../models/ListProjectResponse.ts';
+import { ListProviderResponse } from '../models/ListProviderResponse.ts';
 import { ListSecretResponse } from '../models/ListSecretResponse.ts';
 import { Location } from '../models/Location.ts';
 import { ModelDate } from '../models/ModelDate.ts';
@@ -43,8 +44,8 @@ import { PaginationMeta } from '../models/PaginationMeta.ts';
 import { ProjectBody } from '../models/ProjectBody.ts';
 import { ProjectBodyPatch } from '../models/ProjectBodyPatch.ts';
 import { ProjectResponse } from '../models/ProjectResponse.ts';
-import { ProviderInner } from '../models/ProviderInner.ts';
-import { ProviderInnerLocations } from '../models/ProviderInnerLocations.ts';
+import { Provider } from '../models/Provider.ts';
+import { ProviderLocations } from '../models/ProviderLocations.ts';
 import { SecretBody } from '../models/SecretBody.ts';
 import { SecretBodyPatch } from '../models/SecretBodyPatch.ts';
 import { SecretCertificate } from '../models/SecretCertificate.ts';
@@ -969,9 +970,10 @@ export class ObservableProvidersApi {
     /**
      * Retrieve a list of all providers with their respective deployed regions and cities.
      * Get available providers
+     * @param page Query parameters for pagination
      */
-    public providersGetWithHttpInfo(_options?: Configuration): Observable<HttpInfo<Array<ProviderInner>>> {
-        const requestContextPromise = this.requestFactory.providersGet(_options);
+    public providersListWithHttpInfo(page?: OrganisationsListPageParameter, _options?: Configuration): Observable<HttpInfo<ListProviderResponse>> {
+        const requestContextPromise = this.requestFactory.providersList(page, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -985,16 +987,17 @@ export class ObservableProvidersApi {
                 for (let middleware of this.configuration.middleware) {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.providersGetWithHttpInfo(rsp)));
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.providersListWithHttpInfo(rsp)));
             }));
     }
 
     /**
      * Retrieve a list of all providers with their respective deployed regions and cities.
      * Get available providers
+     * @param page Query parameters for pagination
      */
-    public providersGet(_options?: Configuration): Observable<Array<ProviderInner>> {
-        return this.providersGetWithHttpInfo(_options).pipe(map((apiResponse: HttpInfo<Array<ProviderInner>>) => apiResponse.data));
+    public providersList(page?: OrganisationsListPageParameter, _options?: Configuration): Observable<ListProviderResponse> {
+        return this.providersListWithHttpInfo(page, _options).pipe(map((apiResponse: HttpInfo<ListProviderResponse>) => apiResponse.data));
     }
 
 }

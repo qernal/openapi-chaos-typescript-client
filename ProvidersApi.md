@@ -4,11 +4,11 @@ All URIs are relative to *https://chaos.qernal.com/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**providersGet**](ProvidersApi.md#providersGet) | **GET** /providers | Get available providers
+[**providersList**](ProvidersApi.md#providersList) | **GET** /providers | Get available providers
 
 
-# **providersGet**
-> Array<ProviderInner> providersGet()
+# **providersList**
+> ListProviderResponse providersList()
 
 Retrieve a list of all providers with their respective deployed regions and cities.
 
@@ -22,21 +22,31 @@ import * as fs from 'fs';
 const configuration = .createConfiguration();
 const apiInstance = new .ProvidersApi(configuration);
 
-let body:any = {};
+let body:.ProvidersApiProvidersListRequest = {
+  // OrganisationsListPageParameter | Query parameters for pagination (optional)
+  page: {
+    before: 20,
+    after: 20,
+    size: 20,
+  },
+};
 
-apiInstance.providersGet(body).then((data:any) => {
+apiInstance.providersList(body).then((data:any) => {
   console.log('API called successfully. Returned data: ' + data);
 }).catch((error:any) => console.error(error));
 ```
 
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **page** | **OrganisationsListPageParameter** | Query parameters for pagination | (optional) defaults to undefined
 
 
 ### Return type
 
-**Array<ProviderInner>**
+**ListProviderResponse**
 
 ### Authorization
 
