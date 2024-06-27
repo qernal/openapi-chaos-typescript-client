@@ -17,6 +17,7 @@ import { HttpFile } from '../http/http.ts';
 */
 export enum HostVerificationStatus {
     pending = 'pending',
+    already_verified = 'already_verified',
     completed = 'completed',
     failed = 'failed'
 }
