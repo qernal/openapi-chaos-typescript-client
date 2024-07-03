@@ -22,6 +22,59 @@ import { OrganisationsListPageParameter } from '../models/OrganisationsListPageP
 export class FunctionsApiRequestFactory extends BaseAPIRequestFactory {
 
     /**
+     * Create a new function
+     * Create function
+     * @param FunctionBody Create/Update any field
+     */
+    public async functionsCreate(FunctionBody: FunctionBody, _options?: Configuration): Promise<RequestContext> {
+        let _config = _options || this.configuration;
+
+        // verify required parameter 'FunctionBody' is not null or undefined
+        if (FunctionBody === null || FunctionBody === undefined) {
+            throw new RequiredError("FunctionsApi", "functionsCreate", "FunctionBody");
+        }
+
+
+        // Path Params
+        const localVarPath = '/functions';
+
+        // Make Request Context
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+
+        // Body Params
+        const contentType = ObjectSerializer.getPreferredMediaType([
+            "application/json"
+        ]);
+        requestContext.setHeaderParam("Content-Type", contentType);
+        const serializedBody = ObjectSerializer.stringify(
+            ObjectSerializer.serialize(FunctionBody, "FunctionBody", ""),
+            contentType
+        );
+        requestContext.setBody(serializedBody);
+
+        let authMethod: SecurityAuthentication | undefined;
+        // Apply auth methods
+        authMethod = _config.authMethods["cookie"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        // Apply auth methods
+        authMethod = _config.authMethods["token"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        
+        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        if (defaultAuth?.applySecurityAuthentication) {
+            await defaultAuth?.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
+    }
+
+    /**
      * Delete a function (and all revisions)
      * Delete function
      * @param function_id Function ID reference
@@ -270,67 +323,6 @@ export class FunctionsApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * Create a new function
-     * Create function
-     * @param project_id Project ID reference
-     * @param FunctionBody Create/Update any field
-     */
-    public async projectsFunctionsCreate(project_id: string, FunctionBody: FunctionBody, _options?: Configuration): Promise<RequestContext> {
-        let _config = _options || this.configuration;
-
-        // verify required parameter 'project_id' is not null or undefined
-        if (project_id === null || project_id === undefined) {
-            throw new RequiredError("FunctionsApi", "projectsFunctionsCreate", "project_id");
-        }
-
-
-        // verify required parameter 'FunctionBody' is not null or undefined
-        if (FunctionBody === null || FunctionBody === undefined) {
-            throw new RequiredError("FunctionsApi", "projectsFunctionsCreate", "FunctionBody");
-        }
-
-
-        // Path Params
-        const localVarPath = '/projects/{project_id}/functions'
-            .replace('{' + 'project_id' + '}', encodeURIComponent(String(project_id)));
-
-        // Make Request Context
-        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
-        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
-
-
-        // Body Params
-        const contentType = ObjectSerializer.getPreferredMediaType([
-            "application/json"
-        ]);
-        requestContext.setHeaderParam("Content-Type", contentType);
-        const serializedBody = ObjectSerializer.stringify(
-            ObjectSerializer.serialize(FunctionBody, "FunctionBody", ""),
-            contentType
-        );
-        requestContext.setBody(serializedBody);
-
-        let authMethod: SecurityAuthentication | undefined;
-        // Apply auth methods
-        authMethod = _config.authMethods["cookie"]
-        if (authMethod?.applySecurityAuthentication) {
-            await authMethod?.applySecurityAuthentication(requestContext);
-        }
-        // Apply auth methods
-        authMethod = _config.authMethods["token"]
-        if (authMethod?.applySecurityAuthentication) {
-            await authMethod?.applySecurityAuthentication(requestContext);
-        }
-        
-        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
-        if (defaultAuth?.applySecurityAuthentication) {
-            await defaultAuth?.applySecurityAuthentication(requestContext);
-        }
-
-        return requestContext;
-    }
-
-    /**
      * List all functions
      * List all functions within a project
      * @param project_id Project ID reference
@@ -383,6 +375,42 @@ export class FunctionsApiRequestFactory extends BaseAPIRequestFactory {
 }
 
 export class FunctionsApiResponseProcessor {
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to functionsCreate
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async functionsCreateWithHttpInfo(response: ResponseContext): Promise<HttpInfo<Function >> {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("201", response.httpStatusCode)) {
+            const body: Function = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Function", ""
+            ) as Function;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+        if (isCodeInRange("400", response.httpStatusCode)) {
+            const body: BadRequestResponse = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "BadRequestResponse", ""
+            ) as BadRequestResponse;
+            throw new ApiException<BadRequestResponse>(response.httpStatusCode, "Resource Bad Request", body, response.headers);
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: Function = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Function", ""
+            ) as Function;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+    }
 
     /**
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
@@ -543,42 +571,6 @@ export class FunctionsApiResponseProcessor {
                 "NotFoundResponse", ""
             ) as NotFoundResponse;
             throw new ApiException<NotFoundResponse>(response.httpStatusCode, "Resource Not Found", body, response.headers);
-        }
-
-        // Work around for missing responses in specification, e.g. for petstore.yaml
-        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: Function = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "Function", ""
-            ) as Function;
-            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
-        }
-
-        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
-    }
-
-    /**
-     * Unwraps the actual response sent by the server from the response context and deserializes the response content
-     * to the expected objects
-     *
-     * @params response Response returned by the server for a request to projectsFunctionsCreate
-     * @throws ApiException if the response code was not in [200, 299]
-     */
-     public async projectsFunctionsCreateWithHttpInfo(response: ResponseContext): Promise<HttpInfo<Function >> {
-        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
-        if (isCodeInRange("201", response.httpStatusCode)) {
-            const body: Function = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "Function", ""
-            ) as Function;
-            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
-        }
-        if (isCodeInRange("400", response.httpStatusCode)) {
-            const body: BadRequestResponse = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "BadRequestResponse", ""
-            ) as BadRequestResponse;
-            throw new ApiException<BadRequestResponse>(response.httpStatusCode, "Resource Bad Request", body, response.headers);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml

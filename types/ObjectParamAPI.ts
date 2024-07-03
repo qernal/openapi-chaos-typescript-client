@@ -65,6 +65,15 @@ import { UnauthorisedResponse } from '../models/UnauthorisedResponse.ts';
 import { ObservableFunctionsApi } from "./ObservableAPI.ts";
 import { FunctionsApiRequestFactory, FunctionsApiResponseProcessor} from "../apis/FunctionsApi.ts";
 
+export interface FunctionsApiFunctionsCreateRequest {
+    /**
+     * Create/Update any field
+     * @type FunctionBody
+     * @memberof FunctionsApifunctionsCreate
+     */
+    FunctionBody: FunctionBody
+}
+
 export interface FunctionsApiFunctionsDeleteRequest {
     /**
      * Function ID reference
@@ -128,21 +137,6 @@ export interface FunctionsApiFunctionsUpdateRequest {
     Function: Function
 }
 
-export interface FunctionsApiProjectsFunctionsCreateRequest {
-    /**
-     * Project ID reference
-     * @type string
-     * @memberof FunctionsApiprojectsFunctionsCreate
-     */
-    project_id: string
-    /**
-     * Create/Update any field
-     * @type FunctionBody
-     * @memberof FunctionsApiprojectsFunctionsCreate
-     */
-    FunctionBody: FunctionBody
-}
-
 export interface FunctionsApiProjectsFunctionsListRequest {
     /**
      * Project ID reference
@@ -163,6 +157,24 @@ export class ObjectFunctionsApi {
 
     public constructor(configuration: Configuration, requestFactory?: FunctionsApiRequestFactory, responseProcessor?: FunctionsApiResponseProcessor) {
         this.api = new ObservableFunctionsApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * Create a new function
+     * Create function
+     * @param param the request object
+     */
+    public functionsCreateWithHttpInfo(param: FunctionsApiFunctionsCreateRequest, options?: Configuration): Promise<HttpInfo<Function>> {
+        return this.api.functionsCreateWithHttpInfo(param.FunctionBody,  options).toPromise();
+    }
+
+    /**
+     * Create a new function
+     * Create function
+     * @param param the request object
+     */
+    public functionsCreate(param: FunctionsApiFunctionsCreateRequest, options?: Configuration): Promise<Function> {
+        return this.api.functionsCreate(param.FunctionBody,  options).toPromise();
     }
 
     /**
@@ -253,24 +265,6 @@ export class ObjectFunctionsApi {
      */
     public functionsUpdate(param: FunctionsApiFunctionsUpdateRequest, options?: Configuration): Promise<Function> {
         return this.api.functionsUpdate(param.function_id, param.Function,  options).toPromise();
-    }
-
-    /**
-     * Create a new function
-     * Create function
-     * @param param the request object
-     */
-    public projectsFunctionsCreateWithHttpInfo(param: FunctionsApiProjectsFunctionsCreateRequest, options?: Configuration): Promise<HttpInfo<Function>> {
-        return this.api.projectsFunctionsCreateWithHttpInfo(param.project_id, param.FunctionBody,  options).toPromise();
-    }
-
-    /**
-     * Create a new function
-     * Create function
-     * @param param the request object
-     */
-    public projectsFunctionsCreate(param: FunctionsApiProjectsFunctionsCreateRequest, options?: Configuration): Promise<Function> {
-        return this.api.projectsFunctionsCreate(param.project_id, param.FunctionBody,  options).toPromise();
     }
 
     /**

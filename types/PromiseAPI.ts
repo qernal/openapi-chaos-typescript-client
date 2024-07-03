@@ -76,6 +76,26 @@ export class PromiseFunctionsApi {
     }
 
     /**
+     * Create a new function
+     * Create function
+     * @param FunctionBody Create/Update any field
+     */
+    public functionsCreateWithHttpInfo(FunctionBody: FunctionBody, _options?: Configuration): Promise<HttpInfo<Function>> {
+        const result = this.api.functionsCreateWithHttpInfo(FunctionBody, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Create a new function
+     * Create function
+     * @param FunctionBody Create/Update any field
+     */
+    public functionsCreate(FunctionBody: FunctionBody, _options?: Configuration): Promise<Function> {
+        const result = this.api.functionsCreate(FunctionBody, _options);
+        return result.toPromise();
+    }
+
+    /**
      * Delete a function (and all revisions)
      * Delete function
      * @param function_id Function ID reference
@@ -178,28 +198,6 @@ export class PromiseFunctionsApi {
      */
     public functionsUpdate(function_id: string, Function: Function, _options?: Configuration): Promise<Function> {
         const result = this.api.functionsUpdate(function_id, Function, _options);
-        return result.toPromise();
-    }
-
-    /**
-     * Create a new function
-     * Create function
-     * @param project_id Project ID reference
-     * @param FunctionBody Create/Update any field
-     */
-    public projectsFunctionsCreateWithHttpInfo(project_id: string, FunctionBody: FunctionBody, _options?: Configuration): Promise<HttpInfo<Function>> {
-        const result = this.api.projectsFunctionsCreateWithHttpInfo(project_id, FunctionBody, _options);
-        return result.toPromise();
-    }
-
-    /**
-     * Create a new function
-     * Create function
-     * @param project_id Project ID reference
-     * @param FunctionBody Create/Update any field
-     */
-    public projectsFunctionsCreate(project_id: string, FunctionBody: FunctionBody, _options?: Configuration): Promise<Function> {
-        const result = this.api.projectsFunctionsCreate(project_id, FunctionBody, _options);
         return result.toPromise();
     }
 

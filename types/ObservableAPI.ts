@@ -80,6 +80,39 @@ export class ObservableFunctionsApi {
     }
 
     /**
+     * Create a new function
+     * Create function
+     * @param FunctionBody Create/Update any field
+     */
+    public functionsCreateWithHttpInfo(FunctionBody: FunctionBody, _options?: Configuration): Observable<HttpInfo<Function>> {
+        const requestContextPromise = this.requestFactory.functionsCreate(FunctionBody, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.functionsCreateWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * Create a new function
+     * Create function
+     * @param FunctionBody Create/Update any field
+     */
+    public functionsCreate(FunctionBody: FunctionBody, _options?: Configuration): Observable<Function> {
+        return this.functionsCreateWithHttpInfo(FunctionBody, _options).pipe(map((apiResponse: HttpInfo<Function>) => apiResponse.data));
+    }
+
+    /**
      * Delete a function (and all revisions)
      * Delete function
      * @param function_id Function ID reference
@@ -248,41 +281,6 @@ export class ObservableFunctionsApi {
      */
     public functionsUpdate(function_id: string, Function: Function, _options?: Configuration): Observable<Function> {
         return this.functionsUpdateWithHttpInfo(function_id, Function, _options).pipe(map((apiResponse: HttpInfo<Function>) => apiResponse.data));
-    }
-
-    /**
-     * Create a new function
-     * Create function
-     * @param project_id Project ID reference
-     * @param FunctionBody Create/Update any field
-     */
-    public projectsFunctionsCreateWithHttpInfo(project_id: string, FunctionBody: FunctionBody, _options?: Configuration): Observable<HttpInfo<Function>> {
-        const requestContextPromise = this.requestFactory.projectsFunctionsCreate(project_id, FunctionBody, _options);
-
-        // build promise chain
-        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (let middleware of this.configuration.middleware) {
-            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
-        }
-
-        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
-            pipe(mergeMap((response: ResponseContext) => {
-                let middlewarePostObservable = of(response);
-                for (let middleware of this.configuration.middleware) {
-                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
-                }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.projectsFunctionsCreateWithHttpInfo(rsp)));
-            }));
-    }
-
-    /**
-     * Create a new function
-     * Create function
-     * @param project_id Project ID reference
-     * @param FunctionBody Create/Update any field
-     */
-    public projectsFunctionsCreate(project_id: string, FunctionBody: FunctionBody, _options?: Configuration): Observable<Function> {
-        return this.projectsFunctionsCreateWithHttpInfo(project_id, FunctionBody, _options).pipe(map((apiResponse: HttpInfo<Function>) => apiResponse.data));
     }
 
     /**
