@@ -28,7 +28,7 @@ export class SecretCreatePayload {
     */
     'registry_value': string;
     /**
-    * Encrypted environment pairs (key - env key, value - env value)
+    * Encrypted environment value
     */
     'environment_value': string;
     /**

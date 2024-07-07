@@ -17,7 +17,7 @@ import { HttpFile } from '../http/http.ts';
 */
 export class SecretEnvironment {
     /**
-    * Encrypted environment pairs (key - env key, value - env value)
+    * Encrypted environment value
     */
     'environment_value': string;
 

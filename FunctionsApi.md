@@ -75,7 +75,7 @@ let body:.FunctionsApiFunctionsCreateRequest = {
     secrets: [
       {
         name: "MY_ENV_VAR",
-        reference: "project_id/secret_id@secret_revision",
+        reference: "projects:0a6b9ff3-6807-4820-b94b-5e1d7efcdd93/MY_SECRET@0",
       },
     ],
     compliance: [
@@ -414,7 +414,7 @@ let body:.FunctionsApiFunctionsUpdateRequest = {
     secrets: [
       {
         name: "MY_ENV_VAR",
-        reference: "project_id/secret_id@secret_revision",
+        reference: "projects:0a6b9ff3-6807-4820-b94b-5e1d7efcdd93/MY_SECRET@0",
       },
     ],
     compliance: [
