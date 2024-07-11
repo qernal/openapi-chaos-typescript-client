@@ -668,6 +668,12 @@ export interface ProjectsApiOrganisationsProjectsListRequest {
      * @memberof ProjectsApiorganisationsProjectsList
      */
     page?: OrganisationsListPageParameter
+    /**
+     * Filter resource on name, if the value ends in an asterix it will be treated as a partial search otherwise, it\&#39;ll be an exact match 
+     * @type string
+     * @memberof ProjectsApiorganisationsProjectsList
+     */
+    f_name?: string
 }
 
 export interface ProjectsApiProjectsCreateRequest {
@@ -740,7 +746,7 @@ export class ObjectProjectsApi {
      * @param param the request object
      */
     public organisationsProjectsListWithHttpInfo(param: ProjectsApiOrganisationsProjectsListRequest, options?: Configuration): Promise<HttpInfo<ListProjectResponse>> {
-        return this.api.organisationsProjectsListWithHttpInfo(param.organisation_id, param.page,  options).toPromise();
+        return this.api.organisationsProjectsListWithHttpInfo(param.organisation_id, param.page, param.f_name,  options).toPromise();
     }
 
     /**
@@ -749,7 +755,7 @@ export class ObjectProjectsApi {
      * @param param the request object
      */
     public organisationsProjectsList(param: ProjectsApiOrganisationsProjectsListRequest, options?: Configuration): Promise<ListProjectResponse> {
-        return this.api.organisationsProjectsList(param.organisation_id, param.page,  options).toPromise();
+        return this.api.organisationsProjectsList(param.organisation_id, param.page, param.f_name,  options).toPromise();
     }
 
     /**

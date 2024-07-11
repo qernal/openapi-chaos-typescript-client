@@ -748,9 +748,10 @@ export class ObservableProjectsApi {
      * Get all projects within an organisation
      * @param organisation_id Organisation ID reference
      * @param page Query parameters for pagination
+     * @param f_name Filter resource on name, if the value ends in an asterix it will be treated as a partial search otherwise, it\&#39;ll be an exact match 
      */
-    public organisationsProjectsListWithHttpInfo(organisation_id: string, page?: OrganisationsListPageParameter, _options?: Configuration): Observable<HttpInfo<ListProjectResponse>> {
-        const requestContextPromise = this.requestFactory.organisationsProjectsList(organisation_id, page, _options);
+    public organisationsProjectsListWithHttpInfo(organisation_id: string, page?: OrganisationsListPageParameter, f_name?: string, _options?: Configuration): Observable<HttpInfo<ListProjectResponse>> {
+        const requestContextPromise = this.requestFactory.organisationsProjectsList(organisation_id, page, f_name, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -773,9 +774,10 @@ export class ObservableProjectsApi {
      * Get all projects within an organisation
      * @param organisation_id Organisation ID reference
      * @param page Query parameters for pagination
+     * @param f_name Filter resource on name, if the value ends in an asterix it will be treated as a partial search otherwise, it\&#39;ll be an exact match 
      */
-    public organisationsProjectsList(organisation_id: string, page?: OrganisationsListPageParameter, _options?: Configuration): Observable<ListProjectResponse> {
-        return this.organisationsProjectsListWithHttpInfo(organisation_id, page, _options).pipe(map((apiResponse: HttpInfo<ListProjectResponse>) => apiResponse.data));
+    public organisationsProjectsList(organisation_id: string, page?: OrganisationsListPageParameter, f_name?: string, _options?: Configuration): Observable<ListProjectResponse> {
+        return this.organisationsProjectsListWithHttpInfo(organisation_id, page, f_name, _options).pipe(map((apiResponse: HttpInfo<ListProjectResponse>) => apiResponse.data));
     }
 
     /**

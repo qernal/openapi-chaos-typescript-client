@@ -36,6 +36,8 @@ let body:.ProjectsApiOrganisationsProjectsListRequest = {
     after: 20,
     size: 20,
   },
+  // string | Filter resource on name, if the value ends in an asterix it will be treated as a partial search otherwise, it\'ll be an exact match  (optional)
+  f_name: "my-proj*",
 };
 
 apiInstance.organisationsProjectsList(body).then((data:any) => {
@@ -50,6 +52,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **organisation_id** | [**string**] | Organisation ID reference | defaults to undefined
  **page** | **OrganisationsListPageParameter** | Query parameters for pagination | (optional) defaults to undefined
+ **f_name** | [**string**] | Filter resource on name, if the value ends in an asterix it will be treated as a partial search otherwise, it\&#39;ll be an exact match  | (optional) defaults to undefined
 
 
 ### Return type
