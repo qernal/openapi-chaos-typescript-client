@@ -73,7 +73,7 @@ export class Function {
     /**
     * Tags to limit deployment
     */
-    'compliance'?: Array<FunctionCompliance>;
+    'compliance': Array<FunctionCompliance>;
 
     static readonly discriminator: string | undefined = undefined;
 

@@ -33,7 +33,7 @@ let body:.HostsApiProjectsHostsCreateRequest = {
   // HostBody
   HostBody: {
     host: "example-domain.com",
-    certificate: "projects:secrets/MY_CERT",
+    certificate: "projects:d8f6ede4-e3a4-414d-b6c3-b8a972773e56/MY_CERT",
     disabled: true,
   },
 };
@@ -272,7 +272,7 @@ let body:.HostsApiProjectsHostsUpdateRequest = {
   hostname: "example-domain.com",
   // HostBodyPatch
   HostBodyPatch: {
-    certificate: "projects:secrets/MY_CERT",
+    certificate: "projects:d8f6ede4-e3a4-414d-b6c3-b8a972773e56/MY_CERT",
     disabled: true,
   },
 };
