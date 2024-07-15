@@ -248,7 +248,7 @@ let body:.FunctionsApiFunctionsRevisionsGetRequest = {
   // string | Function ID reference
   function_id: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
   // string | Function revision ID reference
-  function_revision_id: "0069614e-adc8-47cb-a69c-decf9c5f90fc",
+  function_revision_id: "1069614e-adc8-47cb-a69c-decf9c5f90fc",
 };
 
 apiInstance.functionsRevisionsGet(body).then((data:any) => {
