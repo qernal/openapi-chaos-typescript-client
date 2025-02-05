@@ -25,11 +25,27 @@ export * from '../models/HostVerificationStatus.ts';
 export * from '../models/ListAuthTokens.ts';
 export * from '../models/ListFunction.ts';
 export * from '../models/ListHosts.ts';
+export * from '../models/ListLogResponse.ts';
 export * from '../models/ListOrganisationResponse.ts';
 export * from '../models/ListProjectResponse.ts';
 export * from '../models/ListProviderResponse.ts';
 export * from '../models/ListSecretResponse.ts';
 export * from '../models/Location.ts';
+export * from '../models/Log.ts';
+export * from '../models/LogLog.ts';
+export * from '../models/LogsListFTimestampsParameter.ts';
+export * from '../models/MetricHttpAggregation.ts';
+export * from '../models/MetricHttpAggregationHttpCodes.ts';
+export * from '../models/MetricHttpAggregationHttpCodesBucketsInner.ts';
+export * from '../models/MetricHttpAggregationHttpCodesBucketsInnerHistogram.ts';
+export * from '../models/MetricResourceAggregation.ts';
+export * from '../models/MetricResourceAggregationResources.ts';
+export * from '../models/MetricResourceAggregationResourcesBucketsInner.ts';
+export * from '../models/MetricResourceAggregationResourcesBucketsInnerHistogram.ts';
+export * from '../models/MetricResourceAggregationResourcesBucketsInnerHistogramBucketsInner.ts';
+export * from '../models/MetricResourceAggregationResourcesBucketsInnerHistogramBucketsInnerCounter.ts';
+export * from '../models/MetricResourceAggregationResourcesBucketsInnerHistogramBucketsInnerGauge.ts';
+export * from '../models/MetricsAggregationsList200Response.ts';
 export * from '../models/ModelDate.ts';
 export * from '../models/NotFoundResponse.ts';
 export * from '../models/OrganisationBody.ts';
@@ -86,11 +102,27 @@ import { HostVerificationStatus } from '../models/HostVerificationStatus.ts';
 import { ListAuthTokens } from '../models/ListAuthTokens.ts';
 import { ListFunction } from '../models/ListFunction.ts';
 import { ListHosts } from '../models/ListHosts.ts';
+import { ListLogResponse } from '../models/ListLogResponse.ts';
 import { ListOrganisationResponse } from '../models/ListOrganisationResponse.ts';
 import { ListProjectResponse } from '../models/ListProjectResponse.ts';
 import { ListProviderResponse } from '../models/ListProviderResponse.ts';
 import { ListSecretResponse } from '../models/ListSecretResponse.ts';
 import { Location } from '../models/Location.ts';
+import { Log } from '../models/Log.ts';
+import { LogLog, LogLogStreamEnum  , LogLogKindEnum   , LogLogTypeEnum     } from '../models/LogLog.ts';
+import { LogsListFTimestampsParameter } from '../models/LogsListFTimestampsParameter.ts';
+import { MetricHttpAggregation } from '../models/MetricHttpAggregation.ts';
+import { MetricHttpAggregationHttpCodes } from '../models/MetricHttpAggregationHttpCodes.ts';
+import { MetricHttpAggregationHttpCodesBucketsInner } from '../models/MetricHttpAggregationHttpCodesBucketsInner.ts';
+import { MetricHttpAggregationHttpCodesBucketsInnerHistogram } from '../models/MetricHttpAggregationHttpCodesBucketsInnerHistogram.ts';
+import { MetricResourceAggregation } from '../models/MetricResourceAggregation.ts';
+import { MetricResourceAggregationResources } from '../models/MetricResourceAggregationResources.ts';
+import { MetricResourceAggregationResourcesBucketsInner } from '../models/MetricResourceAggregationResourcesBucketsInner.ts';
+import { MetricResourceAggregationResourcesBucketsInnerHistogram } from '../models/MetricResourceAggregationResourcesBucketsInnerHistogram.ts';
+import { MetricResourceAggregationResourcesBucketsInnerHistogramBucketsInner } from '../models/MetricResourceAggregationResourcesBucketsInnerHistogramBucketsInner.ts';
+import { MetricResourceAggregationResourcesBucketsInnerHistogramBucketsInnerCounter } from '../models/MetricResourceAggregationResourcesBucketsInnerHistogramBucketsInnerCounter.ts';
+import { MetricResourceAggregationResourcesBucketsInnerHistogramBucketsInnerGauge } from '../models/MetricResourceAggregationResourcesBucketsInnerHistogramBucketsInnerGauge.ts';
+import { MetricsAggregationsList200Response } from '../models/MetricsAggregationsList200Response.ts';
 import { ModelDate } from '../models/ModelDate.ts';
 import { NotFoundResponse } from '../models/NotFoundResponse.ts';
 import { OrganisationBody } from '../models/OrganisationBody.ts';
@@ -139,6 +171,9 @@ let enumsMap: Set<string> = new Set<string>([
     "FunctionScalingTypeEnum",
     "FunctionType",
     "HostVerificationStatus",
+    "LogLogStreamEnum",
+    "LogLogKindEnum",
+    "LogLogTypeEnum",
     "SecretCreateType",
     "SecretMetaType",
 ]);
@@ -168,11 +203,27 @@ let typeMap: {[index: string]: any} = {
     "ListAuthTokens": ListAuthTokens,
     "ListFunction": ListFunction,
     "ListHosts": ListHosts,
+    "ListLogResponse": ListLogResponse,
     "ListOrganisationResponse": ListOrganisationResponse,
     "ListProjectResponse": ListProjectResponse,
     "ListProviderResponse": ListProviderResponse,
     "ListSecretResponse": ListSecretResponse,
     "Location": Location,
+    "Log": Log,
+    "LogLog": LogLog,
+    "LogsListFTimestampsParameter": LogsListFTimestampsParameter,
+    "MetricHttpAggregation": MetricHttpAggregation,
+    "MetricHttpAggregationHttpCodes": MetricHttpAggregationHttpCodes,
+    "MetricHttpAggregationHttpCodesBucketsInner": MetricHttpAggregationHttpCodesBucketsInner,
+    "MetricHttpAggregationHttpCodesBucketsInnerHistogram": MetricHttpAggregationHttpCodesBucketsInnerHistogram,
+    "MetricResourceAggregation": MetricResourceAggregation,
+    "MetricResourceAggregationResources": MetricResourceAggregationResources,
+    "MetricResourceAggregationResourcesBucketsInner": MetricResourceAggregationResourcesBucketsInner,
+    "MetricResourceAggregationResourcesBucketsInnerHistogram": MetricResourceAggregationResourcesBucketsInnerHistogram,
+    "MetricResourceAggregationResourcesBucketsInnerHistogramBucketsInner": MetricResourceAggregationResourcesBucketsInnerHistogramBucketsInner,
+    "MetricResourceAggregationResourcesBucketsInnerHistogramBucketsInnerCounter": MetricResourceAggregationResourcesBucketsInnerHistogramBucketsInnerCounter,
+    "MetricResourceAggregationResourcesBucketsInnerHistogramBucketsInnerGauge": MetricResourceAggregationResourcesBucketsInnerHistogramBucketsInnerGauge,
+    "MetricsAggregationsList200Response": MetricsAggregationsList200Response,
     "ModelDate": ModelDate,
     "NotFoundResponse": NotFoundResponse,
     "OrganisationBody": OrganisationBody,

@@ -29,11 +29,27 @@ import { HostVerificationStatus } from '../models/HostVerificationStatus.ts';
 import { ListAuthTokens } from '../models/ListAuthTokens.ts';
 import { ListFunction } from '../models/ListFunction.ts';
 import { ListHosts } from '../models/ListHosts.ts';
+import { ListLogResponse } from '../models/ListLogResponse.ts';
 import { ListOrganisationResponse } from '../models/ListOrganisationResponse.ts';
 import { ListProjectResponse } from '../models/ListProjectResponse.ts';
 import { ListProviderResponse } from '../models/ListProviderResponse.ts';
 import { ListSecretResponse } from '../models/ListSecretResponse.ts';
 import { Location } from '../models/Location.ts';
+import { Log } from '../models/Log.ts';
+import { LogLog } from '../models/LogLog.ts';
+import { LogsListFTimestampsParameter } from '../models/LogsListFTimestampsParameter.ts';
+import { MetricHttpAggregation } from '../models/MetricHttpAggregation.ts';
+import { MetricHttpAggregationHttpCodes } from '../models/MetricHttpAggregationHttpCodes.ts';
+import { MetricHttpAggregationHttpCodesBucketsInner } from '../models/MetricHttpAggregationHttpCodesBucketsInner.ts';
+import { MetricHttpAggregationHttpCodesBucketsInnerHistogram } from '../models/MetricHttpAggregationHttpCodesBucketsInnerHistogram.ts';
+import { MetricResourceAggregation } from '../models/MetricResourceAggregation.ts';
+import { MetricResourceAggregationResources } from '../models/MetricResourceAggregationResources.ts';
+import { MetricResourceAggregationResourcesBucketsInner } from '../models/MetricResourceAggregationResourcesBucketsInner.ts';
+import { MetricResourceAggregationResourcesBucketsInnerHistogram } from '../models/MetricResourceAggregationResourcesBucketsInnerHistogram.ts';
+import { MetricResourceAggregationResourcesBucketsInnerHistogramBucketsInner } from '../models/MetricResourceAggregationResourcesBucketsInnerHistogramBucketsInner.ts';
+import { MetricResourceAggregationResourcesBucketsInnerHistogramBucketsInnerCounter } from '../models/MetricResourceAggregationResourcesBucketsInnerHistogramBucketsInnerCounter.ts';
+import { MetricResourceAggregationResourcesBucketsInnerHistogramBucketsInnerGauge } from '../models/MetricResourceAggregationResourcesBucketsInnerHistogramBucketsInnerGauge.ts';
+import { MetricsAggregationsList200Response } from '../models/MetricsAggregationsList200Response.ts';
 import { ModelDate } from '../models/ModelDate.ts';
 import { NotFoundResponse } from '../models/NotFoundResponse.ts';
 import { OrganisationBody } from '../models/OrganisationBody.ts';
@@ -536,6 +552,128 @@ export class ObservableHostsApi {
      */
     public projectsHostsVerifyCreate(project_id: string, hostname: string, _options?: Configuration): Observable<Host> {
         return this.projectsHostsVerifyCreateWithHttpInfo(project_id, hostname, _options).pipe(map((apiResponse: HttpInfo<Host>) => apiResponse.data));
+    }
+
+}
+
+import { LogsApiRequestFactory, LogsApiResponseProcessor} from "../apis/LogsApi.ts";
+export class ObservableLogsApi {
+    private requestFactory: LogsApiRequestFactory;
+    private responseProcessor: LogsApiResponseProcessor;
+    private configuration: Configuration;
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: LogsApiRequestFactory,
+        responseProcessor?: LogsApiResponseProcessor
+    ) {
+        this.configuration = configuration;
+        this.requestFactory = requestFactory || new LogsApiRequestFactory(configuration);
+        this.responseProcessor = responseProcessor || new LogsApiResponseProcessor();
+    }
+
+    /**
+     * Retrieve logs for a specific project or function. Use the query parameter to search logs.  > Note: Logs are always returned in a descending order based on the timestamp. > Note: A max size of 500 logs is returned per request (when using page[size]). 
+     * Get logs
+     * @param page Query parameters for pagination
+     * @param f_project Project uuid reference
+     * @param f_function Function uuid reference
+     * @param f_timestamps Timestamp restriction for query
+     * @param f_query Text query string
+     * @param f_log_type Type of log
+     */
+    public logsListWithHttpInfo(page?: OrganisationsListPageParameter, f_project?: string, f_function?: string, f_timestamps?: LogsListFTimestampsParameter, f_query?: string, f_log_type?: 'info' | 'error', _options?: Configuration): Observable<HttpInfo<ListLogResponse>> {
+        const requestContextPromise = this.requestFactory.logsList(page, f_project, f_function, f_timestamps, f_query, f_log_type, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.logsListWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * Retrieve logs for a specific project or function. Use the query parameter to search logs.  > Note: Logs are always returned in a descending order based on the timestamp. > Note: A max size of 500 logs is returned per request (when using page[size]). 
+     * Get logs
+     * @param page Query parameters for pagination
+     * @param f_project Project uuid reference
+     * @param f_function Function uuid reference
+     * @param f_timestamps Timestamp restriction for query
+     * @param f_query Text query string
+     * @param f_log_type Type of log
+     */
+    public logsList(page?: OrganisationsListPageParameter, f_project?: string, f_function?: string, f_timestamps?: LogsListFTimestampsParameter, f_query?: string, f_log_type?: 'info' | 'error', _options?: Configuration): Observable<ListLogResponse> {
+        return this.logsListWithHttpInfo(page, f_project, f_function, f_timestamps, f_query, f_log_type, _options).pipe(map((apiResponse: HttpInfo<ListLogResponse>) => apiResponse.data));
+    }
+
+}
+
+import { MetricsApiRequestFactory, MetricsApiResponseProcessor} from "../apis/MetricsApi.ts";
+export class ObservableMetricsApi {
+    private requestFactory: MetricsApiRequestFactory;
+    private responseProcessor: MetricsApiResponseProcessor;
+    private configuration: Configuration;
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: MetricsApiRequestFactory,
+        responseProcessor?: MetricsApiResponseProcessor
+    ) {
+        this.configuration = configuration;
+        this.requestFactory = requestFactory || new MetricsApiRequestFactory(configuration);
+        this.responseProcessor = responseProcessor || new MetricsApiResponseProcessor();
+    }
+
+    /**
+     * Retrieve metrics for a specific project or function. Use the query parameter to request a metrics report.  > Note: Metrics are always returned in a descending order based on the timestamp. 
+     * Get metrics
+     * @param metric_type Metric aggregation type, types can be used with either a project or a function filter.  - httprequests: Aggregated HTTP requests - resourcestats: Aggregated resource stats (such as CPU, Memory and Network)  &gt; Note: aggregations cannot return more than 300 data points 
+     * @param page Query parameters for pagination
+     * @param f_project Project uuid reference
+     * @param f_function Function uuid reference
+     * @param f_timestamps Timestamp restriction for query
+     * @param f_histogram_interval Histogram interval
+     */
+    public metricsAggregationsListWithHttpInfo(metric_type: 'httprequests' | 'resourcestats', page?: OrganisationsListPageParameter, f_project?: string, f_function?: string, f_timestamps?: LogsListFTimestampsParameter, f_histogram_interval?: number, _options?: Configuration): Observable<HttpInfo<MetricsAggregationsList200Response>> {
+        const requestContextPromise = this.requestFactory.metricsAggregationsList(metric_type, page, f_project, f_function, f_timestamps, f_histogram_interval, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.metricsAggregationsListWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * Retrieve metrics for a specific project or function. Use the query parameter to request a metrics report.  > Note: Metrics are always returned in a descending order based on the timestamp. 
+     * Get metrics
+     * @param metric_type Metric aggregation type, types can be used with either a project or a function filter.  - httprequests: Aggregated HTTP requests - resourcestats: Aggregated resource stats (such as CPU, Memory and Network)  &gt; Note: aggregations cannot return more than 300 data points 
+     * @param page Query parameters for pagination
+     * @param f_project Project uuid reference
+     * @param f_function Function uuid reference
+     * @param f_timestamps Timestamp restriction for query
+     * @param f_histogram_interval Histogram interval
+     */
+    public metricsAggregationsList(metric_type: 'httprequests' | 'resourcestats', page?: OrganisationsListPageParameter, f_project?: string, f_function?: string, f_timestamps?: LogsListFTimestampsParameter, f_histogram_interval?: number, _options?: Configuration): Observable<MetricsAggregationsList200Response> {
+        return this.metricsAggregationsListWithHttpInfo(metric_type, page, f_project, f_function, f_timestamps, f_histogram_interval, _options).pipe(map((apiResponse: HttpInfo<MetricsAggregationsList200Response>) => apiResponse.data));
     }
 
 }

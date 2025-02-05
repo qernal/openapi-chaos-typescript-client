@@ -8,5 +8,5 @@ export * from "./servers.ts";
 export { RequiredError } from "./apis/baseapi.ts";
 
 export type { PromiseMiddleware as Middleware } from './middleware.ts';
-export { PromiseFunctionsApi as FunctionsApi,  PromiseHostsApi as HostsApi,  PromiseOrganisationsApi as OrganisationsApi,  PromiseProjectsApi as ProjectsApi,  PromiseProvidersApi as ProvidersApi,  PromiseSecretsApi as SecretsApi,  PromiseTokensApi as TokensApi } from './types/PromiseAPI.ts';
+export { PromiseFunctionsApi as FunctionsApi,  PromiseHostsApi as HostsApi,  PromiseLogsApi as LogsApi,  PromiseMetricsApi as MetricsApi,  PromiseOrganisationsApi as OrganisationsApi,  PromiseProjectsApi as ProjectsApi,  PromiseProvidersApi as ProvidersApi,  PromiseSecretsApi as SecretsApi,  PromiseTokensApi as TokensApi } from './types/PromiseAPI.ts';
 
