@@ -20,18 +20,18 @@ export class MetricsApiRequestFactory extends BaseAPIRequestFactory {
     /**
      * Retrieve metrics for a specific project or function. Use the query parameter to request a metrics report.  > Note: Metrics are always returned in a descending order based on the timestamp. 
      * Get metrics
-     * @param metric_type Metric aggregation type, types can be used with either a project or a function filter.  - httprequests: Aggregated HTTP requests - resourcestats: Aggregated resource stats (such as CPU, Memory and Network)  &gt; Note: aggregations cannot return more than 300 data points 
+     * @param metric_aggregation_type Metric aggregation type, types can be used with either a project or a function filter.  - httprequests: Aggregated HTTP requests - resourcestats: Aggregated resource stats (such as CPU, Memory and Network)  &gt; Note: aggregations cannot return more than 300 data points 
      * @param f_project Project uuid reference
      * @param f_function Function uuid reference
      * @param f_timestamps Timestamp restriction for query
      * @param f_histogram_interval Histogram interval
      */
-    public async metricsAggregationsList(metric_type: 'httprequests' | 'resourcestats', f_project?: string, f_function?: string, f_timestamps?: LogsListFTimestampsParameter, f_histogram_interval?: number, _options?: Configuration): Promise<RequestContext> {
+    public async metricsAggregationsList(metric_aggregation_type: 'httprequests' | 'resourcestats', f_project?: string, f_function?: string, f_timestamps?: LogsListFTimestampsParameter, f_histogram_interval?: number, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
-        // verify required parameter 'metric_type' is not null or undefined
-        if (metric_type === null || metric_type === undefined) {
-            throw new RequiredError("MetricsApi", "metricsAggregationsList", "metric_type");
+        // verify required parameter 'metric_aggregation_type' is not null or undefined
+        if (metric_aggregation_type === null || metric_aggregation_type === undefined) {
+            throw new RequiredError("MetricsApi", "metricsAggregationsList", "metric_aggregation_type");
         }
 
 
@@ -41,7 +41,7 @@ export class MetricsApiRequestFactory extends BaseAPIRequestFactory {
 
         // Path Params
         const localVarPath = '/metrics/aggregations/{metric_aggregation_type}'
-            .replace('{' + 'metric_type' + '}', encodeURIComponent(String(metric_type)));
+            .replace('{' + 'metric_aggregation_type' + '}', encodeURIComponent(String(metric_aggregation_type)));
 
         // Make Request Context
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);

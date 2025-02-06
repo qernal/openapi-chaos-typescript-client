@@ -636,14 +636,14 @@ export class ObservableMetricsApi {
     /**
      * Retrieve metrics for a specific project or function. Use the query parameter to request a metrics report.  > Note: Metrics are always returned in a descending order based on the timestamp. 
      * Get metrics
-     * @param metric_type Metric aggregation type, types can be used with either a project or a function filter.  - httprequests: Aggregated HTTP requests - resourcestats: Aggregated resource stats (such as CPU, Memory and Network)  &gt; Note: aggregations cannot return more than 300 data points 
+     * @param metric_aggregation_type Metric aggregation type, types can be used with either a project or a function filter.  - httprequests: Aggregated HTTP requests - resourcestats: Aggregated resource stats (such as CPU, Memory and Network)  &gt; Note: aggregations cannot return more than 300 data points 
      * @param f_project Project uuid reference
      * @param f_function Function uuid reference
      * @param f_timestamps Timestamp restriction for query
      * @param f_histogram_interval Histogram interval
      */
-    public metricsAggregationsListWithHttpInfo(metric_type: 'httprequests' | 'resourcestats', f_project?: string, f_function?: string, f_timestamps?: LogsListFTimestampsParameter, f_histogram_interval?: number, _options?: Configuration): Observable<HttpInfo<MetricsAggregationsList200Response>> {
-        const requestContextPromise = this.requestFactory.metricsAggregationsList(metric_type, f_project, f_function, f_timestamps, f_histogram_interval, _options);
+    public metricsAggregationsListWithHttpInfo(metric_aggregation_type: 'httprequests' | 'resourcestats', f_project?: string, f_function?: string, f_timestamps?: LogsListFTimestampsParameter, f_histogram_interval?: number, _options?: Configuration): Observable<HttpInfo<MetricsAggregationsList200Response>> {
+        const requestContextPromise = this.requestFactory.metricsAggregationsList(metric_aggregation_type, f_project, f_function, f_timestamps, f_histogram_interval, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -664,14 +664,14 @@ export class ObservableMetricsApi {
     /**
      * Retrieve metrics for a specific project or function. Use the query parameter to request a metrics report.  > Note: Metrics are always returned in a descending order based on the timestamp. 
      * Get metrics
-     * @param metric_type Metric aggregation type, types can be used with either a project or a function filter.  - httprequests: Aggregated HTTP requests - resourcestats: Aggregated resource stats (such as CPU, Memory and Network)  &gt; Note: aggregations cannot return more than 300 data points 
+     * @param metric_aggregation_type Metric aggregation type, types can be used with either a project or a function filter.  - httprequests: Aggregated HTTP requests - resourcestats: Aggregated resource stats (such as CPU, Memory and Network)  &gt; Note: aggregations cannot return more than 300 data points 
      * @param f_project Project uuid reference
      * @param f_function Function uuid reference
      * @param f_timestamps Timestamp restriction for query
      * @param f_histogram_interval Histogram interval
      */
-    public metricsAggregationsList(metric_type: 'httprequests' | 'resourcestats', f_project?: string, f_function?: string, f_timestamps?: LogsListFTimestampsParameter, f_histogram_interval?: number, _options?: Configuration): Observable<MetricsAggregationsList200Response> {
-        return this.metricsAggregationsListWithHttpInfo(metric_type, f_project, f_function, f_timestamps, f_histogram_interval, _options).pipe(map((apiResponse: HttpInfo<MetricsAggregationsList200Response>) => apiResponse.data));
+    public metricsAggregationsList(metric_aggregation_type: 'httprequests' | 'resourcestats', f_project?: string, f_function?: string, f_timestamps?: LogsListFTimestampsParameter, f_histogram_interval?: number, _options?: Configuration): Observable<MetricsAggregationsList200Response> {
+        return this.metricsAggregationsListWithHttpInfo(metric_aggregation_type, f_project, f_function, f_timestamps, f_histogram_interval, _options).pipe(map((apiResponse: HttpInfo<MetricsAggregationsList200Response>) => apiResponse.data));
     }
 
 }

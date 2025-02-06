@@ -587,7 +587,7 @@ export interface MetricsApiMetricsAggregationsListRequest {
      * @type &#39;httprequests&#39; | &#39;resourcestats&#39;
      * @memberof MetricsApimetricsAggregationsList
      */
-    metric_type: 'httprequests' | 'resourcestats'
+    metric_aggregation_type: 'httprequests' | 'resourcestats'
     /**
      * Project uuid reference
      * @type string
@@ -627,7 +627,7 @@ export class ObjectMetricsApi {
      * @param param the request object
      */
     public metricsAggregationsListWithHttpInfo(param: MetricsApiMetricsAggregationsListRequest, options?: Configuration): Promise<HttpInfo<MetricsAggregationsList200Response>> {
-        return this.api.metricsAggregationsListWithHttpInfo(param.metric_type, param.f_project, param.f_function, param.f_timestamps, param.f_histogram_interval,  options).toPromise();
+        return this.api.metricsAggregationsListWithHttpInfo(param.metric_aggregation_type, param.f_project, param.f_function, param.f_timestamps, param.f_histogram_interval,  options).toPromise();
     }
 
     /**
@@ -636,7 +636,7 @@ export class ObjectMetricsApi {
      * @param param the request object
      */
     public metricsAggregationsList(param: MetricsApiMetricsAggregationsListRequest, options?: Configuration): Promise<MetricsAggregationsList200Response> {
-        return this.api.metricsAggregationsList(param.metric_type, param.f_project, param.f_function, param.f_timestamps, param.f_histogram_interval,  options).toPromise();
+        return this.api.metricsAggregationsList(param.metric_aggregation_type, param.f_project, param.f_function, param.f_timestamps, param.f_histogram_interval,  options).toPromise();
     }
 
 }
