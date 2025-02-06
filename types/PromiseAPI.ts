@@ -454,14 +454,13 @@ export class PromiseMetricsApi {
      * Retrieve metrics for a specific project or function. Use the query parameter to request a metrics report.  > Note: Metrics are always returned in a descending order based on the timestamp. 
      * Get metrics
      * @param metric_type Metric aggregation type, types can be used with either a project or a function filter.  - httprequests: Aggregated HTTP requests - resourcestats: Aggregated resource stats (such as CPU, Memory and Network)  &gt; Note: aggregations cannot return more than 300 data points 
-     * @param page Query parameters for pagination
      * @param f_project Project uuid reference
      * @param f_function Function uuid reference
      * @param f_timestamps Timestamp restriction for query
      * @param f_histogram_interval Histogram interval
      */
-    public metricsAggregationsListWithHttpInfo(metric_type: 'httprequests' | 'resourcestats', page?: OrganisationsListPageParameter, f_project?: string, f_function?: string, f_timestamps?: LogsListFTimestampsParameter, f_histogram_interval?: number, _options?: Configuration): Promise<HttpInfo<MetricsAggregationsList200Response>> {
-        const result = this.api.metricsAggregationsListWithHttpInfo(metric_type, page, f_project, f_function, f_timestamps, f_histogram_interval, _options);
+    public metricsAggregationsListWithHttpInfo(metric_type: 'httprequests' | 'resourcestats', f_project?: string, f_function?: string, f_timestamps?: LogsListFTimestampsParameter, f_histogram_interval?: number, _options?: Configuration): Promise<HttpInfo<MetricsAggregationsList200Response>> {
+        const result = this.api.metricsAggregationsListWithHttpInfo(metric_type, f_project, f_function, f_timestamps, f_histogram_interval, _options);
         return result.toPromise();
     }
 
@@ -469,14 +468,13 @@ export class PromiseMetricsApi {
      * Retrieve metrics for a specific project or function. Use the query parameter to request a metrics report.  > Note: Metrics are always returned in a descending order based on the timestamp. 
      * Get metrics
      * @param metric_type Metric aggregation type, types can be used with either a project or a function filter.  - httprequests: Aggregated HTTP requests - resourcestats: Aggregated resource stats (such as CPU, Memory and Network)  &gt; Note: aggregations cannot return more than 300 data points 
-     * @param page Query parameters for pagination
      * @param f_project Project uuid reference
      * @param f_function Function uuid reference
      * @param f_timestamps Timestamp restriction for query
      * @param f_histogram_interval Histogram interval
      */
-    public metricsAggregationsList(metric_type: 'httprequests' | 'resourcestats', page?: OrganisationsListPageParameter, f_project?: string, f_function?: string, f_timestamps?: LogsListFTimestampsParameter, f_histogram_interval?: number, _options?: Configuration): Promise<MetricsAggregationsList200Response> {
-        const result = this.api.metricsAggregationsList(metric_type, page, f_project, f_function, f_timestamps, f_histogram_interval, _options);
+    public metricsAggregationsList(metric_type: 'httprequests' | 'resourcestats', f_project?: string, f_function?: string, f_timestamps?: LogsListFTimestampsParameter, f_histogram_interval?: number, _options?: Configuration): Promise<MetricsAggregationsList200Response> {
+        const result = this.api.metricsAggregationsList(metric_type, f_project, f_function, f_timestamps, f_histogram_interval, _options);
         return result.toPromise();
     }
 

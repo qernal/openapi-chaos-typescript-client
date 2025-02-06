@@ -4,7 +4,7 @@ All URIs are relative to *https://chaos.qernal.com/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**metricsAggregationsList**](MetricsApi.md#metricsAggregationsList) | **GET** /metrics/aggregations/{metric_type} | Get metrics
+[**metricsAggregationsList**](MetricsApi.md#metricsAggregationsList) | **GET** /metrics/aggregations/{metric_aggregation_type} | Get metrics
 
 
 # **metricsAggregationsList**
@@ -25,12 +25,6 @@ const apiInstance = new .MetricsApi(configuration);
 let body:.MetricsApiMetricsAggregationsListRequest = {
   // 'httprequests' | 'resourcestats' | Metric aggregation type, types can be used with either a project or a function filter.  - httprequests: Aggregated HTTP requests - resourcestats: Aggregated resource stats (such as CPU, Memory and Network)  > Note: aggregations cannot return more than 300 data points 
   metric_type: "httprequests",
-  // OrganisationsListPageParameter | Query parameters for pagination (optional)
-  page: {
-    before: 20,
-    after: 20,
-    size: 20,
-  },
   // string | Project uuid reference (optional)
   f_project: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
   // string | Function uuid reference (optional)
@@ -55,7 +49,6 @@ apiInstance.metricsAggregationsList(body).then((data:any) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **metric_type** | [**&#39;httprequests&#39; | &#39;resourcestats&#39;**]**Array<&#39;httprequests&#39; &#124; &#39;resourcestats&#39;>** | Metric aggregation type, types can be used with either a project or a function filter.  - httprequests: Aggregated HTTP requests - resourcestats: Aggregated resource stats (such as CPU, Memory and Network)  &gt; Note: aggregations cannot return more than 300 data points  | defaults to undefined
- **page** | **OrganisationsListPageParameter** | Query parameters for pagination | (optional) defaults to undefined
  **f_project** | [**string**] | Project uuid reference | (optional) defaults to undefined
  **f_function** | [**string**] | Function uuid reference | (optional) defaults to undefined
  **f_timestamps** | **LogsListFTimestampsParameter** | Timestamp restriction for query | (optional) defaults to undefined

@@ -589,12 +589,6 @@ export interface MetricsApiMetricsAggregationsListRequest {
      */
     metric_type: 'httprequests' | 'resourcestats'
     /**
-     * Query parameters for pagination
-     * @type OrganisationsListPageParameter
-     * @memberof MetricsApimetricsAggregationsList
-     */
-    page?: OrganisationsListPageParameter
-    /**
      * Project uuid reference
      * @type string
      * @memberof MetricsApimetricsAggregationsList
@@ -633,7 +627,7 @@ export class ObjectMetricsApi {
      * @param param the request object
      */
     public metricsAggregationsListWithHttpInfo(param: MetricsApiMetricsAggregationsListRequest, options?: Configuration): Promise<HttpInfo<MetricsAggregationsList200Response>> {
-        return this.api.metricsAggregationsListWithHttpInfo(param.metric_type, param.page, param.f_project, param.f_function, param.f_timestamps, param.f_histogram_interval,  options).toPromise();
+        return this.api.metricsAggregationsListWithHttpInfo(param.metric_type, param.f_project, param.f_function, param.f_timestamps, param.f_histogram_interval,  options).toPromise();
     }
 
     /**
@@ -642,7 +636,7 @@ export class ObjectMetricsApi {
      * @param param the request object
      */
     public metricsAggregationsList(param: MetricsApiMetricsAggregationsListRequest, options?: Configuration): Promise<MetricsAggregationsList200Response> {
-        return this.api.metricsAggregationsList(param.metric_type, param.page, param.f_project, param.f_function, param.f_timestamps, param.f_histogram_interval,  options).toPromise();
+        return this.api.metricsAggregationsList(param.metric_type, param.f_project, param.f_function, param.f_timestamps, param.f_histogram_interval,  options).toPromise();
     }
 
 }
