@@ -55,7 +55,7 @@ export class MetricResourceAggregationResourcesBucketsInnerHistogramBucketsInner
             "name": "key",
             "baseName": "key",
             "type": "number",
-            "format": ""
+            "format": "int64"
         },
         {
             "name": "key_as_string",

@@ -10,7 +10,7 @@
  * Do not edit the class manually.
  */
 
-import { MetricResourceAggregationResourcesBucketsInner } from '../models/MetricResourceAggregationResourcesBucketsInner.ts';
+import { MetricResourceAggregationResourcesBucketsInnerHistogramBucketsInner } from '../models/MetricResourceAggregationResourcesBucketsInnerHistogramBucketsInner.ts';
 import { HttpFile } from '../http/http.ts';
 
 /**
@@ -18,9 +18,9 @@ import { HttpFile } from '../http/http.ts';
 */
 export class MetricHttpAggregationHttpCodesBucketsInnerHistogram {
     /**
-    * Array of unqiue resources
+    * Array of resource usage by interval  > Note: A metric will have either a `counter` or `gauge` value 
     */
-    'buckets'?: Array<MetricResourceAggregationResourcesBucketsInner>;
+    'buckets'?: Array<MetricResourceAggregationResourcesBucketsInnerHistogramBucketsInner>;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -28,7 +28,7 @@ export class MetricHttpAggregationHttpCodesBucketsInnerHistogram {
         {
             "name": "buckets",
             "baseName": "buckets",
-            "type": "Array<MetricResourceAggregationResourcesBucketsInner>",
+            "type": "Array<MetricResourceAggregationResourcesBucketsInnerHistogramBucketsInner>",
             "format": ""
         }    ];
 
