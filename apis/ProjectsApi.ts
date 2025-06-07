@@ -17,6 +17,7 @@ import { OrganisationsListPageParameter } from '../models/OrganisationsListPageP
 import { ProjectBody } from '../models/ProjectBody.ts';
 import { ProjectBodyPatch } from '../models/ProjectBodyPatch.ts';
 import { ProjectResponse } from '../models/ProjectResponse.ts';
+import { Quota } from '../models/Quota.ts';
 import { UnauthorisedResponse } from '../models/UnauthorisedResponse.ts';
 
 /**
@@ -242,6 +243,100 @@ export class ProjectsApiRequestFactory extends BaseAPIRequestFactory {
         if (f_name !== undefined) {
             requestContext.setQueryParam("f_name", ObjectSerializer.serialize(f_name, "string", ""));
         }
+
+
+        let authMethod: SecurityAuthentication | undefined;
+        // Apply auth methods
+        authMethod = _config.authMethods["cookie"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        // Apply auth methods
+        authMethod = _config.authMethods["token"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        
+        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        if (defaultAuth?.applySecurityAuthentication) {
+            await defaultAuth?.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
+    }
+
+    /**
+     * Get a specific quota for a project
+     * Get specific project quota
+     * @param project_id Project ID reference
+     * @param quota_entity_quota 
+     */
+    public async projectsQuotasGet(project_id: string, quota_entity_quota: string, _options?: Configuration): Promise<RequestContext> {
+        let _config = _options || this.configuration;
+
+        // verify required parameter 'project_id' is not null or undefined
+        if (project_id === null || project_id === undefined) {
+            throw new RequiredError("ProjectsApi", "projectsQuotasGet", "project_id");
+        }
+
+
+        // verify required parameter 'quota_entity_quota' is not null or undefined
+        if (quota_entity_quota === null || quota_entity_quota === undefined) {
+            throw new RequiredError("ProjectsApi", "projectsQuotasGet", "quota_entity_quota");
+        }
+
+
+        // Path Params
+        const localVarPath = '/projects/{project_id}/quotas/{quota_entity_quota}'
+            .replace('{' + 'project_id' + '}', encodeURIComponent(String(project_id)))
+            .replace('{' + 'quota_entity_quota' + '}', encodeURIComponent(String(quota_entity_quota)));
+
+        // Make Request Context
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+
+        let authMethod: SecurityAuthentication | undefined;
+        // Apply auth methods
+        authMethod = _config.authMethods["cookie"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        // Apply auth methods
+        authMethod = _config.authMethods["token"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        
+        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        if (defaultAuth?.applySecurityAuthentication) {
+            await defaultAuth?.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
+    }
+
+    /**
+     * Get the quotas for a project
+     * List project quotas
+     * @param project_id Project ID reference
+     */
+    public async projectsQuotasList(project_id: string, _options?: Configuration): Promise<RequestContext> {
+        let _config = _options || this.configuration;
+
+        // verify required parameter 'project_id' is not null or undefined
+        if (project_id === null || project_id === undefined) {
+            throw new RequiredError("ProjectsApi", "projectsQuotasList", "project_id");
+        }
+
+
+        // Path Params
+        const localVarPath = '/projects/{project_id}/quotas'
+            .replace('{' + 'project_id' + '}', encodeURIComponent(String(project_id)));
+
+        // Make Request Context
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
 
         let authMethod: SecurityAuthentication | undefined;
@@ -540,6 +635,92 @@ export class ProjectsApiResponseProcessor {
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "ListProjectResponse", ""
             ) as ListProjectResponse;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+    }
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to projectsQuotasGet
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async projectsQuotasGetWithHttpInfo(response: ResponseContext): Promise<HttpInfo<Array<Quota> >> {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+            const body: Array<Quota> = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Array<Quota>", ""
+            ) as Array<Quota>;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+        if (isCodeInRange("404", response.httpStatusCode)) {
+            const body: NotFoundResponse = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "NotFoundResponse", ""
+            ) as NotFoundResponse;
+            throw new ApiException<NotFoundResponse>(response.httpStatusCode, "Resource Not Found", body, response.headers);
+        }
+        if (isCodeInRange("403", response.httpStatusCode)) {
+            const body: UnauthorisedResponse = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "UnauthorisedResponse", ""
+            ) as UnauthorisedResponse;
+            throw new ApiException<UnauthorisedResponse>(response.httpStatusCode, "Unauthorised", body, response.headers);
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: Array<Quota> = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Array<Quota>", ""
+            ) as Array<Quota>;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+    }
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to projectsQuotasList
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async projectsQuotasListWithHttpInfo(response: ResponseContext): Promise<HttpInfo<Array<Quota> >> {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+            const body: Array<Quota> = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Array<Quota>", ""
+            ) as Array<Quota>;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+        if (isCodeInRange("404", response.httpStatusCode)) {
+            const body: NotFoundResponse = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "NotFoundResponse", ""
+            ) as NotFoundResponse;
+            throw new ApiException<NotFoundResponse>(response.httpStatusCode, "Resource Not Found", body, response.headers);
+        }
+        if (isCodeInRange("403", response.httpStatusCode)) {
+            const body: UnauthorisedResponse = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "UnauthorisedResponse", ""
+            ) as UnauthorisedResponse;
+            throw new ApiException<UnauthorisedResponse>(response.httpStatusCode, "Unauthorised", body, response.headers);
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: Array<Quota> = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Array<Quota>", ""
+            ) as Array<Quota>;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 

@@ -61,6 +61,7 @@ import { ProjectBodyPatch } from '../models/ProjectBodyPatch.ts';
 import { ProjectResponse } from '../models/ProjectResponse.ts';
 import { Provider } from '../models/Provider.ts';
 import { ProviderLocations } from '../models/ProviderLocations.ts';
+import { Quota } from '../models/Quota.ts';
 import { SecretBody } from '../models/SecretBody.ts';
 import { SecretBodyPatch } from '../models/SecretBodyPatch.ts';
 import { SecretCertificate } from '../models/SecretCertificate.ts';
@@ -580,6 +581,48 @@ export class PromiseOrganisationsApi {
     }
 
     /**
+     * Get a specific quota for an organisation
+     * Get specific organisation quota
+     * @param organisation_id Organisation ID reference
+     * @param quota_entity_quota 
+     */
+    public organisationsQuotasGetWithHttpInfo(organisation_id: string, quota_entity_quota: string, _options?: Configuration): Promise<HttpInfo<Array<Quota>>> {
+        const result = this.api.organisationsQuotasGetWithHttpInfo(organisation_id, quota_entity_quota, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Get a specific quota for an organisation
+     * Get specific organisation quota
+     * @param organisation_id Organisation ID reference
+     * @param quota_entity_quota 
+     */
+    public organisationsQuotasGet(organisation_id: string, quota_entity_quota: string, _options?: Configuration): Promise<Array<Quota>> {
+        const result = this.api.organisationsQuotasGet(organisation_id, quota_entity_quota, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Get the quotas for an organisation
+     * List organisation quotas
+     * @param organisation_id Organisation ID reference
+     */
+    public organisationsQuotasListWithHttpInfo(organisation_id: string, _options?: Configuration): Promise<HttpInfo<Array<Quota>>> {
+        const result = this.api.organisationsQuotasListWithHttpInfo(organisation_id, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Get the quotas for an organisation
+     * List organisation quotas
+     * @param organisation_id Organisation ID reference
+     */
+    public organisationsQuotasList(organisation_id: string, _options?: Configuration): Promise<Array<Quota>> {
+        const result = this.api.organisationsQuotasList(organisation_id, _options);
+        return result.toPromise();
+    }
+
+    /**
      * Update an organisation
      * Update an organisation
      * @param organisation_id Organisation ID reference
@@ -727,6 +770,48 @@ export class PromiseProjectsApi {
     }
 
     /**
+     * Get a specific quota for a project
+     * Get specific project quota
+     * @param project_id Project ID reference
+     * @param quota_entity_quota 
+     */
+    public projectsQuotasGetWithHttpInfo(project_id: string, quota_entity_quota: string, _options?: Configuration): Promise<HttpInfo<Array<Quota>>> {
+        const result = this.api.projectsQuotasGetWithHttpInfo(project_id, quota_entity_quota, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Get a specific quota for a project
+     * Get specific project quota
+     * @param project_id Project ID reference
+     * @param quota_entity_quota 
+     */
+    public projectsQuotasGet(project_id: string, quota_entity_quota: string, _options?: Configuration): Promise<Array<Quota>> {
+        const result = this.api.projectsQuotasGet(project_id, quota_entity_quota, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Get the quotas for a project
+     * List project quotas
+     * @param project_id Project ID reference
+     */
+    public projectsQuotasListWithHttpInfo(project_id: string, _options?: Configuration): Promise<HttpInfo<Array<Quota>>> {
+        const result = this.api.projectsQuotasListWithHttpInfo(project_id, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Get the quotas for a project
+     * List project quotas
+     * @param project_id Project ID reference
+     */
+    public projectsQuotasList(project_id: string, _options?: Configuration): Promise<Array<Quota>> {
+        const result = this.api.projectsQuotasList(project_id, _options);
+        return result.toPromise();
+    }
+
+    /**
      * Update project
      * Update project
      * @param project_id Project ID reference
@@ -784,6 +869,151 @@ export class PromiseProvidersApi {
      */
     public providersList(page?: OrganisationsListPageParameter, _options?: Configuration): Promise<ListProviderResponse> {
         const result = this.api.providersList(page, _options);
+        return result.toPromise();
+    }
+
+
+}
+
+
+
+import { ObservableQuotasApi } from './ObservableAPI.ts';
+
+import { QuotasApiRequestFactory, QuotasApiResponseProcessor} from "../apis/QuotasApi.ts";
+export class PromiseQuotasApi {
+    private api: ObservableQuotasApi
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: QuotasApiRequestFactory,
+        responseProcessor?: QuotasApiResponseProcessor
+    ) {
+        this.api = new ObservableQuotasApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * Get a specific quota for an organisation
+     * Get specific organisation quota
+     * @param organisation_id Organisation ID reference
+     * @param quota_entity_quota 
+     */
+    public organisationsQuotasGetWithHttpInfo(organisation_id: string, quota_entity_quota: string, _options?: Configuration): Promise<HttpInfo<Array<Quota>>> {
+        const result = this.api.organisationsQuotasGetWithHttpInfo(organisation_id, quota_entity_quota, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Get a specific quota for an organisation
+     * Get specific organisation quota
+     * @param organisation_id Organisation ID reference
+     * @param quota_entity_quota 
+     */
+    public organisationsQuotasGet(organisation_id: string, quota_entity_quota: string, _options?: Configuration): Promise<Array<Quota>> {
+        const result = this.api.organisationsQuotasGet(organisation_id, quota_entity_quota, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Get the quotas for an organisation
+     * List organisation quotas
+     * @param organisation_id Organisation ID reference
+     */
+    public organisationsQuotasListWithHttpInfo(organisation_id: string, _options?: Configuration): Promise<HttpInfo<Array<Quota>>> {
+        const result = this.api.organisationsQuotasListWithHttpInfo(organisation_id, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Get the quotas for an organisation
+     * List organisation quotas
+     * @param organisation_id Organisation ID reference
+     */
+    public organisationsQuotasList(organisation_id: string, _options?: Configuration): Promise<Array<Quota>> {
+        const result = this.api.organisationsQuotasList(organisation_id, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Get a specific quota for a project
+     * Get specific project quota
+     * @param project_id Project ID reference
+     * @param quota_entity_quota 
+     */
+    public projectsQuotasGetWithHttpInfo(project_id: string, quota_entity_quota: string, _options?: Configuration): Promise<HttpInfo<Array<Quota>>> {
+        const result = this.api.projectsQuotasGetWithHttpInfo(project_id, quota_entity_quota, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Get a specific quota for a project
+     * Get specific project quota
+     * @param project_id Project ID reference
+     * @param quota_entity_quota 
+     */
+    public projectsQuotasGet(project_id: string, quota_entity_quota: string, _options?: Configuration): Promise<Array<Quota>> {
+        const result = this.api.projectsQuotasGet(project_id, quota_entity_quota, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Get the quotas for a project
+     * List project quotas
+     * @param project_id Project ID reference
+     */
+    public projectsQuotasListWithHttpInfo(project_id: string, _options?: Configuration): Promise<HttpInfo<Array<Quota>>> {
+        const result = this.api.projectsQuotasListWithHttpInfo(project_id, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Get the quotas for a project
+     * List project quotas
+     * @param project_id Project ID reference
+     */
+    public projectsQuotasList(project_id: string, _options?: Configuration): Promise<Array<Quota>> {
+        const result = this.api.projectsQuotasList(project_id, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Get a specific quota for a user
+     * Get specific user quota
+     * @param user_id User ID reference
+     * @param quota_entity_quota 
+     */
+    public usersQuotasGetWithHttpInfo(user_id: string, quota_entity_quota: string, _options?: Configuration): Promise<HttpInfo<Array<Quota>>> {
+        const result = this.api.usersQuotasGetWithHttpInfo(user_id, quota_entity_quota, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Get a specific quota for a user
+     * Get specific user quota
+     * @param user_id User ID reference
+     * @param quota_entity_quota 
+     */
+    public usersQuotasGet(user_id: string, quota_entity_quota: string, _options?: Configuration): Promise<Array<Quota>> {
+        const result = this.api.usersQuotasGet(user_id, quota_entity_quota, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Get the quotas for a user
+     * List user quotas
+     * @param user_id User ID reference
+     */
+    public usersQuotasListWithHttpInfo(user_id: string, _options?: Configuration): Promise<HttpInfo<Array<Quota>>> {
+        const result = this.api.usersQuotasListWithHttpInfo(user_id, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Get the quotas for a user
+     * List user quotas
+     * @param user_id User ID reference
+     */
+    public usersQuotasList(user_id: string, _options?: Configuration): Promise<Array<Quota>> {
+        const result = this.api.usersQuotasList(user_id, _options);
         return result.toPromise();
     }
 
@@ -1030,6 +1260,67 @@ export class PromiseTokensApi {
      */
     public authTokensUpdate(token_id: string, AuthTokenPatch: AuthTokenPatch, _options?: Configuration): Promise<AuthToken> {
         const result = this.api.authTokensUpdate(token_id, AuthTokenPatch, _options);
+        return result.toPromise();
+    }
+
+
+}
+
+
+
+import { ObservableUsersApi } from './ObservableAPI.ts';
+
+import { UsersApiRequestFactory, UsersApiResponseProcessor} from "../apis/UsersApi.ts";
+export class PromiseUsersApi {
+    private api: ObservableUsersApi
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: UsersApiRequestFactory,
+        responseProcessor?: UsersApiResponseProcessor
+    ) {
+        this.api = new ObservableUsersApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * Get a specific quota for a user
+     * Get specific user quota
+     * @param user_id User ID reference
+     * @param quota_entity_quota 
+     */
+    public usersQuotasGetWithHttpInfo(user_id: string, quota_entity_quota: string, _options?: Configuration): Promise<HttpInfo<Array<Quota>>> {
+        const result = this.api.usersQuotasGetWithHttpInfo(user_id, quota_entity_quota, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Get a specific quota for a user
+     * Get specific user quota
+     * @param user_id User ID reference
+     * @param quota_entity_quota 
+     */
+    public usersQuotasGet(user_id: string, quota_entity_quota: string, _options?: Configuration): Promise<Array<Quota>> {
+        const result = this.api.usersQuotasGet(user_id, quota_entity_quota, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Get the quotas for a user
+     * List user quotas
+     * @param user_id User ID reference
+     */
+    public usersQuotasListWithHttpInfo(user_id: string, _options?: Configuration): Promise<HttpInfo<Array<Quota>>> {
+        const result = this.api.usersQuotasListWithHttpInfo(user_id, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Get the quotas for a user
+     * List user quotas
+     * @param user_id User ID reference
+     */
+    public usersQuotasList(user_id: string, _options?: Configuration): Promise<Array<Quota>> {
+        const result = this.api.usersQuotasList(user_id, _options);
         return result.toPromise();
     }
 

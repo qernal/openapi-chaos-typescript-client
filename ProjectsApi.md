@@ -9,6 +9,8 @@ Method | HTTP request | Description
 [**projectsDelete**](ProjectsApi.md#projectsDelete) | **DELETE** /projects/{project_id} | Delete project
 [**projectsGet**](ProjectsApi.md#projectsGet) | **GET** /projects/{project_id} | Get project
 [**projectsList**](ProjectsApi.md#projectsList) | **GET** /projects | List projects
+[**projectsQuotasGet**](ProjectsApi.md#projectsQuotasGet) | **GET** /projects/{project_id}/quotas/{quota_entity_quota} | Get specific project quota
+[**projectsQuotasList**](ProjectsApi.md#projectsQuotasList) | **GET** /projects/{project_id}/quotas | List project quotas
 [**projectsUpdate**](ProjectsApi.md#projectsUpdate) | **PUT** /projects/{project_id} | Update project
 
 
@@ -309,6 +311,121 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | List projects |  -  |
+**403** | Unauthorised |  -  |
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **projectsQuotasGet**
+> Array<Quota> projectsQuotasGet()
+
+Get a specific quota for a project
+
+### Example
+
+
+```typescript
+import {  } from '';
+import * as fs from 'fs';
+
+const configuration = .createConfiguration();
+const apiInstance = new .ProjectsApi(configuration);
+
+let body:.ProjectsApiProjectsQuotasGetRequest = {
+  // string | Project ID reference
+  project_id: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
+  // string
+  quota_entity_quota: "projects_secrets",
+};
+
+apiInstance.projectsQuotasGet(body).then((data:any) => {
+  console.log('API called successfully. Returned data: ' + data);
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | [**string**] | Project ID reference | defaults to undefined
+ **quota_entity_quota** | [**string**] |  | defaults to undefined
+
+
+### Return type
+
+**Array<Quota>**
+
+### Authorization
+
+[cookie](README.md#cookie), [token](README.md#token)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | List quotas |  -  |
+**404** | Resource Not Found |  -  |
+**403** | Unauthorised |  -  |
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **projectsQuotasList**
+> Array<Quota> projectsQuotasList()
+
+Get the quotas for a project
+
+### Example
+
+
+```typescript
+import {  } from '';
+import * as fs from 'fs';
+
+const configuration = .createConfiguration();
+const apiInstance = new .ProjectsApi(configuration);
+
+let body:.ProjectsApiProjectsQuotasListRequest = {
+  // string | Project ID reference
+  project_id: "3069614e-adc8-47cb-a69c-decf9c5f90fc",
+};
+
+apiInstance.projectsQuotasList(body).then((data:any) => {
+  console.log('API called successfully. Returned data: ' + data);
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | [**string**] | Project ID reference | defaults to undefined
+
+
+### Return type
+
+**Array<Quota>**
+
+### Authorization
+
+[cookie](README.md#cookie), [token](README.md#token)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | List quotas |  -  |
+**404** | Resource Not Found |  -  |
 **403** | Unauthorised |  -  |
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)

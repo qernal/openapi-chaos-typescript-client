@@ -58,6 +58,7 @@ export * from '../models/ProjectBodyPatch.ts';
 export * from '../models/ProjectResponse.ts';
 export * from '../models/Provider.ts';
 export * from '../models/ProviderLocations.ts';
+export * from '../models/Quota.ts';
 export * from '../models/SecretBody.ts';
 export * from '../models/SecretBodyPatch.ts';
 export * from '../models/SecretCertificate.ts';
@@ -135,6 +136,7 @@ import { ProjectBodyPatch } from '../models/ProjectBodyPatch.ts';
 import { ProjectResponse } from '../models/ProjectResponse.ts';
 import { Provider } from '../models/Provider.ts';
 import { ProviderLocations } from '../models/ProviderLocations.ts';
+import { Quota } from '../models/Quota.ts';
 import { SecretBody     } from '../models/SecretBody.ts';
 import { SecretBodyPatch    } from '../models/SecretBodyPatch.ts';
 import { SecretCertificate } from '../models/SecretCertificate.ts';
@@ -236,6 +238,7 @@ let typeMap: {[index: string]: any} = {
     "ProjectResponse": ProjectResponse,
     "Provider": Provider,
     "ProviderLocations": ProviderLocations,
+    "Quota": Quota,
     "SecretBody": SecretBody,
     "SecretBodyPatch": SecretBodyPatch,
     "SecretCertificate": SecretCertificate,

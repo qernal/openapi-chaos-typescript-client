@@ -7,8 +7,10 @@ MetricsApi.md
 OrganisationsApi.md
 ProjectsApi.md
 ProvidersApi.md
+QuotasApi.md
 SecretsApi.md
 TokensApi.md
+UsersApi.md
 apis/FunctionsApi.ts
 apis/HostsApi.ts
 apis/LogsApi.ts
@@ -16,8 +18,10 @@ apis/MetricsApi.ts
 apis/OrganisationsApi.ts
 apis/ProjectsApi.ts
 apis/ProvidersApi.ts
+apis/QuotasApi.ts
 apis/SecretsApi.ts
 apis/TokensApi.ts
+apis/UsersApi.ts
 apis/baseapi.ts
 apis/exception.ts
 auth/auth.ts
@@ -88,6 +92,7 @@ models/ProjectBodyPatch.ts
 models/ProjectResponse.ts
 models/Provider.ts
 models/ProviderLocations.ts
+models/Quota.ts
 models/SecretBody.ts
 models/SecretBodyPatch.ts
 models/SecretCertificate.ts

@@ -61,6 +61,7 @@ import { ProjectBodyPatch } from '../models/ProjectBodyPatch.ts';
 import { ProjectResponse } from '../models/ProjectResponse.ts';
 import { Provider } from '../models/Provider.ts';
 import { ProviderLocations } from '../models/ProviderLocations.ts';
+import { Quota } from '../models/Quota.ts';
 import { SecretBody } from '../models/SecretBody.ts';
 import { SecretBodyPatch } from '../models/SecretBodyPatch.ts';
 import { SecretCertificate } from '../models/SecretCertificate.ts';
@@ -686,6 +687,30 @@ export interface OrganisationsApiOrganisationsListRequest {
     f_name?: string
 }
 
+export interface OrganisationsApiOrganisationsQuotasGetRequest {
+    /**
+     * Organisation ID reference
+     * @type string
+     * @memberof OrganisationsApiorganisationsQuotasGet
+     */
+    organisation_id: string
+    /**
+     * 
+     * @type string
+     * @memberof OrganisationsApiorganisationsQuotasGet
+     */
+    quota_entity_quota: string
+}
+
+export interface OrganisationsApiOrganisationsQuotasListRequest {
+    /**
+     * Organisation ID reference
+     * @type string
+     * @memberof OrganisationsApiorganisationsQuotasList
+     */
+    organisation_id: string
+}
+
 export interface OrganisationsApiOrganisationsUpdateRequest {
     /**
      * Organisation ID reference
@@ -781,6 +806,42 @@ export class ObjectOrganisationsApi {
     }
 
     /**
+     * Get a specific quota for an organisation
+     * Get specific organisation quota
+     * @param param the request object
+     */
+    public organisationsQuotasGetWithHttpInfo(param: OrganisationsApiOrganisationsQuotasGetRequest, options?: Configuration): Promise<HttpInfo<Array<Quota>>> {
+        return this.api.organisationsQuotasGetWithHttpInfo(param.organisation_id, param.quota_entity_quota,  options).toPromise();
+    }
+
+    /**
+     * Get a specific quota for an organisation
+     * Get specific organisation quota
+     * @param param the request object
+     */
+    public organisationsQuotasGet(param: OrganisationsApiOrganisationsQuotasGetRequest, options?: Configuration): Promise<Array<Quota>> {
+        return this.api.organisationsQuotasGet(param.organisation_id, param.quota_entity_quota,  options).toPromise();
+    }
+
+    /**
+     * Get the quotas for an organisation
+     * List organisation quotas
+     * @param param the request object
+     */
+    public organisationsQuotasListWithHttpInfo(param: OrganisationsApiOrganisationsQuotasListRequest, options?: Configuration): Promise<HttpInfo<Array<Quota>>> {
+        return this.api.organisationsQuotasListWithHttpInfo(param.organisation_id,  options).toPromise();
+    }
+
+    /**
+     * Get the quotas for an organisation
+     * List organisation quotas
+     * @param param the request object
+     */
+    public organisationsQuotasList(param: OrganisationsApiOrganisationsQuotasListRequest, options?: Configuration): Promise<Array<Quota>> {
+        return this.api.organisationsQuotasList(param.organisation_id,  options).toPromise();
+    }
+
+    /**
      * Update an organisation
      * Update an organisation
      * @param param the request object
@@ -864,6 +925,30 @@ export interface ProjectsApiProjectsListRequest {
      * @memberof ProjectsApiprojectsList
      */
     f_name?: string
+}
+
+export interface ProjectsApiProjectsQuotasGetRequest {
+    /**
+     * Project ID reference
+     * @type string
+     * @memberof ProjectsApiprojectsQuotasGet
+     */
+    project_id: string
+    /**
+     * 
+     * @type string
+     * @memberof ProjectsApiprojectsQuotasGet
+     */
+    quota_entity_quota: string
+}
+
+export interface ProjectsApiProjectsQuotasListRequest {
+    /**
+     * Project ID reference
+     * @type string
+     * @memberof ProjectsApiprojectsQuotasList
+     */
+    project_id: string
 }
 
 export interface ProjectsApiProjectsUpdateRequest {
@@ -979,6 +1064,42 @@ export class ObjectProjectsApi {
     }
 
     /**
+     * Get a specific quota for a project
+     * Get specific project quota
+     * @param param the request object
+     */
+    public projectsQuotasGetWithHttpInfo(param: ProjectsApiProjectsQuotasGetRequest, options?: Configuration): Promise<HttpInfo<Array<Quota>>> {
+        return this.api.projectsQuotasGetWithHttpInfo(param.project_id, param.quota_entity_quota,  options).toPromise();
+    }
+
+    /**
+     * Get a specific quota for a project
+     * Get specific project quota
+     * @param param the request object
+     */
+    public projectsQuotasGet(param: ProjectsApiProjectsQuotasGetRequest, options?: Configuration): Promise<Array<Quota>> {
+        return this.api.projectsQuotasGet(param.project_id, param.quota_entity_quota,  options).toPromise();
+    }
+
+    /**
+     * Get the quotas for a project
+     * List project quotas
+     * @param param the request object
+     */
+    public projectsQuotasListWithHttpInfo(param: ProjectsApiProjectsQuotasListRequest, options?: Configuration): Promise<HttpInfo<Array<Quota>>> {
+        return this.api.projectsQuotasListWithHttpInfo(param.project_id,  options).toPromise();
+    }
+
+    /**
+     * Get the quotas for a project
+     * List project quotas
+     * @param param the request object
+     */
+    public projectsQuotasList(param: ProjectsApiProjectsQuotasListRequest, options?: Configuration): Promise<Array<Quota>> {
+        return this.api.projectsQuotasList(param.project_id,  options).toPromise();
+    }
+
+    /**
      * Update project
      * Update project
      * @param param the request object
@@ -1033,6 +1154,198 @@ export class ObjectProvidersApi {
      */
     public providersList(param: ProvidersApiProvidersListRequest = {}, options?: Configuration): Promise<ListProviderResponse> {
         return this.api.providersList(param.page,  options).toPromise();
+    }
+
+}
+
+import { ObservableQuotasApi } from "./ObservableAPI.ts";
+import { QuotasApiRequestFactory, QuotasApiResponseProcessor} from "../apis/QuotasApi.ts";
+
+export interface QuotasApiOrganisationsQuotasGetRequest {
+    /**
+     * Organisation ID reference
+     * @type string
+     * @memberof QuotasApiorganisationsQuotasGet
+     */
+    organisation_id: string
+    /**
+     * 
+     * @type string
+     * @memberof QuotasApiorganisationsQuotasGet
+     */
+    quota_entity_quota: string
+}
+
+export interface QuotasApiOrganisationsQuotasListRequest {
+    /**
+     * Organisation ID reference
+     * @type string
+     * @memberof QuotasApiorganisationsQuotasList
+     */
+    organisation_id: string
+}
+
+export interface QuotasApiProjectsQuotasGetRequest {
+    /**
+     * Project ID reference
+     * @type string
+     * @memberof QuotasApiprojectsQuotasGet
+     */
+    project_id: string
+    /**
+     * 
+     * @type string
+     * @memberof QuotasApiprojectsQuotasGet
+     */
+    quota_entity_quota: string
+}
+
+export interface QuotasApiProjectsQuotasListRequest {
+    /**
+     * Project ID reference
+     * @type string
+     * @memberof QuotasApiprojectsQuotasList
+     */
+    project_id: string
+}
+
+export interface QuotasApiUsersQuotasGetRequest {
+    /**
+     * User ID reference
+     * @type string
+     * @memberof QuotasApiusersQuotasGet
+     */
+    user_id: string
+    /**
+     * 
+     * @type string
+     * @memberof QuotasApiusersQuotasGet
+     */
+    quota_entity_quota: string
+}
+
+export interface QuotasApiUsersQuotasListRequest {
+    /**
+     * User ID reference
+     * @type string
+     * @memberof QuotasApiusersQuotasList
+     */
+    user_id: string
+}
+
+export class ObjectQuotasApi {
+    private api: ObservableQuotasApi
+
+    public constructor(configuration: Configuration, requestFactory?: QuotasApiRequestFactory, responseProcessor?: QuotasApiResponseProcessor) {
+        this.api = new ObservableQuotasApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * Get a specific quota for an organisation
+     * Get specific organisation quota
+     * @param param the request object
+     */
+    public organisationsQuotasGetWithHttpInfo(param: QuotasApiOrganisationsQuotasGetRequest, options?: Configuration): Promise<HttpInfo<Array<Quota>>> {
+        return this.api.organisationsQuotasGetWithHttpInfo(param.organisation_id, param.quota_entity_quota,  options).toPromise();
+    }
+
+    /**
+     * Get a specific quota for an organisation
+     * Get specific organisation quota
+     * @param param the request object
+     */
+    public organisationsQuotasGet(param: QuotasApiOrganisationsQuotasGetRequest, options?: Configuration): Promise<Array<Quota>> {
+        return this.api.organisationsQuotasGet(param.organisation_id, param.quota_entity_quota,  options).toPromise();
+    }
+
+    /**
+     * Get the quotas for an organisation
+     * List organisation quotas
+     * @param param the request object
+     */
+    public organisationsQuotasListWithHttpInfo(param: QuotasApiOrganisationsQuotasListRequest, options?: Configuration): Promise<HttpInfo<Array<Quota>>> {
+        return this.api.organisationsQuotasListWithHttpInfo(param.organisation_id,  options).toPromise();
+    }
+
+    /**
+     * Get the quotas for an organisation
+     * List organisation quotas
+     * @param param the request object
+     */
+    public organisationsQuotasList(param: QuotasApiOrganisationsQuotasListRequest, options?: Configuration): Promise<Array<Quota>> {
+        return this.api.organisationsQuotasList(param.organisation_id,  options).toPromise();
+    }
+
+    /**
+     * Get a specific quota for a project
+     * Get specific project quota
+     * @param param the request object
+     */
+    public projectsQuotasGetWithHttpInfo(param: QuotasApiProjectsQuotasGetRequest, options?: Configuration): Promise<HttpInfo<Array<Quota>>> {
+        return this.api.projectsQuotasGetWithHttpInfo(param.project_id, param.quota_entity_quota,  options).toPromise();
+    }
+
+    /**
+     * Get a specific quota for a project
+     * Get specific project quota
+     * @param param the request object
+     */
+    public projectsQuotasGet(param: QuotasApiProjectsQuotasGetRequest, options?: Configuration): Promise<Array<Quota>> {
+        return this.api.projectsQuotasGet(param.project_id, param.quota_entity_quota,  options).toPromise();
+    }
+
+    /**
+     * Get the quotas for a project
+     * List project quotas
+     * @param param the request object
+     */
+    public projectsQuotasListWithHttpInfo(param: QuotasApiProjectsQuotasListRequest, options?: Configuration): Promise<HttpInfo<Array<Quota>>> {
+        return this.api.projectsQuotasListWithHttpInfo(param.project_id,  options).toPromise();
+    }
+
+    /**
+     * Get the quotas for a project
+     * List project quotas
+     * @param param the request object
+     */
+    public projectsQuotasList(param: QuotasApiProjectsQuotasListRequest, options?: Configuration): Promise<Array<Quota>> {
+        return this.api.projectsQuotasList(param.project_id,  options).toPromise();
+    }
+
+    /**
+     * Get a specific quota for a user
+     * Get specific user quota
+     * @param param the request object
+     */
+    public usersQuotasGetWithHttpInfo(param: QuotasApiUsersQuotasGetRequest, options?: Configuration): Promise<HttpInfo<Array<Quota>>> {
+        return this.api.usersQuotasGetWithHttpInfo(param.user_id, param.quota_entity_quota,  options).toPromise();
+    }
+
+    /**
+     * Get a specific quota for a user
+     * Get specific user quota
+     * @param param the request object
+     */
+    public usersQuotasGet(param: QuotasApiUsersQuotasGetRequest, options?: Configuration): Promise<Array<Quota>> {
+        return this.api.usersQuotasGet(param.user_id, param.quota_entity_quota,  options).toPromise();
+    }
+
+    /**
+     * Get the quotas for a user
+     * List user quotas
+     * @param param the request object
+     */
+    public usersQuotasListWithHttpInfo(param: QuotasApiUsersQuotasListRequest, options?: Configuration): Promise<HttpInfo<Array<Quota>>> {
+        return this.api.usersQuotasListWithHttpInfo(param.user_id,  options).toPromise();
+    }
+
+    /**
+     * Get the quotas for a user
+     * List user quotas
+     * @param param the request object
+     */
+    public usersQuotasList(param: QuotasApiUsersQuotasListRequest, options?: Configuration): Promise<Array<Quota>> {
+        return this.api.usersQuotasList(param.user_id,  options).toPromise();
     }
 
 }
@@ -1367,6 +1680,78 @@ export class ObjectTokensApi {
      */
     public authTokensUpdate(param: TokensApiAuthTokensUpdateRequest, options?: Configuration): Promise<AuthToken> {
         return this.api.authTokensUpdate(param.token_id, param.AuthTokenPatch,  options).toPromise();
+    }
+
+}
+
+import { ObservableUsersApi } from "./ObservableAPI.ts";
+import { UsersApiRequestFactory, UsersApiResponseProcessor} from "../apis/UsersApi.ts";
+
+export interface UsersApiUsersQuotasGetRequest {
+    /**
+     * User ID reference
+     * @type string
+     * @memberof UsersApiusersQuotasGet
+     */
+    user_id: string
+    /**
+     * 
+     * @type string
+     * @memberof UsersApiusersQuotasGet
+     */
+    quota_entity_quota: string
+}
+
+export interface UsersApiUsersQuotasListRequest {
+    /**
+     * User ID reference
+     * @type string
+     * @memberof UsersApiusersQuotasList
+     */
+    user_id: string
+}
+
+export class ObjectUsersApi {
+    private api: ObservableUsersApi
+
+    public constructor(configuration: Configuration, requestFactory?: UsersApiRequestFactory, responseProcessor?: UsersApiResponseProcessor) {
+        this.api = new ObservableUsersApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * Get a specific quota for a user
+     * Get specific user quota
+     * @param param the request object
+     */
+    public usersQuotasGetWithHttpInfo(param: UsersApiUsersQuotasGetRequest, options?: Configuration): Promise<HttpInfo<Array<Quota>>> {
+        return this.api.usersQuotasGetWithHttpInfo(param.user_id, param.quota_entity_quota,  options).toPromise();
+    }
+
+    /**
+     * Get a specific quota for a user
+     * Get specific user quota
+     * @param param the request object
+     */
+    public usersQuotasGet(param: UsersApiUsersQuotasGetRequest, options?: Configuration): Promise<Array<Quota>> {
+        return this.api.usersQuotasGet(param.user_id, param.quota_entity_quota,  options).toPromise();
+    }
+
+    /**
+     * Get the quotas for a user
+     * List user quotas
+     * @param param the request object
+     */
+    public usersQuotasListWithHttpInfo(param: UsersApiUsersQuotasListRequest, options?: Configuration): Promise<HttpInfo<Array<Quota>>> {
+        return this.api.usersQuotasListWithHttpInfo(param.user_id,  options).toPromise();
+    }
+
+    /**
+     * Get the quotas for a user
+     * List user quotas
+     * @param param the request object
+     */
+    public usersQuotasList(param: UsersApiUsersQuotasListRequest, options?: Configuration): Promise<Array<Quota>> {
+        return this.api.usersQuotasList(param.user_id,  options).toPromise();
     }
 
 }

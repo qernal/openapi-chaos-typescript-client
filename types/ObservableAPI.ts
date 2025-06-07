@@ -62,6 +62,7 @@ import { ProjectBodyPatch } from '../models/ProjectBodyPatch.ts';
 import { ProjectResponse } from '../models/ProjectResponse.ts';
 import { Provider } from '../models/Provider.ts';
 import { ProviderLocations } from '../models/ProviderLocations.ts';
+import { Quota } from '../models/Quota.ts';
 import { SecretBody } from '../models/SecretBody.ts';
 import { SecretBodyPatch } from '../models/SecretBodyPatch.ts';
 import { SecretCertificate } from '../models/SecretCertificate.ts';
@@ -827,6 +828,74 @@ export class ObservableOrganisationsApi {
     }
 
     /**
+     * Get a specific quota for an organisation
+     * Get specific organisation quota
+     * @param organisation_id Organisation ID reference
+     * @param quota_entity_quota 
+     */
+    public organisationsQuotasGetWithHttpInfo(organisation_id: string, quota_entity_quota: string, _options?: Configuration): Observable<HttpInfo<Array<Quota>>> {
+        const requestContextPromise = this.requestFactory.organisationsQuotasGet(organisation_id, quota_entity_quota, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.organisationsQuotasGetWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * Get a specific quota for an organisation
+     * Get specific organisation quota
+     * @param organisation_id Organisation ID reference
+     * @param quota_entity_quota 
+     */
+    public organisationsQuotasGet(organisation_id: string, quota_entity_quota: string, _options?: Configuration): Observable<Array<Quota>> {
+        return this.organisationsQuotasGetWithHttpInfo(organisation_id, quota_entity_quota, _options).pipe(map((apiResponse: HttpInfo<Array<Quota>>) => apiResponse.data));
+    }
+
+    /**
+     * Get the quotas for an organisation
+     * List organisation quotas
+     * @param organisation_id Organisation ID reference
+     */
+    public organisationsQuotasListWithHttpInfo(organisation_id: string, _options?: Configuration): Observable<HttpInfo<Array<Quota>>> {
+        const requestContextPromise = this.requestFactory.organisationsQuotasList(organisation_id, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.organisationsQuotasListWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * Get the quotas for an organisation
+     * List organisation quotas
+     * @param organisation_id Organisation ID reference
+     */
+    public organisationsQuotasList(organisation_id: string, _options?: Configuration): Observable<Array<Quota>> {
+        return this.organisationsQuotasListWithHttpInfo(organisation_id, _options).pipe(map((apiResponse: HttpInfo<Array<Quota>>) => apiResponse.data));
+    }
+
+    /**
      * Update an organisation
      * Update an organisation
      * @param organisation_id Organisation ID reference
@@ -1051,6 +1120,74 @@ export class ObservableProjectsApi {
     }
 
     /**
+     * Get a specific quota for a project
+     * Get specific project quota
+     * @param project_id Project ID reference
+     * @param quota_entity_quota 
+     */
+    public projectsQuotasGetWithHttpInfo(project_id: string, quota_entity_quota: string, _options?: Configuration): Observable<HttpInfo<Array<Quota>>> {
+        const requestContextPromise = this.requestFactory.projectsQuotasGet(project_id, quota_entity_quota, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.projectsQuotasGetWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * Get a specific quota for a project
+     * Get specific project quota
+     * @param project_id Project ID reference
+     * @param quota_entity_quota 
+     */
+    public projectsQuotasGet(project_id: string, quota_entity_quota: string, _options?: Configuration): Observable<Array<Quota>> {
+        return this.projectsQuotasGetWithHttpInfo(project_id, quota_entity_quota, _options).pipe(map((apiResponse: HttpInfo<Array<Quota>>) => apiResponse.data));
+    }
+
+    /**
+     * Get the quotas for a project
+     * List project quotas
+     * @param project_id Project ID reference
+     */
+    public projectsQuotasListWithHttpInfo(project_id: string, _options?: Configuration): Observable<HttpInfo<Array<Quota>>> {
+        const requestContextPromise = this.requestFactory.projectsQuotasList(project_id, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.projectsQuotasListWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * Get the quotas for a project
+     * List project quotas
+     * @param project_id Project ID reference
+     */
+    public projectsQuotasList(project_id: string, _options?: Configuration): Observable<Array<Quota>> {
+        return this.projectsQuotasListWithHttpInfo(project_id, _options).pipe(map((apiResponse: HttpInfo<Array<Quota>>) => apiResponse.data));
+    }
+
+    /**
      * Update project
      * Update project
      * @param project_id Project ID reference
@@ -1134,6 +1271,228 @@ export class ObservableProvidersApi {
      */
     public providersList(page?: OrganisationsListPageParameter, _options?: Configuration): Observable<ListProviderResponse> {
         return this.providersListWithHttpInfo(page, _options).pipe(map((apiResponse: HttpInfo<ListProviderResponse>) => apiResponse.data));
+    }
+
+}
+
+import { QuotasApiRequestFactory, QuotasApiResponseProcessor} from "../apis/QuotasApi.ts";
+export class ObservableQuotasApi {
+    private requestFactory: QuotasApiRequestFactory;
+    private responseProcessor: QuotasApiResponseProcessor;
+    private configuration: Configuration;
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: QuotasApiRequestFactory,
+        responseProcessor?: QuotasApiResponseProcessor
+    ) {
+        this.configuration = configuration;
+        this.requestFactory = requestFactory || new QuotasApiRequestFactory(configuration);
+        this.responseProcessor = responseProcessor || new QuotasApiResponseProcessor();
+    }
+
+    /**
+     * Get a specific quota for an organisation
+     * Get specific organisation quota
+     * @param organisation_id Organisation ID reference
+     * @param quota_entity_quota 
+     */
+    public organisationsQuotasGetWithHttpInfo(organisation_id: string, quota_entity_quota: string, _options?: Configuration): Observable<HttpInfo<Array<Quota>>> {
+        const requestContextPromise = this.requestFactory.organisationsQuotasGet(organisation_id, quota_entity_quota, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.organisationsQuotasGetWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * Get a specific quota for an organisation
+     * Get specific organisation quota
+     * @param organisation_id Organisation ID reference
+     * @param quota_entity_quota 
+     */
+    public organisationsQuotasGet(organisation_id: string, quota_entity_quota: string, _options?: Configuration): Observable<Array<Quota>> {
+        return this.organisationsQuotasGetWithHttpInfo(organisation_id, quota_entity_quota, _options).pipe(map((apiResponse: HttpInfo<Array<Quota>>) => apiResponse.data));
+    }
+
+    /**
+     * Get the quotas for an organisation
+     * List organisation quotas
+     * @param organisation_id Organisation ID reference
+     */
+    public organisationsQuotasListWithHttpInfo(organisation_id: string, _options?: Configuration): Observable<HttpInfo<Array<Quota>>> {
+        const requestContextPromise = this.requestFactory.organisationsQuotasList(organisation_id, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.organisationsQuotasListWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * Get the quotas for an organisation
+     * List organisation quotas
+     * @param organisation_id Organisation ID reference
+     */
+    public organisationsQuotasList(organisation_id: string, _options?: Configuration): Observable<Array<Quota>> {
+        return this.organisationsQuotasListWithHttpInfo(organisation_id, _options).pipe(map((apiResponse: HttpInfo<Array<Quota>>) => apiResponse.data));
+    }
+
+    /**
+     * Get a specific quota for a project
+     * Get specific project quota
+     * @param project_id Project ID reference
+     * @param quota_entity_quota 
+     */
+    public projectsQuotasGetWithHttpInfo(project_id: string, quota_entity_quota: string, _options?: Configuration): Observable<HttpInfo<Array<Quota>>> {
+        const requestContextPromise = this.requestFactory.projectsQuotasGet(project_id, quota_entity_quota, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.projectsQuotasGetWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * Get a specific quota for a project
+     * Get specific project quota
+     * @param project_id Project ID reference
+     * @param quota_entity_quota 
+     */
+    public projectsQuotasGet(project_id: string, quota_entity_quota: string, _options?: Configuration): Observable<Array<Quota>> {
+        return this.projectsQuotasGetWithHttpInfo(project_id, quota_entity_quota, _options).pipe(map((apiResponse: HttpInfo<Array<Quota>>) => apiResponse.data));
+    }
+
+    /**
+     * Get the quotas for a project
+     * List project quotas
+     * @param project_id Project ID reference
+     */
+    public projectsQuotasListWithHttpInfo(project_id: string, _options?: Configuration): Observable<HttpInfo<Array<Quota>>> {
+        const requestContextPromise = this.requestFactory.projectsQuotasList(project_id, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.projectsQuotasListWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * Get the quotas for a project
+     * List project quotas
+     * @param project_id Project ID reference
+     */
+    public projectsQuotasList(project_id: string, _options?: Configuration): Observable<Array<Quota>> {
+        return this.projectsQuotasListWithHttpInfo(project_id, _options).pipe(map((apiResponse: HttpInfo<Array<Quota>>) => apiResponse.data));
+    }
+
+    /**
+     * Get a specific quota for a user
+     * Get specific user quota
+     * @param user_id User ID reference
+     * @param quota_entity_quota 
+     */
+    public usersQuotasGetWithHttpInfo(user_id: string, quota_entity_quota: string, _options?: Configuration): Observable<HttpInfo<Array<Quota>>> {
+        const requestContextPromise = this.requestFactory.usersQuotasGet(user_id, quota_entity_quota, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.usersQuotasGetWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * Get a specific quota for a user
+     * Get specific user quota
+     * @param user_id User ID reference
+     * @param quota_entity_quota 
+     */
+    public usersQuotasGet(user_id: string, quota_entity_quota: string, _options?: Configuration): Observable<Array<Quota>> {
+        return this.usersQuotasGetWithHttpInfo(user_id, quota_entity_quota, _options).pipe(map((apiResponse: HttpInfo<Array<Quota>>) => apiResponse.data));
+    }
+
+    /**
+     * Get the quotas for a user
+     * List user quotas
+     * @param user_id User ID reference
+     */
+    public usersQuotasListWithHttpInfo(user_id: string, _options?: Configuration): Observable<HttpInfo<Array<Quota>>> {
+        const requestContextPromise = this.requestFactory.usersQuotasList(user_id, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.usersQuotasListWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * Get the quotas for a user
+     * List user quotas
+     * @param user_id User ID reference
+     */
+    public usersQuotasList(user_id: string, _options?: Configuration): Observable<Array<Quota>> {
+        return this.usersQuotasListWithHttpInfo(user_id, _options).pipe(map((apiResponse: HttpInfo<Array<Quota>>) => apiResponse.data));
     }
 
 }
@@ -1508,6 +1867,92 @@ export class ObservableTokensApi {
      */
     public authTokensUpdate(token_id: string, AuthTokenPatch: AuthTokenPatch, _options?: Configuration): Observable<AuthToken> {
         return this.authTokensUpdateWithHttpInfo(token_id, AuthTokenPatch, _options).pipe(map((apiResponse: HttpInfo<AuthToken>) => apiResponse.data));
+    }
+
+}
+
+import { UsersApiRequestFactory, UsersApiResponseProcessor} from "../apis/UsersApi.ts";
+export class ObservableUsersApi {
+    private requestFactory: UsersApiRequestFactory;
+    private responseProcessor: UsersApiResponseProcessor;
+    private configuration: Configuration;
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: UsersApiRequestFactory,
+        responseProcessor?: UsersApiResponseProcessor
+    ) {
+        this.configuration = configuration;
+        this.requestFactory = requestFactory || new UsersApiRequestFactory(configuration);
+        this.responseProcessor = responseProcessor || new UsersApiResponseProcessor();
+    }
+
+    /**
+     * Get a specific quota for a user
+     * Get specific user quota
+     * @param user_id User ID reference
+     * @param quota_entity_quota 
+     */
+    public usersQuotasGetWithHttpInfo(user_id: string, quota_entity_quota: string, _options?: Configuration): Observable<HttpInfo<Array<Quota>>> {
+        const requestContextPromise = this.requestFactory.usersQuotasGet(user_id, quota_entity_quota, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.usersQuotasGetWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * Get a specific quota for a user
+     * Get specific user quota
+     * @param user_id User ID reference
+     * @param quota_entity_quota 
+     */
+    public usersQuotasGet(user_id: string, quota_entity_quota: string, _options?: Configuration): Observable<Array<Quota>> {
+        return this.usersQuotasGetWithHttpInfo(user_id, quota_entity_quota, _options).pipe(map((apiResponse: HttpInfo<Array<Quota>>) => apiResponse.data));
+    }
+
+    /**
+     * Get the quotas for a user
+     * List user quotas
+     * @param user_id User ID reference
+     */
+    public usersQuotasListWithHttpInfo(user_id: string, _options?: Configuration): Observable<HttpInfo<Array<Quota>>> {
+        const requestContextPromise = this.requestFactory.usersQuotasList(user_id, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.usersQuotasListWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * Get the quotas for a user
+     * List user quotas
+     * @param user_id User ID reference
+     */
+    public usersQuotasList(user_id: string, _options?: Configuration): Observable<Array<Quota>> {
+        return this.usersQuotasListWithHttpInfo(user_id, _options).pipe(map((apiResponse: HttpInfo<Array<Quota>>) => apiResponse.data));
     }
 
 }
